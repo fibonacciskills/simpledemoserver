@@ -1,0 +1,915 @@
+{
+  "info": {
+    "name": "JEDx API Collection",
+    "_postman_id": "jedx-api-v1",
+    "description": "# JEDx API - Job Exchange Data Format\n\n## Overview\n\nThe Job Exchange Data (JEDx) API provides a standardized format for exchanging workforce data including jobs, workers, organizations, and skills information.\n\n## Key Features\n\n- **Jobs Management**: CRUD operations for job roles and positions\n- **Workers**: Employee/worker data exchange\n- **Organizations**: Legal entity and employer information\n- **Skills API Integration**: Skills proficiency data using IMS Global standards\n- **Reports**: Compensation and hours worked reporting\n\n## Authentication\n\nThis collection uses Bearer token authentication. Set your API token in the collection variables.\n\n## Base URL\n\nDefault: `https://api.jedx.example.com/v1`\n\n## Data Standards\n\n- JSON Schema Draft-07\n- IMS Global Open Badges v3.0 (for Skills)\n- ISO standards for dates, countries, currencies\n\n## Privacy & Security\n\n- POD (Privacy Obligation Document) URLs included in responses\n- RefId-based referential integrity\n- Sender/Receiver tracking for data provenance",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{api_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [],
+  "item": [
+    {
+      "name": "Jobs",
+      "description": "Endpoints for managing job roles and positions. Jobs represent ongoing roles or sets of responsibilities at an organization.",
+      "item": [
+        {
+          "name": "Get All Jobs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/jobs?organizationId=TechCorp-2026&limit=50",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["jobs"],
+              "query": [
+                {
+                  "key": "organizationId",
+                  "value": "TechCorp-2026",
+                  "description": "Filter by organization ID"
+                },
+                {
+                  "key": "department",
+                  "value": "Engineering",
+                  "description": "Filter by department",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of results to return"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieve a list of jobs. Supports filtering by organization, department, and pagination."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{jedx_base_url}}/jobs?organizationId=TechCorp-2026",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["jobs"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"RefId\": \"550e8400-e29b-41d4-a716-446655440001\",\n      \"organizationId\": \"TechCorp-2026\",\n      \"jobId\": \"SWE-001\",\n      \"title\": \"Senior Software Engineer\",\n      \"department\": \"Engineering\",\n      \"subDepartment\": \"Backend Development\"\n    }\n  ],\n  \"pagination\": {\n    \"total\": 1,\n    \"limit\": 50,\n    \"offset\": 0\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Job by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/jobs/:jobId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["jobs", ":jobId"],
+              "variable": [
+                {
+                  "key": "jobId",
+                  "value": "SWE-001",
+                  "description": "Unique job identifier"
+                }
+              ]
+            },
+            "description": "Retrieve a single job by its ID. Returns full job details including duties, SOC codes, and metadata."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{jedx_base_url}}/jobs/SWE-001",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["jobs", "SWE-001"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"RefId\": \"550e8400-e29b-41d4-a716-446655440001\",\n    \"senderId\": \"techcorp-system-01\",\n    \"receiverId\": \"\",\n    \"organizationRefId\": \"7a3b4c5d-e6f7-48a9-b0c1-d2e3f4a5b6c7\",\n    \"podURL\": \"https://techcorp.example.com/privacy/pod/2026-02.html\",\n    \"organizationId\": \"TechCorp-2026\",\n    \"jobId\": \"SWE-001\",\n    \"title\": \"Senior Software Engineer\",\n    \"jobDuties\": \"Design and implement scalable backend services using Go and PostgreSQL. Collaborate with product teams to deliver high-quality software solutions.\",\n    \"department\": \"Engineering\",\n    \"subDepartment\": \"Backend Development\",\n    \"socInfo\": [\n      {\n        \"classificationSys\": \"1\",\n        \"assigningEntity\": \"1\",\n        \"socCodeValue\": \"15-1252\"\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"job\": {\n    \"senderId\": \"techcorp-system-01\",\n    \"receiverId\": \"\",\n    \"organizationRefId\": \"7a3b4c5d-e6f7-48a9-b0c1-d2e3f4a5b6c7\",\n    \"organizationId\": \"TechCorp-2026\",\n    \"jobId\": \"SWE-002\",\n    \"title\": \"Frontend Developer\",\n    \"jobDuties\": \"Build responsive user interfaces using React and TypeScript. Work closely with UX designers to implement pixel-perfect designs.\",\n    \"department\": \"Engineering\",\n    \"subDepartment\": \"Frontend Development\",\n    \"socInfo\": [\n      {\n        \"classificationSys\": \"1\",\n        \"assigningEntity\": \"1\",\n        \"socCodeValue\": \"15-1254\"\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/jobs",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["jobs"]
+            },
+            "description": "Create a new job. Returns the created job with assigned RefId and server-generated metadata."
+          },
+          "response": [
+            {
+              "name": "Created Response",
+              "originalRequest": {
+                "method": "POST",
+                "url": {
+                  "raw": "{{jedx_base_url}}/jobs",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["jobs"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Location",
+                  "value": "{{jedx_base_url}}/jobs/SWE-002"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"RefId\": \"650e8400-e29b-41d4-a716-446655440002\",\n    \"senderId\": \"techcorp-system-01\",\n    \"receiverId\": \"\",\n    \"organizationRefId\": \"7a3b4c5d-e6f7-48a9-b0c1-d2e3f4a5b6c7\",\n    \"podURL\": \"https://techcorp.example.com/privacy/pod/2026-02.html\",\n    \"organizationId\": \"TechCorp-2026\",\n    \"jobId\": \"SWE-002\",\n    \"title\": \"Frontend Developer\",\n    \"jobDuties\": \"Build responsive user interfaces using React and TypeScript. Work closely with UX designers to implement pixel-perfect designs.\",\n    \"department\": \"Engineering\",\n    \"subDepartment\": \"Frontend Development\",\n    \"socInfo\": [\n      {\n        \"classificationSys\": \"1\",\n        \"assigningEntity\": \"1\",\n        \"socCodeValue\": \"15-1254\"\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Job",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"job\": {\n    \"RefId\": \"550e8400-e29b-41d4-a716-446655440001\",\n    \"senderId\": \"techcorp-system-01\",\n    \"receiverId\": \"\",\n    \"organizationRefId\": \"7a3b4c5d-e6f7-48a9-b0c1-d2e3f4a5b6c7\",\n    \"organizationId\": \"TechCorp-2026\",\n    \"jobId\": \"SWE-001\",\n    \"title\": \"Senior Software Engineer\",\n    \"jobDuties\": \"Design and implement scalable backend services using Go and PostgreSQL. Lead technical architecture decisions and mentor junior engineers.\",\n    \"department\": \"Engineering\",\n    \"subDepartment\": \"Backend Development\",\n    \"socInfo\": [\n      {\n        \"classificationSys\": \"1\",\n        \"assigningEntity\": \"1\",\n        \"socCodeValue\": \"15-1252\"\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/jobs/:jobId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["jobs", ":jobId"],
+              "variable": [
+                {
+                  "key": "jobId",
+                  "value": "SWE-001"
+                }
+              ]
+            },
+            "description": "Update an existing job. Full replacement of the job resource."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Job",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/jobs/:jobId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["jobs", ":jobId"],
+              "variable": [
+                {
+                  "key": "jobId",
+                  "value": "SWE-001"
+                }
+              ]
+            },
+            "description": "Delete a job by ID. This is a soft delete that maintains referential integrity."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Job Skills (Skills API)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/jobs/:jobId/skills",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["jobs", ":jobId", "skills"],
+              "variable": [
+                {
+                  "key": "jobId",
+                  "value": "SWE-001",
+                  "description": "Job identifier"
+                }
+              ]
+            },
+            "description": "Get skill assertions for a job using the Skills Proficiency API format. Returns skills with proficiency levels, scales, and full JSON-LD context.\n\n**Format**: IMS Global Open Badges v3.0 compatible\n**Returns**: SkillAssertionCollection"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{jedx_base_url}}/jobs/SWE-001/skills",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["jobs", "SWE-001", "skills"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@context\": [\n    \"https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json\",\n    {\n      \"@protected\": true,\n      \"schema\": \"https://schema.org/\",\n      \"id\": \"@id\",\n      \"type\": \"@type\",\n      \"Skill\": \"schema:Skill\",\n      \"SkillAssertion\": \"schema:SkillAssertion\",\n      \"ProficiencyLevel\": \"schema:DefinedTerm\"\n    }\n  ],\n  \"id\": \"https://techcorp.example.com/jobs/SWE-001\",\n  \"type\": \"SkillAssertionCollection\",\n  \"targetType\": \"https://schema.org/JobPosting\",\n  \"targetName\": \"Senior Software Engineer\",\n  \"assertions\": [\n    {\n      \"type\": \"SkillAssertion\",\n      \"skill\": {\n        \"id\": \"https://techcorp.example.com/skills/GO\",\n        \"type\": \"Skill\",\n        \"name\": \"Go Programming Language\",\n        \"codedNotation\": \"GO\"\n      },\n      \"proficiencyLevel\": {\n        \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/4\",\n        \"type\": \"ProficiencyLevel\",\n        \"name\": \"Advanced\",\n        \"rank\": 4\n      },\n      \"proficiencyScale\": \"https://techcorp.example.com/proficiency-scales/5-level\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Workers",
+      "description": "Endpoints for managing worker (employee) data. Workers represent individuals employed by organizations.",
+      "item": [
+        {
+          "name": "Get All Workers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/workers?organizationId=SA-AR-001&limit=50",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["workers"],
+              "query": [
+                {
+                  "key": "organizationId",
+                  "value": "SA-AR-001",
+                  "description": "Filter by organization"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieve a list of workers with optional filtering and pagination."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Worker by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/workers/:workerId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["workers", ":workerId"],
+              "variable": [
+                {
+                  "key": "workerId",
+                  "value": "AGY-758391"
+                }
+              ]
+            },
+            "description": "Retrieve a single worker by their ID. Includes personal information, addresses, and organizational references.\n\n**Note**: Contains PII. Ensure proper authorization and POD compliance."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{jedx_base_url}}/workers/AGY-758391",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["workers", "AGY-758391"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"worker\": {\n    \"RefId\": \"2bf09a2f-fad2-441a-819b-eacafab926b7\",\n    \"senderId\": \"ar-sender-01\",\n    \"organizationRefId\": \"7015e59b-8d51-4e8d-b922-2fb7bd736963\",\n    \"podURL\": \"https://dhr.arkansas.gov/privacy/pod/2024-04.html\",\n    \"workerId\": {\n      \"value\": \"AGY-758391\",\n      \"schemeId\": \"ArkDHS-WorkID\",\n      \"schemeVersionId\": \"1.0\"\n    },\n    \"name\": {\n      \"languageCode\": \"en-US\",\n      \"firstName\": \"Marisol\",\n      \"family\": \"Quintero\"\n    },\n    \"birthDate\": \"1985-04-12\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Worker",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"worker\": {\n    \"senderId\": \"system-01\",\n    \"organizationRefId\": \"7015e59b-8d51-4e8d-b922-2fb7bd736963\",\n    \"workerId\": {\n      \"value\": \"EMP-12345\",\n      \"schemeId\": \"EmployeeID\"\n    },\n    \"ssn\": {\n      \"value\": \"123456789\"\n    },\n    \"name\": {\n      \"languageCode\": \"en-US\",\n      \"firstName\": \"John\",\n      \"family\": \"Doe\"\n    },\n    \"birthDate\": \"1990-01-15\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/workers",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["workers"]
+            },
+            "description": "Create a new worker record. Returns the created worker with assigned RefId."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Worker",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"worker\": {\n    \"RefId\": \"2bf09a2f-fad2-441a-819b-eacafab926b7\",\n    \"senderId\": \"system-01\",\n    \"organizationRefId\": \"7015e59b-8d51-4e8d-b922-2fb7bd736963\",\n    \"workerId\": {\n      \"value\": \"AGY-758391\"\n    },\n    \"ssn\": {\n      \"value\": \"672345890\"\n    },\n    \"name\": {\n      \"languageCode\": \"en-US\",\n      \"firstName\": \"Marisol\",\n      \"middleName\": \"R.\",\n      \"family\": \"Quintero\"\n    },\n    \"birthDate\": \"1985-04-12\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/workers/:workerId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["workers", ":workerId"],
+              "variable": [
+                {
+                  "key": "workerId",
+                  "value": "AGY-758391"
+                }
+              ]
+            },
+            "description": "Update an existing worker record."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Worker",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{jedx_base_url}}/workers/:workerId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["workers", ":workerId"],
+              "variable": [
+                {
+                  "key": "workerId",
+                  "value": "AGY-758391"
+                }
+              ]
+            },
+            "description": "Delete a worker record. Soft delete maintaining audit trail."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Organizations",
+      "description": "Endpoints for managing organization (employer/company) data.",
+      "item": [
+        {
+          "name": "Get All Organizations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/organizations?limit=50",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["organizations"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Retrieve a list of organizations."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Organization by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/organizations/:orgId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["organizations", ":orgId"],
+              "variable": [
+                {
+                  "key": "orgId",
+                  "value": "TechCorp-2026"
+                }
+              ]
+            },
+            "description": "Retrieve a single organization by its ID. Includes tax IDs, industry identifiers, and contact information."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Organization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization\": {\n    \"senderId\": \"system-01\",\n    \"organizationId\": {\n      \"value\": \"ACME-2026\",\n      \"issuingAuthority\": \"State Commerce Dept\"\n    },\n    \"taxIds\": [\n      {\n        \"value\": \"12-3456789\",\n        \"schemeId\": \"EIN\",\n        \"description\": \"Federal Employer ID\"\n      }\n    ],\n    \"name\": \"Acme Corporation\",\n    \"isMulti-state\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/organizations",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["organizations"]
+            },
+            "description": "Create a new organization."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Organization",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization\": {\n    \"RefId\": \"7a3b4c5d-e6f7-48a9-b0c1-d2e3f4a5b6c7\",\n    \"senderId\": \"system-01\",\n    \"organizationId\": {\n      \"value\": \"TechCorp-2026\"\n    },\n    \"name\": \"TechCorp Inc.\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/organizations/:orgId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["organizations", ":orgId"],
+              "variable": [
+                {
+                  "key": "orgId",
+                  "value": "TechCorp-2026"
+                }
+              ]
+            },
+            "description": "Update an existing organization."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Organization",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{jedx_base_url}}/organizations/:orgId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["organizations", ":orgId"],
+              "variable": [
+                {
+                  "key": "orgId",
+                  "value": "TechCorp-2026"
+                }
+              ]
+            },
+            "description": "Delete an organization."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "description": "Endpoints for worker compensation and hours reporting.",
+      "item": [
+        {
+          "name": "Get Worker Compensation Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/reports/compensation?workerId=AGY-758391&startDate=2026-01-01&endDate=2026-01-31",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["reports", "compensation"],
+              "query": [
+                {
+                  "key": "workerId",
+                  "value": "AGY-758391"
+                },
+                {
+                  "key": "organizationId",
+                  "value": "SA-AR-001",
+                  "disabled": true
+                },
+                {
+                  "key": "startDate",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2026-01-31"
+                }
+              ]
+            },
+            "description": "Retrieve worker compensation reports. Filter by worker, organization, and date range."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Compensation Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"worker_compensation_report\": {\n    \"senderId\": \"system-01\",\n    \"workerRefId\": \"2bf09a2f-fad2-441a-819b-eacafab926b7\",\n    \"workerId\": {\n      \"value\": \"AGY-758391\"\n    },\n    \"reportingPeriod\": {\n      \"startDate\": \"2026-01-01\",\n      \"endDate\": \"2026-01-31\"\n    },\n    \"grossWages\": 5000.00,\n    \"currency\": \"USD\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/reports/compensation",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["reports", "compensation"]
+            },
+            "description": "Submit a new worker compensation report."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Worker Paid Hours Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/reports/hours?workerId=AGY-758391&startDate=2026-01-01&endDate=2026-01-31",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["reports", "hours"],
+              "query": [
+                {
+                  "key": "workerId",
+                  "value": "AGY-758391"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2026-01-31"
+                }
+              ]
+            },
+            "description": "Retrieve worker paid hours reports."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paid Hours Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"worker_paid_hours_report\": {\n    \"senderId\": \"system-01\",\n    \"workerRefId\": \"2bf09a2f-fad2-441a-819b-eacafab926b7\",\n    \"workerId\": {\n      \"value\": \"AGY-758391\"\n    },\n    \"reportingPeriod\": {\n      \"startDate\": \"2026-01-01\",\n      \"endDate\": \"2026-01-31\"\n    },\n    \"totalHours\": 160,\n    \"overtimeHours\": 10\n  }\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/reports/hours",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["reports", "hours"]
+            },
+            "description": "Submit a new worker paid hours report."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Skills API",
+      "description": "Skills Proficiency API endpoints following IMS Global Open Badges v3.0 standards. Provides skill assertions with proficiency levels for jobs, workers, and other targets.",
+      "item": [
+        {
+          "name": "Get Skills by Target",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/skills?identifier=https://techcorp.example.com/jobs/SWE-001&targetType=Job",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["skills"],
+              "query": [
+                {
+                  "key": "identifier",
+                  "value": "https://techcorp.example.com/jobs/SWE-001",
+                  "description": "Globally unique URI identifying the target"
+                },
+                {
+                  "key": "targetType",
+                  "value": "Job",
+                  "description": "Type: Job, Person, Role, Assessment, Framework, LearningProgram, Other"
+                }
+              ]
+            },
+            "description": "Generic Skills API endpoint. Retrieve skill assertions for any target object type.\n\n**Target Types**: Job, Person, Role, Assessment, Framework, LearningProgram, Other\n\n**Format**: IMS Global Open Badges v3.0 compatible JSON-LD"
+          },
+          "response": [
+            {
+              "name": "Job Skills Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{jedx_base_url}}/skills?identifier=https://techcorp.example.com/jobs/SWE-001&targetType=Job",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["skills"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@context\": [\n    \"https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json\",\n    {\n      \"@protected\": true,\n      \"schema\": \"https://schema.org/\",\n      \"id\": \"@id\",\n      \"type\": \"@type\"\n    }\n  ],\n  \"id\": \"https://techcorp.example.com/jobs/SWE-001\",\n  \"type\": \"SkillAssertionCollection\",\n  \"targetType\": \"https://schema.org/JobPosting\",\n  \"targetName\": \"Senior Software Engineer\",\n  \"assertions\": [\n    {\n      \"type\": \"SkillAssertion\",\n      \"skill\": {\n        \"id\": \"https://techcorp.example.com/skills/GO\",\n        \"type\": \"Skill\",\n        \"name\": \"Go Programming Language\",\n        \"codedNotation\": \"GO\"\n      },\n      \"proficiencyLevel\": {\n        \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/4\",\n        \"type\": \"ProficiencyLevel\",\n        \"name\": \"Advanced\",\n        \"rank\": 4\n      },\n      \"proficiencyScale\": \"https://techcorp.example.com/proficiency-scales/5-level\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create/Update Skills for Target",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"@context\": [\n    \"https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json\",\n    {\n      \"@protected\": true,\n      \"schema\": \"https://schema.org/\",\n      \"id\": \"@id\",\n      \"type\": \"@type\"\n    }\n  ],\n  \"id\": \"https://techcorp.example.com/jobs/PM-001\",\n  \"type\": \"SkillAssertionCollection\",\n  \"targetType\": \"https://schema.org/JobPosting\",\n  \"targetName\": \"Product Manager\",\n  \"assertions\": [\n    {\n      \"type\": \"SkillAssertion\",\n      \"skill\": {\n        \"id\": \"https://techcorp.example.com/skills/AGILE\",\n        \"type\": \"Skill\",\n        \"name\": \"Agile Methodology\",\n        \"codedNotation\": \"AGILE\"\n      },\n      \"proficiencyLevel\": {\n        \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/4\",\n        \"type\": \"ProficiencyLevel\",\n        \"name\": \"Advanced\",\n        \"rank\": 4\n      },\n      \"proficiencyScale\": \"https://techcorp.example.com/proficiency-scales/5-level\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{jedx_base_url}}/skills",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["skills"]
+            },
+            "description": "Create or update skill assertions for a target. Replaces existing skills for the target."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Proficiency Scales",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/proficiency-scales",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["proficiency-scales"]
+            },
+            "description": "Retrieve available proficiency scales (4-level, 5-level, custom scales)."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Proficiency Scale by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{jedx_base_url}}/proficiency-scales/:scaleId",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["proficiency-scales", ":scaleId"],
+              "variable": [
+                {
+                  "key": "scaleId",
+                  "value": "5-level"
+                }
+              ]
+            },
+            "description": "Get details about a specific proficiency scale including all levels, names, descriptions, and ranks."
+          },
+          "response": [
+            {
+              "name": "5-Level Scale",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{jedx_base_url}}/proficiency-scales/5-level",
+                  "host": ["{{jedx_base_url}}"],
+                  "path": ["proficiency-scales", "5-level"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"https://techcorp.example.com/proficiency-scales/5-level\",\n  \"name\": \"5-Level Proficiency Scale\",\n  \"description\": \"Standard 5-level proficiency scale from fundamental awareness to expert mastery\",\n  \"levels\": [\n    {\n      \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/1\",\n      \"rank\": 1,\n      \"name\": \"Fundamental Awareness\",\n      \"description\": \"Basic knowledge and understanding of core concepts\"\n    },\n    {\n      \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/2\",\n      \"rank\": 2,\n      \"name\": \"Novice\",\n      \"description\": \"Working knowledge with guidance from documentation or team members\"\n    },\n    {\n      \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/3\",\n      \"rank\": 3,\n      \"name\": \"Intermediate\",\n      \"description\": \"Routine independence in common scenarios\"\n    },\n    {\n      \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/4\",\n      \"rank\": 4,\n      \"name\": \"Advanced\",\n      \"description\": \"Independent application in complex contexts\"\n    },\n    {\n      \"id\": \"https://techcorp.example.com/proficiency-scales/5-level/5\",\n      \"rank\": 5,\n      \"name\": \"Expert\",\n      \"description\": \"Recognized authority who guides others and defines best practices\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Schemas",
+      "description": "Endpoints for retrieving JSON schemas that define the JEDx data structures.",
+      "item": [
+        {
+          "name": "Get All Schemas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{jedx_base_url}}/schemas",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["schemas"]
+            },
+            "description": "List all available JSON schemas."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Job Schema",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{jedx_base_url}}/schemas/job",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["schemas", "job"]
+            },
+            "description": "Get the JSON Schema for Job objects."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Worker Schema",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{jedx_base_url}}/schemas/worker",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["schemas", "worker"]
+            },
+            "description": "Get the JSON Schema for Worker objects."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Organization Schema",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{jedx_base_url}}/schemas/organization",
+              "host": ["{{jedx_base_url}}"],
+              "path": ["schemas", "organization"]
+            },
+            "description": "Get the JSON Schema for Organization objects."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

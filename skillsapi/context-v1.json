@@ -1,0 +1,54 @@
+{
+  "@context": [
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+    {
+      "@protected": true,
+
+      "schema": "https://schema.org/",
+
+      "id": "@id",
+      "type": "@type",
+
+      "identifier": {
+        "@id": "@id"
+      },
+
+      "targetType": {
+        "@id": "schema:additionalType"
+      },
+
+      "proficiencyScale": {
+        "@id": "schema:isPartOf",
+        "@type": "@id"
+      },
+
+      "Skill": {
+        "@id": "schema:Skill",
+        "@context": {
+          "@protected": true,
+          "id": "@id",
+          "type": "@type",
+          "name": "schema:name",
+          "description": "schema:description",
+          "codedNotation": "schema:identifier"
+        }
+      },
+
+      "SkillAssertion": {
+        "@id": "schema:SkillAssertion"
+      },
+
+      "ProficiencyLevel": {
+        "@id": "schema:DefinedTerm",
+        "@context": {
+          "@protected": true,
+          "id": "@id",
+          "type": "@type",
+          "name": "schema:name",
+          "description": "schema:description",
+          "rank": "schema:position"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "@context": [
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+    "https://schema.org"
+  ],
+  "@type": "SkillAssertionCollection",
+  "id": "https://organization.example.com/people/employee-45678/skills",
+  "name": "Skills Profile - Jane Martinez",
+  "description": "Current verified skills for Jane Martinez, Senior Backend Engineer",
+  "targetType": "https://schema.org/Person",
+  "targetId": "https://organization.example.com/people/employee-45678",
+  "targetName": "Jane Martinez",
+  "person": {
+    "@type": "Person",
+    "@id": "https://organization.example.com/people/employee-45678",
+    "identifier": {
+      "@type": "PropertyValue",
+      "propertyID": "EmployeeID",
+      "value": "EMP-45678"
+    },
+    "name": "Jane Martinez",
+    "jobTitle": "Senior Backend Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "@id": "https://organization.example.com",
+      "name": "TechCorp Inc.",
+      "department": "Engineering - Backend Systems"
+    },
+    "email": "jane.martinez@techcorp.example.com"
+  },
+  "dateCreated": "2026-02-03T10:00:00Z",
+  "dateModified": "2026-02-03T10:00:00Z",
+  "assertions": [
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-python",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/PYTHON-PROGRAMMING",
+        "name": "Python Programming",
+        "description": "Expert-level proficiency in Python for backend development, data processing, and automation",
+        "codedNotation": "PYTHON",
+        "skillCategory": "Technical",
+        "sameAs": [
+          "https://ec.europa.eu/esco/skill/python-12345",
+          "https://services.onetcenter.org/ws/online/skills/2.A.1.a"
+        ]
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/5",
+        "name": "Expert",
+        "description": "Recognized authority in Python, leads architecture decisions, mentors team members",
+        "inDefinedTermSet": "https://organization.example.com/proficiency-scales/5-level",
+        "termCode": "5"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2024-03-01T00:00:00Z",
+      "validUntil": "2026-03-01T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "WorkExperience",
+          "@id": "https://organization.example.com/work/emp-45678-backend-lead",
+          "name": "Lead Backend Engineer",
+          "description": "Led development of high-performance Python microservices processing 10M+ daily transactions",
+          "startDate": "2022-01-15",
+          "duration": "P3Y"
+        },
+        {
+          "@type": "PeerReview",
+          "name": "Annual Technical Assessment 2025",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": 5,
+            "bestRating": 5,
+            "worstRating": 1
+          },
+          "dateCreated": "2025-12-10T00:00:00Z"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com",
+        "name": "TechCorp Inc."
+      },
+      "assertedBy": {
+        "@type": "Person",
+        "@id": "https://organization.example.com/people/manager-789",
+        "name": "Robert Chen",
+        "jobTitle": "Engineering Manager"
+      },
+      "dateCreated": "2024-03-01T00:00:00Z"
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-fastapi",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/FASTAPI-FRAMEWORK",
+        "name": "FastAPI Framework",
+        "description": "Modern Python web framework for building high-performance APIs",
+        "codedNotation": "FASTAPI",
+        "skillCategory": "Technical"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/5",
+        "name": "Expert",
+        "termCode": "5"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2024-06-15T00:00:00Z",
+      "validUntil": "2026-06-15T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "WorkExperience",
+          "name": "API Platform Modernization",
+          "description": "Led migration of legacy REST APIs to FastAPI, improving performance by 3x"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      },
+      "assertedBy": {
+        "@type": "Person",
+        "@id": "https://organization.example.com/people/manager-789"
+      }
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-postgresql",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/POSTGRESQL-DESIGN",
+        "name": "PostgreSQL Database Design and Optimization",
+        "codedNotation": "PSQL-DESIGN",
+        "skillCategory": "Technical"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "termCode": "4"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2025-01-20T00:00:00Z",
+      "validUntil": "2027-01-20T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "AssessmentResult",
+          "@id": "https://organization.example.com/assessments/postgresql-cert-2025",
+          "name": "PostgreSQL Professional Certification",
+          "resultScore": {
+            "@type": "QuantitativeValue",
+            "value": 89,
+            "minValue": 0,
+            "maxValue": 100
+          },
+          "dateCreated": "2025-01-20T00:00:00Z"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      }
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-redis",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/REDIS-CACHING",
+        "name": "Redis Caching and Data Structures",
+        "codedNotation": "REDIS",
+        "skillCategory": "Technical"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "termCode": "4"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2024-09-10T00:00:00Z",
+      "validUntil": "2026-09-10T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "WorkExperience",
+          "name": "Caching Layer Implementation",
+          "description": "Designed and implemented Redis-based caching strategy reducing database load by 60%"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      }
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-kubernetes",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/KUBERNETES-ORCHESTRATION",
+        "name": "Kubernetes Container Orchestration",
+        "codedNotation": "K8S",
+        "skillCategory": "Technical"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/3",
+        "name": "Intermediate",
+        "description": "Deploys and manages containerized applications on Kubernetes with routine independence",
+        "termCode": "3"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2025-11-01T00:00:00Z",
+      "validUntil": "2027-11-01T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "Course",
+          "@id": "https://organization.example.com/training/kubernetes-fundamentals-2025",
+          "name": "Kubernetes Fundamentals",
+          "provider": {
+            "@type": "Organization",
+            "name": "TechCorp Learning Academy"
+          },
+          "result": {
+            "@type": "Result",
+            "value": "Completed",
+            "numericValue": 92
+          },
+          "completionDate": "2025-11-01"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      }
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-ci-cd",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/CI-CD-PIPELINES",
+        "name": "CI/CD Pipeline Development",
+        "description": "Design and implementation of continuous integration and deployment pipelines",
+        "codedNotation": "CICD",
+        "skillCategory": "Technical"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "termCode": "4"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2024-05-01T00:00:00Z",
+      "validUntil": "2026-05-01T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "WorkExperience",
+          "name": "DevOps Pipeline Automation",
+          "description": "Built comprehensive CI/CD pipelines using GitHub Actions, reducing deployment time from hours to minutes"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      }
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-system-design",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/DISTRIBUTED-SYSTEMS-DESIGN",
+        "name": "Distributed Systems Design",
+        "description": "Architecture and design of scalable distributed systems with focus on reliability and performance",
+        "codedNotation": "DIST-SYS",
+        "skillCategory": "Technical"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "termCode": "4"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2024-08-15T00:00:00Z",
+      "validUntil": "2026-08-15T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "WorkExperience",
+          "name": "Microservices Platform Architecture",
+          "description": "Architected distributed microservices platform handling 50M+ requests per day"
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      }
+    },
+    {
+      "@type": "SkillAssertion",
+      "@id": "https://organization.example.com/assertions/emp-45678-leadership",
+      "skill": {
+        "@type": "Skill",
+        "@id": "https://api.hropen.org/skills/TECHNICAL-LEADERSHIP",
+        "name": "Technical Leadership and Mentoring",
+        "description": "Leading technical teams, mentoring junior engineers, and driving technical strategy",
+        "codedNotation": "TECH-LEAD",
+        "skillCategory": "Leadership"
+      },
+      "proficiencyLevel": {
+        "@type": "DefinedTerm",
+        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "termCode": "4"
+      },
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "validFrom": "2024-01-15T00:00:00Z",
+      "validUntil": "2026-01-15T00:00:00Z",
+      "evidence": [
+        {
+          "@type": "WorkExperience",
+          "name": "Team Lead - Backend Services",
+          "description": "Led team of 6 engineers, conducted code reviews, mentored 3 junior engineers to mid-level"
+        },
+        {
+          "@type": "PeerReview",
+          "name": "360 Degree Feedback 2025",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": 4.8,
+            "bestRating": 5
+          }
+        }
+      ],
+      "source": {
+        "@type": "Organization",
+        "@id": "https://organization.example.com"
+      },
+      "assertedBy": {
+        "@type": "Person",
+        "@id": "https://organization.example.com/people/manager-789"
+      }
+    }
+  ],
+  "summary": {
+    "totalSkills": 8,
+    "skillsByCategory": {
+      "Technical": 7,
+      "Leadership": 1
+    },
+    "skillsByProficiency": {
+      "Expert": 2,
+      "Advanced": 5,
+      "Intermediate": 1
+    },
+    "lastUpdated": "2026-02-03T10:00:00Z",
+    "currentlyValid": 8,
+    "expiringIn30Days": 0,
+    "expiringIn90Days": 1
+  },
+  "metadata": {
+    "proficiencyScale": {
+      "@type": "DefinedTermSet",
+      "@id": "https://organization.example.com/proficiency-scales/5-level",
+      "name": "TechCorp 5-Level Proficiency Scale"
+    },
+    "skillsRefreshCycle": "P2Y",
+    "nextReviewDate": "2026-12-01T00:00:00Z"
+  }
+}

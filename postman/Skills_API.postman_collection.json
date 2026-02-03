@@ -1,0 +1,486 @@
+{
+  "info": {
+    "name": "HR Open Skills Data API",
+    "_postman_id": "skills-api-v1",
+    "description": "HR Open Skills Data API - Skills-based hiring, workforce transformation, and talent optimization",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{api_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [],
+  "item": [
+    {
+      "name": "Skills",
+      "description": "Skill management endpoints",
+      "item": [
+        {
+          "name": "Get All Skills",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/skills?limit=50",
+              "host": ["{{skills_base_url}}"],
+              "path": ["skills"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Retrieve a list of skill definitions"
+          }
+        },
+        {
+          "name": "Get Skill by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/skills/:skillId",
+              "host": ["{{skills_base_url}}"],
+              "path": ["skills", ":skillId"],
+              "variable": [
+                {
+                  "key": "skillId",
+                  "value": "GO-PROGRAMMING"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Skill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/ld+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Skill\",\n  \"name\": \"Go Programming Language\",\n  \"description\": \"Proficiency in Go programming\",\n  \"codedNotation\": \"GO\",\n  \"skillCategory\": \"Technical\"\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/skills",
+              "host": ["{{skills_base_url}}"],
+              "path": ["skills"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Skill Assertions",
+      "description": "Time-bound skill claims with evidence",
+      "item": [
+        {
+          "name": "Get Assertions for Person",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/assertions?personId=person-12345&currentOnly=true",
+              "host": ["{{skills_base_url}}"],
+              "path": ["assertions"],
+              "query": [
+                {
+                  "key": "personId",
+                  "value": "person-12345"
+                },
+                {
+                  "key": "currentOnly",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Skill Assertion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/ld+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"@context\": [\n    \"https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json\",\n    \"https://schema.org\"\n  ],\n  \"@type\": \"SkillAssertion\",\n  \"skill\": {\n    \"@type\": \"Skill\",\n    \"@id\": \"https://api.hropen.org/skills/GO-PROGRAMMING\"\n  },\n  \"about\": {\n    \"@type\": \"Person\",\n    \"@id\": \"https://organization.example.com/people/person-12345\"\n  },\n  \"proficiencyLevel\": {\n    \"@type\": \"DefinedTerm\",\n    \"@id\": \"https://organization.example.com/proficiency/advanced\"\n  },\n  \"validFrom\": \"2026-02-03T00:00:00Z\",\n  \"validUntil\": \"2028-02-03T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/assertions",
+              "host": ["{{skills_base_url}}"],
+              "path": ["assertions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Proficiency Scales",
+      "description": "Proficiency level management",
+      "item": [
+        {
+          "name": "Get All Proficiency Scales",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/proficiency-scales",
+              "host": ["{{skills_base_url}}"],
+              "path": ["proficiency-scales"]
+            }
+          }
+        },
+        {
+          "name": "Get Proficiency Scale by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/proficiency-scales/:scaleId",
+              "host": ["{{skills_base_url}}"],
+              "path": ["proficiency-scales", ":scaleId"],
+              "variable": [
+                {
+                  "key": "scaleId",
+                  "value": "5-level"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assessment Integration",
+      "description": "Map assessment scores to proficiency levels",
+      "item": [
+        {
+          "name": "Map Assessment to Proficiency",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assessmentResultId\": \"https://api.hropen.org/assessments/results/result-789\",\n  \"rawScore\": 87,\n  \"scoreScale\": {\n    \"minValue\": 0,\n    \"maxValue\": 100\n  },\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"proficiencyScaleId\": \"https://organization.example.com/proficiency-scales/5-level\"\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/assessments/map-to-proficiency",
+              "host": ["{{skills_base_url}}"],
+              "path": ["assessments", "map-to-proficiency"]
+            }
+          }
+        },
+        {
+          "name": "Create Assertion from Assessment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"personId\": \"https://organization.example.com/people/person-12345\",\n  \"assessmentResultId\": \"https://api.hropen.org/assessments/results/result-789\",\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"proficiencyScaleId\": \"https://organization.example.com/proficiency-scales/5-level\"\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/assessments/create-assertion",
+              "host": ["{{skills_base_url}}"],
+              "path": ["assessments", "create-assertion"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Workforce Analytics",
+      "description": "Skills inventory and gap analysis",
+      "item": [
+        {
+          "name": "Get Workforce Skills Inventory",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/analytics/skills-inventory?department=Engineering",
+              "host": ["{{skills_base_url}}"],
+              "path": ["analytics", "skills-inventory"],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Engineering"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Skills Gap Analysis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetRole\": {\n    \"@type\": \"JobPosting\",\n    \"@id\": \"https://organization.example.com/jobs/SWE-001\"\n  },\n  \"currentPopulation\": {\n    \"department\": \"Engineering\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/analytics/gap-analysis",
+              "host": ["{{skills_base_url}}"],
+              "path": ["analytics", "gap-analysis"]
+            }
+          }
+        },
+        {
+          "name": "Internal Mobility Candidates",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetRole\": {\n    \"@type\": \"JobPosting\",\n    \"@id\": \"https://organization.example.com/jobs/SWE-SENIOR-001\"\n  },\n  \"requiredSkillMatch\": 0.70\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/analytics/mobility-candidates",
+              "host": ["{{skills_base_url}}"],
+              "path": ["analytics", "mobility-candidates"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "JEDx Integration",
+      "description": "Link skills to jobs and workers",
+      "item": [
+        {
+          "name": "Get Job Required Skills",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/jedx/jobs/:jobId/skills",
+              "host": ["{{skills_base_url}}"],
+              "path": ["jedx", "jobs", ":jobId", "skills"],
+              "variable": [
+                {
+                  "key": "jobId",
+                  "value": "SWE-001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Set Job Skills Requirements",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/ld+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"@context\": [\n    \"https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json\",\n    \"https://schema.org\"\n  ],\n  \"@type\": \"SkillAssertionCollection\",\n  \"targetType\": \"https://schema.org/JobPosting\",\n  \"targetId\": \"https://organization.example.com/jobs/SWE-001\",\n  \"assertions\": [\n    {\n      \"@type\": \"SkillAssertion\",\n      \"skill\": {\n        \"@type\": \"Skill\",\n        \"@id\": \"https://api.hropen.org/skills/GO-PROGRAMMING\"\n      },\n      \"proficiencyLevel\": {\n        \"@type\": \"DefinedTerm\",\n        \"@id\": \"https://organization.example.com/proficiency/proficient\"\n      },\n      \"isRequired\": true\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/jedx/jobs/:jobId/skills",
+              "host": ["{{skills_base_url}}"],
+              "path": ["jedx", "jobs", ":jobId", "skills"],
+              "variable": [
+                {
+                  "key": "jobId",
+                  "value": "SWE-001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Match Candidate to Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"candidateId\": \"https://organization.example.com/people/person-12345\",\n  \"jobId\": \"https://organization.example.com/jobs/SWE-001\",\n  \"includeGapAnalysis\": true\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/jedx/match",
+              "host": ["{{skills_base_url}}"],
+              "path": ["jedx", "match"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Credentials & Badges",
+      "description": "Open Badges integration",
+      "item": [
+        {
+          "name": "Issue Skills Badge",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/ld+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"@context\": [\n    \"https://www.w3.org/2018/credentials/v1\",\n    \"https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json\"\n  ],\n  \"type\": [\"VerifiableCredential\", \"OpenBadgeCredential\"],\n  \"issuer\": {\n    \"type\": \"Organization\",\n    \"id\": \"{{organization_uri}}\"\n  },\n  \"credentialSubject\": {\n    \"type\": \"Person\",\n    \"id\": \"https://organization.example.com/people/person-12345\",\n    \"achievement\": {\n      \"type\": \"Achievement\",\n      \"name\": \"Go Programming - Advanced Level\"\n    }\n  },\n  \"issuanceDate\": \"2026-02-03T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/credentials/badges",
+              "host": ["{{skills_base_url}}"],
+              "path": ["credentials", "badges"]
+            }
+          }
+        },
+        {
+          "name": "Get Learner Credentials",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/credentials?personId=person-12345",
+              "host": ["{{skills_base_url}}"],
+              "path": ["credentials"],
+              "query": [
+                {
+                  "key": "personId",
+                  "value": "person-12345"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Taxonomies",
+      "description": "Skills taxonomy mapping",
+      "item": [
+        {
+          "name": "Get Taxonomies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "url": {
+              "raw": "{{skills_base_url}}/taxonomies",
+              "host": ["{{skills_base_url}}"],
+              "path": ["taxonomies"]
+            }
+          }
+        },
+        {
+          "name": "Map Skill to Taxonomy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"taxonomyMappings\": [\n    {\n      \"taxonomy\": \"ESCO\",\n      \"taxonomyUri\": \"https://ec.europa.eu/esco/skill/12345\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{skills_base_url}}/taxonomies/map",
+              "host": ["{{skills_base_url}}"],
+              "path": ["taxonomies", "map"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "@context": [
+    "https://purl.imsglobal.org/spec/clr/v2p0/context-2.0.1.json",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "https://university.example.com/credentials/clr/student-12345-2025",
+  "type": [
+    "VerifiableCredential",
+    "ClrCredential"
+  ],
+  "issuer": {
+    "id": "https://university.example.com",
+    "type": "Profile",
+    "name": "Tech University",
+    "description": "Leading institution in technology education and research",
+    "url": "https://university.example.com",
+    "email": "registrar@university.example.com",
+    "image": {
+      "id": "https://university.example.com/logo.png",
+      "type": "Image"
+    }
+  },
+  "issuanceDate": "2025-12-20T00:00:00Z",
+  "name": "Comprehensive Learner Record - John Doe",
+  "credentialSubject": {
+    "id": "did:example:student12345",
+    "type": "ClrSubject",
+    "verifiableCredential": [
+      {
+        "id": "https://university.example.com/credentials/degree/CS-2025-12345",
+        "type": [
+          "VerifiableCredential",
+          "AchievementCredential"
+        ],
+        "issuer": {
+          "id": "https://university.example.com",
+          "type": "Profile",
+          "name": "Tech University"
+        },
+        "issuanceDate": "2025-12-15T00:00:00Z",
+        "credentialSubject": {
+          "id": "did:example:student12345",
+          "type": "AchievementSubject",
+          "achievement": {
+            "id": "https://university.example.com/achievements/ms-computer-science",
+            "type": "Achievement",
+            "achievementType": "Degree",
+            "name": "Master of Science in Computer Science",
+            "description": "Graduate degree in Computer Science with specialization in Distributed Systems and Cloud Computing",
+            "criteria": {
+              "narrative": "Completion of 36 credit hours including core courses, specialization courses, and thesis or capstone project with minimum 3.5 GPA"
+            },
+            "fieldOfStudy": "Computer Science",
+            "humanCode": "MS-CS"
+          },
+          "result": [
+            {
+              "type": "Result",
+              "resultDescription": "Final GPA",
+              "value": "3.85"
+            },
+            {
+              "type": "Result",
+              "resultDescription": "Total Credits",
+              "value": "36"
+            }
+          ]
+        }
+      },
+      {
+        "id": "https://university.example.com/credentials/course/CS-401-fall2025",
+        "type": [
+          "VerifiableCredential",
+          "AchievementCredential"
+        ],
+        "issuer": {
+          "id": "https://university.example.com",
+          "type": "Profile",
+          "name": "Tech University"
+        },
+        "issuanceDate": "2025-12-15T00:00:00Z",
+        "credentialSubject": {
+          "id": "did:example:student12345",
+          "type": "AchievementSubject",
+          "achievement": {
+            "id": "https://university.example.com/courses/CS-401",
+            "type": "Achievement",
+            "achievementType": "Course",
+            "name": "CS-401: Advanced Backend Development",
+            "description": "Advanced course covering distributed systems, microservices architecture, and cloud-native application development",
+            "criteria": {
+              "narrative": "Complete all assignments, pass midterm and final exams, complete capstone project"
+            },
+            "creditsAvailable": 4
+          },
+          "result": [
+            {
+              "type": "Result",
+              "resultDescription": "Final Grade",
+              "value": "A"
+            },
+            {
+              "type": "Result",
+              "resultDescription": "Numeric Grade",
+              "value": "94"
+            }
+          ]
+        }
+      },
+      {
+        "id": "https://university.example.com/credentials/badge/go-expert-2025",
+        "type": [
+          "VerifiableCredential",
+          "OpenBadgeCredential"
+        ],
+        "issuer": {
+          "id": "https://university.example.com",
+          "type": "Profile",
+          "name": "Tech University - Computer Science Department"
+        },
+        "issuanceDate": "2025-12-15T14:30:00Z",
+        "expirationDate": "2027-12-15T00:00:00Z",
+        "credentialSubject": {
+          "id": "did:example:student12345",
+          "type": "AchievementSubject",
+          "achievement": {
+            "id": "https://university.example.com/badges/go-programming-expert",
+            "type": "Achievement",
+            "achievementType": "Badge",
+            "name": "Go Programming Expert",
+            "description": "Demonstrated expert-level proficiency in Go programming through coursework, projects, and technical assessments",
+            "image": {
+              "id": "https://university.example.com/badges/images/go-expert.png",
+              "type": "Image"
+            },
+            "criteria": {
+              "narrative": "Achieve grade A or higher in CS-401, complete advanced Go project, and pass technical assessment with 90+ score"
+            },
+            "alignment": [
+              {
+                "type": "Alignment",
+                "targetName": "Go Programming Language",
+                "targetUrl": "https://api.hropen.org/skills/GO-PROGRAMMING",
+                "targetType": "Skill",
+                "targetFramework": "HR Open Skills Framework"
+              },
+              {
+                "type": "Alignment",
+                "targetName": "Software Development",
+                "targetUrl": "https://services.onetcenter.org/ws/online/occupations/15-1252.00",
+                "targetType": "Occupation",
+                "targetFramework": "O*NET"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "association": [
+      {
+        "type": "Association",
+        "associationType": "isSkillAssertionFor",
+        "target": "https://university.example.com/courses/CS-401"
+      }
+    ],
+    "skillAssertion": [
+      {
+        "@type": "SkillAssertion",
+        "@id": "https://university.example.com/skills/assertions/student-12345-go",
+        "skill": {
+          "@type": "Skill",
+          "@id": "https://api.hropen.org/skills/GO-PROGRAMMING",
+          "name": "Go Programming Language",
+          "description": "Advanced proficiency in Go (Golang) programming language for building scalable, concurrent backend services",
+          "codedNotation": "GO",
+          "sameAs": [
+            "https://ec.europa.eu/esco/skill/go-lang-12345"
+          ]
+        },
+        "proficiencyLevel": {
+          "@type": "DefinedTerm",
+          "@id": "https://university.example.com/proficiency-scales/5-level/5",
+          "name": "Expert",
+          "description": "Recognized authority in Go programming, capable of leading projects and mentoring others",
+          "inDefinedTermSet": "https://university.example.com/proficiency-scales/5-level",
+          "termCode": "5"
+        },
+        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "validFrom": "2025-12-15T00:00:00Z",
+        "validUntil": "2027-12-15T00:00:00Z",
+        "evidence": [
+          {
+            "@type": "Course",
+            "@id": "https://university.example.com/courses/CS-401",
+            "name": "CS-401: Advanced Backend Development",
+            "result": {
+              "@type": "Result",
+              "value": "A",
+              "numericValue": 94
+            }
+          },
+          {
+            "@type": "Project",
+            "@id": "https://university.example.com/projects/student-12345-microservices",
+            "name": "Distributed Microservices Platform",
+            "description": "Built a scalable microservices platform using Go, PostgreSQL, and Docker",
+            "result": {
+              "@type": "Result",
+              "value": "Excellent",
+              "numericValue": 96
+            }
+          },
+          {
+            "@type": "AssessmentResult",
+            "@id": "https://university.example.com/assessments/go-technical-2025",
+            "name": "Go Programming Technical Assessment",
+            "resultScore": {
+              "@type": "QuantitativeValue",
+              "value": 92,
+              "minValue": 0,
+              "maxValue": 100
+            }
+          }
+        ],
+        "source": {
+          "@type": "EducationalOrganization",
+          "@id": "https://university.example.com",
+          "name": "Tech University"
+        },
+        "assertedBy": {
+          "@type": "Person",
+          "@id": "https://university.example.com/faculty/prof-smith",
+          "name": "Dr. Sarah Smith",
+          "jobTitle": "Associate Professor"
+        }
+      },
+      {
+        "@type": "SkillAssertion",
+        "@id": "https://university.example.com/skills/assertions/student-12345-postgresql",
+        "skill": {
+          "@type": "Skill",
+          "@id": "https://api.hropen.org/skills/POSTGRESQL-DESIGN",
+          "name": "PostgreSQL Database Design and Optimization",
+          "codedNotation": "PSQL-DESIGN"
+        },
+        "proficiencyLevel": {
+          "@type": "DefinedTerm",
+          "@id": "https://university.example.com/proficiency-scales/5-level/4",
+          "name": "Advanced",
+          "termCode": "4"
+        },
+        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "validFrom": "2025-12-15T00:00:00Z",
+        "validUntil": "2027-12-15T00:00:00Z",
+        "evidence": [
+          {
+            "@type": "Course",
+            "@id": "https://university.example.com/courses/CS-401"
+          }
+        ],
+        "source": {
+          "@type": "EducationalOrganization",
+          "@id": "https://university.example.com"
+        }
+      },
+      {
+        "@type": "SkillAssertion",
+        "@id": "https://university.example.com/skills/assertions/student-12345-microservices",
+        "skill": {
+          "@type": "Skill",
+          "@id": "https://api.hropen.org/skills/MICROSERVICES-ARCHITECTURE",
+          "name": "Microservices Architecture",
+          "codedNotation": "MICROSERVICES"
+        },
+        "proficiencyLevel": {
+          "@type": "DefinedTerm",
+          "@id": "https://university.example.com/proficiency-scales/5-level/4",
+          "name": "Advanced",
+          "termCode": "4"
+        },
+        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "validFrom": "2025-12-15T00:00:00Z",
+        "validUntil": "2027-12-15T00:00:00Z",
+        "evidence": [
+          {
+            "@type": "Course",
+            "@id": "https://university.example.com/courses/CS-401"
+          },
+          {
+            "@type": "Project",
+            "@id": "https://university.example.com/projects/student-12345-microservices"
+          }
+        ],
+        "source": {
+          "@type": "EducationalOrganization",
+          "@id": "https://university.example.com"
+        }
+      },
+      {
+        "@type": "SkillAssertion",
+        "@id": "https://university.example.com/skills/assertions/student-12345-docker",
+        "skill": {
+          "@type": "Skill",
+          "@id": "https://api.hropen.org/skills/DOCKER-CONTAINERIZATION",
+          "name": "Docker Containerization",
+          "codedNotation": "DOCKER"
+        },
+        "proficiencyLevel": {
+          "@type": "DefinedTerm",
+          "@id": "https://university.example.com/proficiency-scales/5-level/3",
+          "name": "Intermediate",
+          "termCode": "3"
+        },
+        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "validFrom": "2025-12-15T00:00:00Z",
+        "validUntil": "2027-12-15T00:00:00Z",
+        "evidence": [
+          {
+            "@type": "Course",
+            "@id": "https://university.example.com/courses/CS-401"
+          }
+        ],
+        "source": {
+          "@type": "EducationalOrganization",
+          "@id": "https://university.example.com"
+        }
+      },
+      {
+        "@type": "SkillAssertion",
+        "@id": "https://university.example.com/skills/assertions/student-12345-rest-api",
+        "skill": {
+          "@type": "Skill",
+          "@id": "https://api.hropen.org/skills/REST-API-DESIGN",
+          "name": "RESTful API Design",
+          "codedNotation": "REST-API"
+        },
+        "proficiencyLevel": {
+          "@type": "DefinedTerm",
+          "@id": "https://university.example.com/proficiency-scales/5-level/4",
+          "name": "Advanced",
+          "termCode": "4"
+        },
+        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "validFrom": "2025-12-15T00:00:00Z",
+        "validUntil": "2027-12-15T00:00:00Z",
+        "evidence": [
+          {
+            "@type": "Course",
+            "@id": "https://university.example.com/courses/CS-401"
+          },
+          {
+            "@type": "Project",
+            "@id": "https://university.example.com/projects/student-12345-microservices"
+          }
+        ],
+        "source": {
+          "@type": "EducationalOrganization",
+          "@id": "https://university.example.com"
+        }
+      }
+    ]
+  },
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "created": "2025-12-20T10:00:00Z",
+    "verificationMethod": "https://university.example.com/issuers/keys/1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z5example-signature-value-would-be-here-this-is-a-sample"
+  }
+}
