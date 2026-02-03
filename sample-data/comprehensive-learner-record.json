@@ -180,13 +180,13 @@
         },
         "proficiencyLevel": {
           "@type": "DefinedTerm",
-          "@id": "https://university.example.com/proficiency-scales/5-level/5",
+          "@id": "https://university.example.com/proficiency-scales/4-level/5",
           "name": "Expert",
           "description": "Recognized authority in Go programming, capable of leading projects and mentoring others",
-          "inDefinedTermSet": "https://university.example.com/proficiency-scales/5-level",
+          "inDefinedTermSet": "https://university.example.com/proficiency-scales/4-level",
           "termCode": "5"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -246,11 +246,11 @@
         },
         "proficiencyLevel": {
           "@type": "DefinedTerm",
-          "@id": "https://university.example.com/proficiency-scales/5-level/4",
+          "@id": "https://university.example.com/proficiency-scales/4-level/4",
           "name": "Advanced",
           "termCode": "4"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -275,11 +275,11 @@
         },
         "proficiencyLevel": {
           "@type": "DefinedTerm",
-          "@id": "https://university.example.com/proficiency-scales/5-level/4",
+          "@id": "https://university.example.com/proficiency-scales/4-level/4",
           "name": "Advanced",
           "termCode": "4"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -308,11 +308,11 @@
         },
         "proficiencyLevel": {
           "@type": "DefinedTerm",
-          "@id": "https://university.example.com/proficiency-scales/5-level/3",
+          "@id": "https://university.example.com/proficiency-scales/4-level/3",
           "name": "Intermediate",
           "termCode": "3"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -337,11 +337,11 @@
         },
         "proficiencyLevel": {
           "@type": "DefinedTerm",
-          "@id": "https://university.example.com/proficiency-scales/5-level/4",
+          "@id": "https://university.example.com/proficiency-scales/4-level/4",
           "name": "Advanced",
           "termCode": "4"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [

@@ -188,7 +188,7 @@ Each request includes:
 
 2. **Get Proficiency Scale Details**
    ```
-   GET /proficiency-scales/5-level
+   GET /proficiency-scales/4-level
    ```
 
 3. **Compare Skills Across Jobs**

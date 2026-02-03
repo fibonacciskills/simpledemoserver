@@ -44,13 +44,13 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://university.example.com/proficiency-scales/5-level/4",
+        "@id": "https://university.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "description": "Applies Go independently in complex contexts including distributed systems and microservices. Can design scalable architectures and implement advanced patterns.",
-        "inDefinedTermSet": "https://university.example.com/proficiency-scales/5-level",
+        "inDefinedTermSet": "https://university.example.com/proficiency-scales/4-level",
         "termCode": "4"
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
       "learningOutcome": "Design and implement distributed microservices using Go, including proper error handling, concurrency patterns, and performance optimization",
       "assessmentMethod": "Project-based assessment with code review and technical interview",
       "source": {
@@ -73,12 +73,12 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://university.example.com/proficiency-scales/5-level/4",
+        "@id": "https://university.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "description": "Designs complex database schemas, optimizes queries for performance, and implements advanced PostgreSQL features",
         "termCode": "4"
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
       "learningOutcome": "Design normalized database schemas, write optimized queries, and implement advanced PostgreSQL features including JSONB, full-text search, and partitioning",
       "assessmentMethod": "Database design project with performance benchmarking"
     },
@@ -95,12 +95,12 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://university.example.com/proficiency-scales/5-level/3",
+        "@id": "https://university.example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
         "description": "Implements microservices architectures with guidance, understanding core patterns and trade-offs",
         "termCode": "3"
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
       "learningOutcome": "Decompose monolithic applications into microservices, implement service communication patterns, and handle distributed system challenges",
       "assessmentMethod": "Team project building a microservices-based application"
     },
@@ -117,12 +117,12 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://university.example.com/proficiency-scales/5-level/3",
+        "@id": "https://university.example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
         "description": "Creates Dockerfiles, manages multi-container applications with Docker Compose, and understands container networking",
         "termCode": "3"
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
       "learningOutcome": "Containerize applications, create efficient Docker images, and orchestrate multi-container applications",
       "assessmentMethod": "Containerization of course project with Docker Compose configuration"
     },
@@ -139,12 +139,12 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://university.example.com/proficiency-scales/5-level/4",
+        "@id": "https://university.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "description": "Designs robust RESTful APIs with proper resource modeling, versioning strategies, and comprehensive error handling",
         "termCode": "4"
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
       "learningOutcome": "Design RESTful APIs following OpenAPI specification, implement proper HTTP semantics, and document APIs comprehensively",
       "assessmentMethod": "API design review and implementation quality assessment"
     }
@@ -160,7 +160,7 @@
     },
     "proficiencyScale": {
       "@type": "DefinedTermSet",
-      "@id": "https://university.example.com/proficiency-scales/5-level",
+      "@id": "https://university.example.com/proficiency-scales/4-level",
       "name": "University 5-Level Proficiency Scale",
       "hasDefinedTerm": [
         {

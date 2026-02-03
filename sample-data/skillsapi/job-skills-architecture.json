@@ -55,13 +55,13 @@
             "codedNotation": "GO"
           },
           "proficiencyLevel": {
-            "id": "https://techcorp.example.com/proficiency-scales/5-level/4",
+            "id": "https://techcorp.example.com/proficiency-scales/4-level/4",
             "type": "ProficiencyLevel",
             "name": "Advanced",
             "description": "Applies Go independently in complex contexts, designing scalable architectures and implementing advanced patterns. Can mentor others and lead technical decisions.",
             "rank": 4
           },
-          "proficiencyScale": "https://techcorp.example.com/proficiency-scales/5-level",
+          "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level",
           "source": {
             "id": "https://techcorp.example.com",
             "type": "Organization",
@@ -78,13 +78,13 @@
             "codedNotation": "PSQL"
           },
           "proficiencyLevel": {
-            "id": "https://techcorp.example.com/proficiency-scales/5-level/3",
+            "id": "https://techcorp.example.com/proficiency-scales/4-level/3",
             "type": "ProficiencyLevel",
             "name": "Intermediate",
             "description": "Performs PostgreSQL database operations with routine independence, including schema design, query optimization, and basic performance tuning.",
             "rank": 3
           },
-          "proficiencyScale": "https://techcorp.example.com/proficiency-scales/5-level",
+          "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level",
           "source": {
             "id": "https://techcorp.example.com",
             "type": "Organization",
@@ -101,13 +101,13 @@
             "codedNotation": "AWS"
           },
           "proficiencyLevel": {
-            "id": "https://techcorp.example.com/proficiency-scales/5-level/2",
+            "id": "https://techcorp.example.com/proficiency-scales/4-level/2",
             "type": "ProficiencyLevel",
             "name": "Novice",
             "description": "Basic working knowledge of AWS services with ability to deploy and maintain applications using common services with guidance from documentation and senior team members.",
             "rank": 2
           },
-          "proficiencyScale": "https://techcorp.example.com/proficiency-scales/5-level",
+          "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level",
           "source": {
             "id": "https://techcorp.example.com",
             "type": "Organization",

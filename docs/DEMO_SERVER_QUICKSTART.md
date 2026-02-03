@@ -258,7 +258,7 @@ Body: {
   "skill": { "@id": "https://api.hropen.org/skills/K8S" },
   "about": { "@id": "https://organization.example.com/people/employee-45678" },
   "proficiencyLevel": {
-    "@id": "https://organization.example.com/proficiency-scales/5-level/3"
+    "@id": "https://organization.example.com/proficiency-scales/4-level/3"
   },
   "validFrom": "2026-02-03T00:00:00Z",
   "validUntil": "2028-02-03T00:00:00Z"

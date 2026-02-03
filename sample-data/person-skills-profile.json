@@ -48,13 +48,13 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/5",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/5",
         "name": "Expert",
         "description": "Recognized authority in Python, leads architecture decisions, mentors team members",
-        "inDefinedTermSet": "https://organization.example.com/proficiency-scales/5-level",
+        "inDefinedTermSet": "https://organization.example.com/proficiency-scales/4-level",
         "termCode": "5"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2024-03-01T00:00:00Z",
       "validUntil": "2026-03-01T00:00:00Z",
       "evidence": [
@@ -104,11 +104,11 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/5",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/5",
         "name": "Expert",
         "termCode": "5"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2024-06-15T00:00:00Z",
       "validUntil": "2026-06-15T00:00:00Z",
       "evidence": [
@@ -139,11 +139,11 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "termCode": "4"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2025-01-20T00:00:00Z",
       "validUntil": "2027-01-20T00:00:00Z",
       "evidence": [
@@ -177,11 +177,11 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "termCode": "4"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2024-09-10T00:00:00Z",
       "validUntil": "2026-09-10T00:00:00Z",
       "evidence": [
@@ -208,12 +208,12 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/3",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
         "description": "Deploys and manages containerized applications on Kubernetes with routine independence",
         "termCode": "3"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2025-11-01T00:00:00Z",
       "validUntil": "2027-11-01T00:00:00Z",
       "evidence": [
@@ -251,11 +251,11 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "termCode": "4"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2024-05-01T00:00:00Z",
       "validUntil": "2026-05-01T00:00:00Z",
       "evidence": [
@@ -283,11 +283,11 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "termCode": "4"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2024-08-15T00:00:00Z",
       "validUntil": "2026-08-15T00:00:00Z",
       "evidence": [
@@ -315,11 +315,11 @@
       },
       "proficiencyLevel": {
         "@type": "DefinedTerm",
-        "@id": "https://organization.example.com/proficiency-scales/5-level/4",
+        "@id": "https://organization.example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
         "termCode": "4"
       },
-      "proficiencyScale": "https://organization.example.com/proficiency-scales/5-level",
+      "proficiencyScale": "https://organization.example.com/proficiency-scales/4-level",
       "validFrom": "2024-01-15T00:00:00Z",
       "validUntil": "2026-01-15T00:00:00Z",
       "evidence": [
@@ -367,7 +367,7 @@
   "metadata": {
     "proficiencyScale": {
       "@type": "DefinedTermSet",
-      "@id": "https://organization.example.com/proficiency-scales/5-level",
+      "@id": "https://organization.example.com/proficiency-scales/4-level",
       "name": "TechCorp 5-Level Proficiency Scale"
     },
     "skillsRefreshCycle": "P2Y",

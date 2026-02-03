@@ -208,7 +208,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"assessmentResultId\": \"https://api.hropen.org/assessments/results/result-789\",\n  \"rawScore\": 87,\n  \"scoreScale\": {\n    \"minValue\": 0,\n    \"maxValue\": 100\n  },\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"proficiencyScaleId\": \"https://organization.example.com/proficiency-scales/5-level\"\n}"
+              "raw": "{\n  \"assessmentResultId\": \"https://api.hropen.org/assessments/results/result-789\",\n  \"rawScore\": 87,\n  \"scoreScale\": {\n    \"minValue\": 0,\n    \"maxValue\": 100\n  },\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"proficiencyScaleId\": \"https://organization.example.com/proficiency-scales/4-level\"\n}"
             },
             "url": {
               "raw": "{{skills_base_url}}/assessments/map-to-proficiency",
@@ -229,7 +229,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"personId\": \"https://organization.example.com/people/person-12345\",\n  \"assessmentResultId\": \"https://api.hropen.org/assessments/results/result-789\",\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"proficiencyScaleId\": \"https://organization.example.com/proficiency-scales/5-level\"\n}"
+              "raw": "{\n  \"personId\": \"https://organization.example.com/people/person-12345\",\n  \"assessmentResultId\": \"https://api.hropen.org/assessments/results/result-789\",\n  \"skillId\": \"https://api.hropen.org/skills/GO-PROGRAMMING\",\n  \"proficiencyScaleId\": \"https://organization.example.com/proficiency-scales/4-level\"\n}"
             },
             "url": {
               "raw": "{{skills_base_url}}/assessments/create-assertion",

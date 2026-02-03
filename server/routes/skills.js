@@ -96,7 +96,7 @@ function loadSampleData() {
   // Create default proficiency scales
   proficiencyScales.push({
     '@type': 'DefinedTermSet',
-    '@id': 'https://api.hropen.org/proficiency-scales/5-level',
+    '@id': 'https://api.hropen.org/proficiency-scales/4-level',
     'name': '5-Level Proficiency Scale',
     'description': 'Standard 5-level proficiency scale',
     'hasDefinedTerm': [
