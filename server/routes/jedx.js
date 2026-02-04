@@ -112,6 +112,21 @@ router.get('/jobs/:jobId', (req, res) => {
     return res.status(404).json({ error: 'Job not found' });
   }
 
+  // Load and attach skills data if available
+  const skillsFile = path.join(__dirname, '..', '..', 'sample-data', 'skillsapi', `job-${req.params.jobId.toLowerCase()}-skills.json`);
+
+  if (fs.existsSync(skillsFile)) {
+    const skillsData = JSON.parse(fs.readFileSync(skillsFile, 'utf8'));
+    // Embed skills in the job object
+    return res.json({ job: { ...job, skills: skillsData } });
+  }
+
+  // If skills already embedded in job object, return as-is
+  if (job.skills) {
+    return res.json({ job });
+  }
+
+  // Return job without skills
   res.json({ job });
 });
 
