@@ -204,12 +204,25 @@ router.get('/', (req, res) => {
   res.json(response);
 });
 
+// List all skills (when accessing /skills without a specific ID)
+router.get('/skills', (req, res) => {
+  res.json({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    'itemListElement': skills,
+    'numberOfItems': skills.length
+  });
+});
+
 // Get skill by ID
 router.get('/:skillId', (req, res) => {
+  const skillId = req.params.skillId.toUpperCase();
+
   const skill = skills.find(s =>
-    s.id?.includes(req.params.skillId) ||
-    s['@id']?.includes(req.params.skillId) ||
-    s.codedNotation === req.params.skillId
+    s.id === req.params.skillId ||
+    s['@id'] === req.params.skillId ||
+    s.codedNotation === req.params.skillId ||
+    s.codedNotation?.toUpperCase() === skillId
   );
 
   if (!skill) {
