@@ -13,16 +13,31 @@ let organizations = [];
 function loadSampleData() {
   const sampleDataDir = path.join(__dirname, '..', '..', 'sample-data');
 
-  // Load job-skills-architecture
+  // Load JEDx job files
   try {
-    const jobSkillsPath = path.join(sampleDataDir, 'job-skills-architecture.json');
-    if (fs.existsSync(jobSkillsPath)) {
-      const data = JSON.parse(fs.readFileSync(jobSkillsPath, 'utf8'));
-      jobs.push(data.job);
-      console.log('✓ Loaded job-skills-architecture.json');
+    const jobFiles = ['job-swe-001.json'];
+    jobFiles.forEach(filename => {
+      const jobPath = path.join(sampleDataDir, filename);
+      if (fs.existsSync(jobPath)) {
+        const data = JSON.parse(fs.readFileSync(jobPath, 'utf8'));
+        if (data.job) {
+          jobs.push(data.job);
+        }
+      }
+    });
+
+    // Also check skillsapi directory for job-skills-architecture
+    const skillsApiJob = path.join(sampleDataDir, 'skillsapi', 'job-skills-architecture.json');
+    if (fs.existsSync(skillsApiJob)) {
+      const data = JSON.parse(fs.readFileSync(skillsApiJob, 'utf8'));
+      if (data.job) {
+        jobs.push(data.job);
+      }
     }
+
+    console.log(`✓ Loaded ${jobs.length} job(s)`);
   } catch (error) {
-    console.error('Error loading job-skills-architecture:', error.message);
+    console.error('Error loading jobs:', error.message);
   }
 
   // Load sample workers from stateAgencyArkansas
