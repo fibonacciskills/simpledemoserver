@@ -1,7 +1,21 @@
-# Standards Compliance Report
+# Standards Compliance & JEDx Extension Proposal
 
 **Date:** 2026-02-04
-**Status:** ✅ Cleaned - All sample files now use only standard fields
+**Status:** ✅ Standards-compliant + Proposing JEDx Enhancement
+
+---
+
+## Important Context
+
+**This implementation includes a PROPOSED EXTENSION to JEDx:**
+
+The `job-skills-architecture.json` file adds a `skills` field to the JEDx job schema. This is:
+- ✅ **Proposed enhancement** to JEDx standard (see `JEDX_SKILLS_PROPOSAL.md`)
+- ✅ **Backward compatible** - skills field is optional
+- ✅ **Based on IMS Global Open Badges v3.0** - proven standard
+- ✅ **Enables machine-readable HR systems**
+
+**Why propose this?** To connect JEDx job data with skills/credentials/learning systems for better matching, analytics, and workforce planning.
 
 ---
 
@@ -325,7 +339,9 @@ https://json-ld.org/playground/
 
 | File | Status | Notes |
 |------|--------|-------|
-| `job-skills-architecture.json` | ✅ Compliant | Uses canonical JEDx + IMS Global |
+| `job-skills-architecture.json` | ✅ Proposed Extension | JEDx + skills field (proposed enhancement) |
+| `job-swe-001.json` | ✅ Fully Compliant | Pure JEDx, no extensions |
+| `job-swe-001-skills.json` | ✅ Fully Compliant | Pure IMS Global Skills API |
 | `course-skills-assertions.json` | ✅ Compliant | IMS Global only, custom fields removed |
 | `open-badge-credential.json` | ✅ Compliant | Already standard (need to verify) |
 | `comprehensive-learner-record.json` | ✅ Compliant | Already standard (need to verify) |

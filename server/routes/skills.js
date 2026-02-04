@@ -116,32 +116,83 @@ loadSampleData();
 
 // ==================== SKILLS ====================
 
-// Get all skills
-router.get('/skills', (req, res) => {
-  const { taxonomy, category, search, limit = 50, offset = 0 } = req.query;
-
-  let filtered = skills;
-
-  if (category) {
-    filtered = filtered.filter(s => s.skillCategory === category);
-  }
-
-  if (search) {
-    const searchLower = search.toLowerCase();
-    filtered = filtered.filter(s =>
-      s.name.toLowerCase().includes(searchLower) ||
-      (s.description && s.description.toLowerCase().includes(searchLower))
-    );
-  }
-
-  const paginated = filtered.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
-
-  res.json({
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    'itemListElement': paginated,
-    'numberOfItems': filtered.length
+// Helper function to transform to OpenAPI spec format
+function transformToOpenAPIFormat(data) {
+  // Transform skill object
+  const transformSkill = (skill) => ({
+    id: skill['@id'] || skill.id,
+    name: skill.name,
+    ...(skill.description && { description: skill.description }),
+    ...(skill.codedNotation && { codedNotation: skill.codedNotation })
   });
+
+  // Transform proficiency level
+  const transformProficiencyLevel = (level) => ({
+    ...(level['@id'] || level.id ? { id: level['@id'] || level.id } : {}),
+    name: level.name,
+    ...(level.description && { description: level.description }),
+    rank: level.rank || parseInt(level.termCode) || 0
+  });
+
+  // Transform skill assertion
+  const transformAssertion = (assertion) => ({
+    skill: transformSkill(assertion.skill),
+    proficiencyLevel: transformProficiencyLevel(assertion.proficiencyLevel),
+    proficiencyScale: assertion.proficiencyScale,
+    ...(assertion.source && {
+      source: {
+        id: assertion.source['@id'] || assertion.source.id,
+        type: assertion.source['@type'] || assertion.source.type,
+        name: assertion.source.name
+      }
+    })
+  });
+
+  return {
+    identifier: data['@id'] || data.id || data.targetId,
+    targetType: data.targetType?.replace('https://schema.org/', '') || 'Other',
+    assertions: (data.assertions || []).map(transformAssertion)
+  };
+}
+
+// Get skill assertions for a target object (matches OpenAPI spec)
+router.get('/skills', (req, res) => {
+  const { identifier, targetType } = req.query;
+
+  if (!identifier || !targetType) {
+    return res.status(400).json({
+      error: 'Missing required query parameters: identifier and targetType'
+    });
+  }
+
+  // Find matching skill assertion collection
+  // Check courses, person profiles, job skills, etc.
+  let skillData = null;
+
+  // Check courses
+  const course = courses.find(c => c.id === identifier || c.targetId === identifier);
+  if (course) {
+    skillData = course;
+  }
+
+  // Check person profiles
+  const person = personProfiles.find(p => p['@id'] === identifier || p.id === identifier);
+  if (person) {
+    skillData = person;
+  }
+
+  // If no match, return empty
+  if (!skillData) {
+    return res.json({
+      identifier,
+      targetType,
+      assertions: []
+    });
+  }
+
+  // Transform to OpenAPI format
+  const response = transformToOpenAPIFormat(skillData);
+  res.json(response);
 });
 
 // Get skill by ID

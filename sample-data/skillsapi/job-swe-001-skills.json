@@ -1,0 +1,51 @@
+{
+  "identifier": "https://techcorp.example.com/jobs/SWE-001",
+  "targetType": "Job",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/GO-PROGRAMMING",
+        "name": "Go Programming Language",
+        "description": "Proficiency in Go (Golang) programming language for building scalable, concurrent backend services and microservices architectures",
+        "codedNotation": "GO"
+      },
+      "proficiencyLevel": {
+        "id": "https://techcorp.example.com/proficiency-scales/4-level/4",
+        "name": "Advanced",
+        "description": "Applies Go independently in complex contexts, designing scalable architectures and implementing advanced patterns",
+        "rank": 4
+      },
+      "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/POSTGRESQL-DESIGN",
+        "name": "PostgreSQL Database Design and Optimization",
+        "description": "Expertise in PostgreSQL database design, query optimization, and performance tuning",
+        "codedNotation": "PSQL"
+      },
+      "proficiencyLevel": {
+        "id": "https://techcorp.example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Performs PostgreSQL operations with routine independence",
+        "rank": 3
+      },
+      "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/AWS-CLOUD",
+        "name": "Amazon Web Services (AWS)",
+        "description": "Working knowledge of AWS cloud services for deploying and managing applications",
+        "codedNotation": "AWS"
+      },
+      "proficiencyLevel": {
+        "id": "https://techcorp.example.com/proficiency-scales/4-level/2",
+        "name": "Novice",
+        "description": "Basic working knowledge with guidance from documentation",
+        "rank": 2
+      },
+      "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level"
+    }
+  ]
+}

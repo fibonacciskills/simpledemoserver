@@ -2,6 +2,8 @@
 
 **Status:** ✅ Complete and Ready to Demo
 
+**Innovation:** Proposing JEDx extension to include machine-readable skills
+
 ---
 
 ## What We Built
