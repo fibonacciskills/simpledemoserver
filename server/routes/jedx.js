@@ -169,21 +169,27 @@ router.get('/jobs/:jobId/skills', (req, res) => {
     return res.status(404).json({ error: 'Job not found' });
   }
 
-  if (job.skills) {
-    res.json(job.skills);
-  } else {
-    res.json({
-      "@context": [
-        "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
-        "https://schema.org"
-      ],
-      "@type": "SkillAssertionCollection",
-      "targetType": "https://schema.org/JobPosting",
-      "targetId": `https://api.jedx.example.com/jobs/${req.params.jobId}`,
-      "assertions": [],
-      "assertionStatus": "none-declared"
-    });
+  // Load skills data from skillsapi directory
+  const fs = require('fs');
+  const path = require('path');
+  const skillsFile = path.join(__dirname, '..', '..', 'sample-data', 'skillsapi', `job-${req.params.jobId.toLowerCase()}-skills.json`);
+
+  if (fs.existsSync(skillsFile)) {
+    const skillsData = JSON.parse(fs.readFileSync(skillsFile, 'utf8'));
+    return res.json(skillsData);
   }
+
+  // If embedded skills exist in job object (legacy format)
+  if (job.skills) {
+    return res.json(job.skills);
+  }
+
+  // Return empty skills in OpenAPI format
+  res.json({
+    identifier: `https://api.jedx.example.com/jobs/${req.params.jobId}`,
+    targetType: "Job",
+    assertions: []
+  });
 });
 
 // ==================== WORKERS ====================

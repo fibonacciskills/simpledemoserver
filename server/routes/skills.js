@@ -205,7 +205,7 @@ router.get('/', (req, res) => {
 });
 
 // Get skill by ID
-router.get('/skills/:skillId', (req, res) => {
+router.get('/:skillId', (req, res) => {
   const skill = skills.find(s =>
     s.id?.includes(req.params.skillId) ||
     s['@id']?.includes(req.params.skillId) ||
@@ -220,7 +220,7 @@ router.get('/skills/:skillId', (req, res) => {
 });
 
 // Create skill
-router.post('/skills', (req, res) => {
+router.post('/', (req, res) => {
   const skill = req.body;
 
   if (!skill.name) {
@@ -237,7 +237,7 @@ router.post('/skills', (req, res) => {
 });
 
 // Search skills
-router.get('/skills/search', (req, res) => {
+router.get('/search', (req, res) => {
   const { q, taxonomy, fuzzy } = req.query;
 
   let results = skills;
