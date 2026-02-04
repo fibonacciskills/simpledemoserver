@@ -14,28 +14,7 @@ let personProfiles = [];
 
 // Load sample data
 function loadSampleData() {
-  const sampleDataDir = path.join(__dirname, '..', '..', 'sample-data');
-
-  // Load person skills profile
-  try {
-    const personPath = path.join(sampleDataDir, 'person-skills-profile.json');
-    if (fs.existsSync(personPath)) {
-      const data = JSON.parse(fs.readFileSync(personPath, 'utf8'));
-      personProfiles.push(data);
-      // Extract assertions and skills
-      if (data.assertions) {
-        assertions.push(...data.assertions);
-        data.assertions.forEach(a => {
-          if (a.skill && !skills.find(s => s['@id'] === a.skill['@id'])) {
-            skills.push(a.skill);
-          }
-        });
-      }
-      console.log('✓ Loaded person-skills-profile.json');
-    }
-  } catch (error) {
-    console.error('Error loading person profile:', error.message);
-  }
+  const sampleDataDir = path.join(__dirname, '..', '..', 'sample-data', 'skillsapi');
 
   // Load course skills
   try {
@@ -45,7 +24,7 @@ function loadSampleData() {
       courses.push(data);
       if (data.assertions) {
         data.assertions.forEach(a => {
-          if (a.skill && !skills.find(s => s['@id'] === a.skill['@id'])) {
+          if (a.skill && !skills.find(s => s.id === a.skill.id)) {
             skills.push(a.skill);
           }
         });
@@ -64,7 +43,7 @@ function loadSampleData() {
       badges.push(data);
       if (data.credentialSubject?.skillAssertion) {
         data.credentialSubject.skillAssertion.forEach(a => {
-          if (a.skill && !skills.find(s => s['@id'] === a.skill['@id'])) {
+          if (a.skill && !skills.find(s => s.id === a.skill.id || s['@id'] === a.skill['@id'])) {
             skills.push(a.skill);
           }
         });
@@ -77,20 +56,42 @@ function loadSampleData() {
 
   // Load job skills
   try {
-    const jobPath = path.join(sampleDataDir, 'job-skills-architecture.json');
+    const jobPath = path.join(sampleDataDir, 'job-swe-001-skills.json');
     if (fs.existsSync(jobPath)) {
       const data = JSON.parse(fs.readFileSync(jobPath, 'utf8'));
-      if (data.job?.skills?.assertions) {
-        data.job.skills.assertions.forEach(a => {
-          if (a.skill && !skills.find(s => s['@id'] === a.skill['@id'])) {
+      courses.push(data); // Store as a "course" for skills query purposes
+      if (data.assertions) {
+        data.assertions.forEach(a => {
+          if (a.skill && !skills.find(s => s.id === a.skill.id)) {
             skills.push(a.skill);
           }
         });
       }
-      console.log('✓ Loaded skills from job-skills-architecture.json');
+      console.log('✓ Loaded job-swe-001-skills.json');
     }
   } catch (error) {
     console.error('Error loading job skills:', error.message);
+  }
+
+  // Load comprehensive learner record
+  try {
+    const clrPath = path.join(sampleDataDir, 'comprehensive-learner-record.json');
+    if (fs.existsSync(clrPath)) {
+      const data = JSON.parse(fs.readFileSync(clrPath, 'utf8'));
+      if (data.credentialSubject?.skillAssertion) {
+        data.credentialSubject.skillAssertion.forEach(a => {
+          if (a.skill && !skills.find(s => s.id === a.skill.id || s['@id'] === a.skill['@id'])) {
+            skills.push(a.skill);
+          }
+          if (!assertions.find(existing => existing['@id'] === a['@id'])) {
+            assertions.push(a);
+          }
+        });
+      }
+      console.log('✓ Loaded comprehensive-learner-record.json');
+    }
+  } catch (error) {
+    console.error('Error loading CLR:', error.message);
   }
 
   // Create default proficiency scales
@@ -149,14 +150,14 @@ function transformToOpenAPIFormat(data) {
   });
 
   return {
-    identifier: data['@id'] || data.id || data.targetId,
+    identifier: data.identifier || data['@id'] || data.id || data.targetId,
     targetType: data.targetType?.replace('https://schema.org/', '') || 'Other',
     assertions: (data.assertions || []).map(transformAssertion)
   };
 }
 
 // Get skill assertions for a target object (matches OpenAPI spec)
-router.get('/skills', (req, res) => {
+router.get('/', (req, res) => {
   const { identifier, targetType } = req.query;
 
   if (!identifier || !targetType) {
@@ -170,13 +171,21 @@ router.get('/skills', (req, res) => {
   let skillData = null;
 
   // Check courses
-  const course = courses.find(c => c.id === identifier || c.targetId === identifier);
+  const course = courses.find(c =>
+    c.identifier === identifier ||
+    c.id === identifier ||
+    c.targetId === identifier
+  );
   if (course) {
     skillData = course;
   }
 
   // Check person profiles
-  const person = personProfiles.find(p => p['@id'] === identifier || p.id === identifier);
+  const person = personProfiles.find(p =>
+    p.identifier === identifier ||
+    p['@id'] === identifier ||
+    p.id === identifier
+  );
   if (person) {
     skillData = person;
   }
@@ -198,6 +207,7 @@ router.get('/skills', (req, res) => {
 // Get skill by ID
 router.get('/skills/:skillId', (req, res) => {
   const skill = skills.find(s =>
+    s.id?.includes(req.params.skillId) ||
     s['@id']?.includes(req.params.skillId) ||
     s.codedNotation === req.params.skillId
   );
