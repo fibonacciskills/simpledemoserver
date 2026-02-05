@@ -1,0 +1,51 @@
+{
+  "identifier": "https://example.com/frameworks/digital-literacy-standard",
+  "targetType": "Framework",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/DIGITAL-COMMUNICATION",
+        "name": "Digital Communication",
+        "description": "Effective communication using digital tools and platforms",
+        "codedNotation": "DIG-COMM"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/DATA-LITERACY",
+        "name": "Data Literacy",
+        "description": "Ability to read, interpret, and communicate data insights",
+        "codedNotation": "DATA-LIT"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/2",
+        "name": "Novice",
+        "description": "Working knowledge with guidance",
+        "rank": 2
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/CYBERSECURITY-AWARENESS",
+        "name": "Cybersecurity Awareness",
+        "description": "Understanding of cybersecurity best practices and threat awareness",
+        "codedNotation": "CYBERSEC"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+      }
+  ]
+}

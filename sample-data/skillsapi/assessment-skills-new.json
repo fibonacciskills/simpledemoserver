@@ -1,0 +1,51 @@
+{
+  "identifier": "https://example.com/assessments/full-stack-certification",
+  "targetType": "Assessment",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/REACT",
+        "name": "React.js",
+        "description": "React JavaScript library for building user interfaces",
+        "codedNotation": "REACT"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/NODEJS",
+        "name": "Node.js",
+        "description": "Server-side JavaScript runtime",
+        "codedNotation": "NODEJS"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/API-DESIGN",
+        "name": "API Design",
+        "description": "RESTful API design and implementation",
+        "codedNotation": "API-DESIGN"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/2",
+        "name": "Novice",
+        "description": "Working knowledge with guidance",
+        "rank": 2
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "identifier": "https://example.com/people/john-doe-12345",
+  "targetType": "Person",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/PYTHON",
+        "name": "Python Programming",
+        "description": "Proficiency in Python programming language",
+        "codedNotation": "PYTHON"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/4",
+        "name": "Advanced",
+        "description": "Independent application in complex contexts",
+        "rank": 4
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "source": {
+        "id": "https://example.com/assessments/python-cert-2024",
+        "type": "Assessment",
+        "name": "Python Certification Assessment 2024"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/TEAMWORK",
+        "name": "Team Collaboration",
+        "description": "Ability to work effectively in team environments",
+        "codedNotation": "TEAMWORK"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/4",
+        "name": "Advanced",
+        "description": "Independent application in complex contexts",
+        "rank": 4
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "source": {
+        "id": "https://example.com/employer",
+        "type": "Organization",
+        "name": "Current Employer Performance Review"
+      }
+    }
+  ]
+}

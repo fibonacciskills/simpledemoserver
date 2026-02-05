@@ -1,0 +1,66 @@
+{
+  "identifier": "https://example.com/courses/WEB-DEV-101",
+  "targetType": "LearningProgram",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/HTML",
+        "name": "HTML",
+        "description": "HTML markup and semantic web design",
+        "codedNotation": "HTML"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "source": {
+        "id": "https://example.com/university",
+        "type": "EducationalOrganization",
+        "name": "Example University"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/CSS",
+        "name": "CSS",
+        "description": "Cascading Style Sheets for web styling",
+        "codedNotation": "CSS"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "source": {
+        "id": "https://example.com/university",
+        "type": "EducationalOrganization",
+        "name": "Example University"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/JAVASCRIPT",
+        "name": "JavaScript",
+        "description": "JavaScript programming for web interactivity",
+        "codedNotation": "JAVASCRIPT"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/2",
+        "name": "Novice",
+        "description": "Working knowledge with guidance",
+        "rank": 2
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "source": {
+        "id": "https://example.com/university",
+        "type": "EducationalOrganization",
+        "name": "Example University"
+      }
+    }
+  ]
+}

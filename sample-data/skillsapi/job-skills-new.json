@@ -1,0 +1,36 @@
+{
+  "identifier": "https://example.com/jobs/SOFTWARE-ENGINEER-001",
+  "targetType": "Job",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/PYTHON",
+        "name": "Python Programming",
+        "description": "Proficiency in Python programming language",
+        "codedNotation": "PYTHON"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/4",
+        "name": "Advanced",
+        "description": "Independent application in complex contexts",
+        "rank": 4
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/SQL",
+        "name": "SQL Database Management",
+        "description": "Database design and query optimization",
+        "codedNotation": "SQL"
+      },
+      "proficiencyLevel": {
+        "id": "https://example.com/proficiency-scales/4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence in common scenarios",
+        "rank": 3
+      },
+      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+    }
+  ]
+}
