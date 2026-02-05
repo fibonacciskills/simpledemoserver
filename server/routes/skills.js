@@ -204,53 +204,22 @@ router.get('/', (req, res) => {
   res.json(response);
 });
 
-// List all skills (when accessing /skills without a specific ID)
+// List all skills
 router.get('/skills', (req, res) => {
+  const { limit = 50, offset = 0 } = req.query;
+
+  const paginated = skills.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
+
   res.json({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    'itemListElement': skills,
+    'itemListElement': paginated,
     'numberOfItems': skills.length
   });
 });
 
-// Get skill by ID
-router.get('/:skillId', (req, res) => {
-  const skillId = req.params.skillId.toUpperCase();
-
-  const skill = skills.find(s =>
-    s.id === req.params.skillId ||
-    s['@id'] === req.params.skillId ||
-    s.codedNotation === req.params.skillId ||
-    s.codedNotation?.toUpperCase() === skillId
-  );
-
-  if (!skill) {
-    return res.status(404).json({ error: 'Skill not found' });
-  }
-
-  res.json(skill);
-});
-
-// Create skill
-router.post('/', (req, res) => {
-  const skill = req.body;
-
-  if (!skill.name) {
-    return res.status(400).json({ error: 'Missing required field: name' });
-  }
-
-  skill['@context'] = skill['@context'] || 'https://schema.org';
-  skill['@type'] = 'Skill';
-  skill['@id'] = skill['@id'] || `https://api.hropen.org/skills/${skill.codedNotation || uuidv4()}`;
-
-  skills.push(skill);
-
-  res.status(201).json(skill);
-});
-
-// Search skills
-router.get('/search', (req, res) => {
+// Search skills (before /:skillId to avoid matching "search" as an ID)
+router.get('/skills/search', (req, res) => {
   const { q, taxonomy, fuzzy } = req.query;
 
   let results = skills;
@@ -270,6 +239,41 @@ router.get('/search', (req, res) => {
     'itemListElement': results,
     'numberOfItems': results.length
   });
+});
+
+// Get skill by ID
+router.get('/skills/:skillId', (req, res) => {
+  const skillId = req.params.skillId.toUpperCase();
+
+  const skill = skills.find(s =>
+    s.id === req.params.skillId ||
+    s['@id'] === req.params.skillId ||
+    s.codedNotation === req.params.skillId ||
+    s.codedNotation?.toUpperCase() === skillId
+  );
+
+  if (!skill) {
+    return res.status(404).json({ error: 'Skill not found' });
+  }
+
+  res.json(skill);
+});
+
+// Create skill
+router.post('/skills', (req, res) => {
+  const skill = req.body;
+
+  if (!skill.name) {
+    return res.status(400).json({ error: 'Missing required field: name' });
+  }
+
+  skill['@context'] = skill['@context'] || 'https://schema.org';
+  skill['@type'] = 'Skill';
+  skill['@id'] = skill['@id'] || `https://api.hropen.org/skills/${skill.codedNotation || uuidv4()}`;
+
+  skills.push(skill);
+
+  res.status(201).json(skill);
 });
 
 // ==================== SKILL ASSERTIONS ====================

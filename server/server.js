@@ -54,32 +54,61 @@ app.get('/health', (req, res) => {
 app.use('/api/v1/jedx', jedxRoutes);
 app.use('/api/v1/skills', skillsRoutes);
 
-// Sample data listing
+// Sample data listing (recursively lists all JSON files)
 app.get('/api/v1/sample-data', (req, res) => {
   const sampleDataDir = path.join(__dirname, '..', 'sample-data');
+
+  function getAllJsonFiles(dir, baseDir = dir, fileList = []) {
+    const files = fs.readdirSync(dir);
+
+    files.forEach(file => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+
+      if (stat.isDirectory()) {
+        getAllJsonFiles(filePath, baseDir, fileList);
+      } else if (file.endsWith('.json')) {
+        const relativePath = path.relative(baseDir, filePath);
+        const urlPath = relativePath.replace(/\\/g, '/').replace('.json', '');
+        fileList.push({
+          name: relativePath.replace(/\\/g, '/'),
+          path: urlPath,
+          url: `/api/v1/sample-data/${urlPath}`
+        });
+      }
+    });
+
+    return fileList;
+  }
+
   try {
-    const files = fs.readdirSync(sampleDataDir)
-      .filter(f => f.endsWith('.json'))
-      .map(f => ({
-        name: f,
-        url: `/api/v1/sample-data/${f.replace('.json', '')}`
-      }));
-    res.json({ files });
+    const files = getAllJsonFiles(sampleDataDir);
+    res.json({
+      total: files.length,
+      files
+    });
   } catch (error) {
     res.status(500).json({ error: 'Could not read sample data directory' });
   }
 });
 
-// Serve sample data files
-app.get('/api/v1/sample-data/:filename', (req, res) => {
-  const filename = req.params.filename + '.json';
-  const filepath = path.join(__dirname, '..', 'sample-data', filename);
+// Serve sample data files (supports subdirectories)
+app.get('/api/v1/sample-data/*', (req, res) => {
+  const requestedPath = req.params[0]; // Everything after /api/v1/sample-data/
+  const filepath = path.join(__dirname, '..', 'sample-data', requestedPath + '.json');
 
   if (fs.existsSync(filepath)) {
-    const data = JSON.parse(fs.readFileSync(filepath, 'utf8'));
-    res.json(data);
+    try {
+      const data = JSON.parse(fs.readFileSync(filepath, 'utf8'));
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: 'Error reading file' });
+    }
   } else {
-    res.status(404).json({ error: 'Sample file not found' });
+    res.status(404).json({
+      error: 'Sample file not found',
+      requested: requestedPath
+    });
   }
 });
 
