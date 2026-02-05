@@ -15,7 +15,7 @@
         "description": "Independent application in complex contexts",
         "rank": 4
       },
-      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "proficiencyScale": 4,
       "source": {
         "id": "https://example.com/assessments/python-cert-2024",
         "type": "Assessment",
@@ -30,12 +30,12 @@
         "codedNotation": "TEAMWORK"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/4-level/4",
+        "id": "https://example.com/proficiency-scales/custom/3.5",
         "name": "Advanced",
         "description": "Independent application in complex contexts",
         "rank": 4
       },
-      "proficiencyScale": "https://example.com/proficiency-scales/4-level",
+      "proficiencyScale": 3.5,
       "source": {
         "id": "https://example.com/employer",
         "type": "Organization",

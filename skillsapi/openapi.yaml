@@ -77,10 +77,10 @@ components:
           $ref: "#/components/schemas/ProficiencyLevel"
 
         proficiencyScale:
-          type: string
-          format: uri
+          type: number
           description: >
-            URI identifying the proficiency scale against which the level is defined.
+            Numeric identifier for the proficiency scale type (e.g., 4 for 4-level scale, 5 for 5-level scale).
+            Supports integers and decimals.
             
         source:
           type: object

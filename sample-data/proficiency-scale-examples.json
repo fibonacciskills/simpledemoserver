@@ -1,0 +1,103 @@
+{
+  "identifier": "https://example.com/examples/proficiency-scale-variations",
+  "targetType": "Other",
+  "description": "Comprehensive example showing various proficiencyScale types (integers and decimals)",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-1",
+        "name": "4-Level Scale Example",
+        "codedNotation": "EX1"
+      },
+      "proficiencyLevel": {
+        "name": "Advanced",
+        "rank": 4
+      },
+      "proficiencyScale": 4
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-2",
+        "name": "5-Level Scale Example",
+        "codedNotation": "EX2"
+      },
+      "proficiencyLevel": {
+        "name": "Expert",
+        "rank": 5
+      },
+      "proficiencyScale": 5
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-3",
+        "name": "10-Point Scale Example",
+        "codedNotation": "EX3"
+      },
+      "proficiencyLevel": {
+        "name": "Proficient",
+        "rank": 7
+      },
+      "proficiencyScale": 10
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-4",
+        "name": "Custom 3.5 Scale (Decimal)",
+        "codedNotation": "EX4"
+      },
+      "proficiencyLevel": {
+        "name": "Intermediate",
+        "rank": 2
+      },
+      "proficiencyScale": 3.5
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-5",
+        "name": "Granular 7.5 Scale (Decimal)",
+        "codedNotation": "EX5"
+      },
+      "proficiencyLevel": {
+        "name": "Advanced",
+        "rank": 6
+      },
+      "proficiencyScale": 7.5
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-6",
+        "name": "Precise 6.25 Scale (Decimal)",
+        "codedNotation": "EX6"
+      },
+      "proficiencyLevel": {
+        "name": "Competent",
+        "rank": 4
+      },
+      "proficiencyScale": 6.25
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-7",
+        "name": "8-Point Scale (Decimal)",
+        "codedNotation": "EX7"
+      },
+      "proficiencyLevel": {
+        "name": "Highly Skilled",
+        "rank": 7
+      },
+      "proficiencyScale": 8.0
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/EXAMPLE-8",
+        "name": "100-Point Percentage Scale",
+        "codedNotation": "EX8"
+      },
+      "proficiencyLevel": {
+        "name": "85th Percentile",
+        "rank": 85
+      },
+      "proficiencyScale": 100
+    }
+  ]
+}

@@ -15,7 +15,7 @@
         "description": "Routine independence in common scenarios",
         "rank": 3
       },
-      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+      "proficiencyScale": 7.5
     },
     {
       "skill": {
@@ -25,12 +25,12 @@
         "codedNotation": "DATA-LIT"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/4-level/2",
+        "id": "https://example.com/proficiency-scales/custom/2",
         "name": "Novice",
         "description": "Working knowledge with guidance",
         "rank": 2
       },
-      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+      "proficiencyScale": 6.25
     },
     {
       "skill": {
@@ -40,12 +40,12 @@
         "codedNotation": "CYBERSEC"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/4-level/3",
+        "id": "https://example.com/proficiency-scales/custom/3",
         "name": "Intermediate",
         "description": "Routine independence in common scenarios",
         "rank": 3
       },
-      "proficiencyScale": "https://example.com/proficiency-scales/4-level"
+      "proficiencyScale": 8.0
       }
   ]
 }

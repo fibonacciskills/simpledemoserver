@@ -15,7 +15,7 @@
         "description": "Applies Go independently in complex contexts, designing scalable architectures and implementing advanced patterns",
         "rank": 4
       },
-      "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     },
     {
       "skill": {
@@ -30,7 +30,7 @@
         "description": "Performs PostgreSQL operations with routine independence",
         "rank": 3
       },
-      "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     },
     {
       "skill": {
@@ -45,7 +45,7 @@
         "description": "Basic working knowledge with guidance from documentation",
         "rank": 2
       },
-      "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     }
   ]
 }

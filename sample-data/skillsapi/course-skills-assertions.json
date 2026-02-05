@@ -15,7 +15,7 @@
         "description": "Applies Go independently in complex contexts including distributed systems and microservices. Can design scalable architectures and implement advanced patterns.",
         "rank": 4
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
+      "proficiencyScale": 4,
       "source": {
         "id": "https://university.example.com",
         "type": "EducationalOrganization",
@@ -35,7 +35,7 @@
         "description": "Designs complex database schemas, optimizes queries for performance, and implements advanced PostgreSQL features",
         "rank": 4
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     },
     {
       "skill": {
@@ -50,7 +50,7 @@
         "description": "Implements microservices architectures with guidance, understanding core patterns and trade-offs",
         "rank": 3
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     },
     {
       "skill": {
@@ -65,7 +65,7 @@
         "description": "Creates Dockerfiles, manages multi-container applications with Docker Compose, and understands container networking",
         "rank": 3
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     },
     {
       "skill": {
@@ -80,7 +80,7 @@
         "description": "Designs robust RESTful APIs with proper resource modeling, versioning strategies, and comprehensive error handling",
         "rank": 4
       },
-      "proficiencyScale": "https://university.example.com/proficiency-scales/4-level"
+      "proficiencyScale": 4
     }
   ]
 }
