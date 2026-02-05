@@ -496,16 +496,40 @@ router.post('/analytics/mobility-candidates', (req, res) => {
 
 // Get job required skills
 router.get('/jedx/jobs/:jobId/skills', (req, res) => {
-  // This would typically query the JEDx API
+  // Load skills data from skillsapi directory
+  const skillsFile = path.join(__dirname, '..', '..', 'sample-data', 'skillsapi', `job-${req.params.jobId.toLowerCase()}-skills.json`);
+
+  if (fs.existsSync(skillsFile)) {
+    const skillsData = JSON.parse(fs.readFileSync(skillsFile, 'utf8'));
+    return res.json(skillsData);
+  }
+
+  // Return empty skills in OpenAPI format
   res.json({
-    '@context': [
-      'https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json',
-      'https://schema.org'
-    ],
-    '@type': 'SkillAssertionCollection',
-    'targetType': 'https://schema.org/JobPosting',
-    'targetId': `https://api.jedx.example.com/jobs/${req.params.jobId}`,
-    'assertions': []
+    identifier: `https://api.jedx.example.com/jobs/${req.params.jobId}`,
+    targetType: 'Job',
+    assertions: []
+  });
+});
+
+// Set job required skills
+router.put('/jedx/jobs/:jobId/skills', (req, res) => {
+  const skillsData = req.body;
+
+  // Validate the request body
+  if (!skillsData || !skillsData.assertions) {
+    return res.status(400).json({
+      error: 'Missing required field: assertions'
+    });
+  }
+
+  // In a real implementation, this would save to a database
+  // For demo purposes, we'll just acknowledge the update
+  res.json({
+    message: 'Job skills updated successfully',
+    jobId: req.params.jobId,
+    skillCount: skillsData.assertions.length,
+    data: skillsData
   });
 });
 
