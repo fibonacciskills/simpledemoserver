@@ -21,9 +21,8 @@
   ],
   "job": {
     "RefId": "550e8400-e29b-41d4-a716-446655440001",
-    "senderId": "techcorp-system-01",
-    "receiverId": "",
     "organizationRefId": "7a3b4c5d-e6f7-48a9-b0c1-d2e3f4a5b6c7",
+    "podURL": "https://techcorp.example.com/privacy/pod/2026-02.html",
     "organizationId": "TechCorp-2026",
     "jobId": "SWE-001",
     "title": "Senior Software Engineer",

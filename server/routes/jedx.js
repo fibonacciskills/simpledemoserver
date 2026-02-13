@@ -142,8 +142,6 @@ router.post('/jobs', (req, res) => {
 
   // Add metadata
   job.RefId = job.RefId || uuidv4();
-  job.senderId = job.senderId || 'demo-system-01';
-  job.receiverId = job.receiverId || '';
 
   jobs.push(job);
 
@@ -256,7 +254,6 @@ router.post('/workers', (req, res) => {
   }
 
   worker.RefId = worker.RefId || uuidv4();
-  worker.senderId = worker.senderId || 'demo-system-01';
 
   workers.push(worker);
 
@@ -338,7 +335,6 @@ router.post('/organizations', (req, res) => {
   }
 
   organization.RefId = organization.RefId || uuidv4();
-  organization.senderId = organization.senderId || 'demo-system-01';
 
   organizations.push(organization);
 
@@ -431,7 +427,6 @@ router.post('/reports/compensation', (req, res) => {
   }
 
   worker_compensation_report.RefId = worker_compensation_report.RefId || uuidv4();
-  worker_compensation_report.senderId = worker_compensation_report.senderId || 'demo-system-01';
 
   compensationReports.push(worker_compensation_report);
 
@@ -486,7 +481,6 @@ router.post('/reports/hours', (req, res) => {
   }
 
   worker_paid_hours_report.RefId = worker_paid_hours_report.RefId || uuidv4();
-  worker_paid_hours_report.senderId = worker_paid_hours_report.senderId || 'demo-system-01';
 
   hoursReports.push(worker_paid_hours_report);
 
@@ -537,9 +531,8 @@ router.get('/schemas/job', (req, res) => {
     type: 'object',
     properties: {
       RefId: { type: 'string', format: 'uuid' },
-      senderId: { type: 'string' },
-      receiverId: { type: 'string' },
       organizationRefId: { type: 'string', format: 'uuid' },
+      podURL: { type: 'string' },
       organizationId: { type: 'string' },
       jobId: { type: 'string' },
       title: { type: 'string' },
@@ -558,7 +551,7 @@ router.get('/schemas/job', (req, res) => {
         }
       }
     },
-    required: ['organizationId', 'jobId', 'title'],
+    required: ['organizationId', 'jobId'],
     additionalProperties: false
   });
 });
@@ -572,8 +565,8 @@ router.get('/schemas/worker', (req, res) => {
     type: 'object',
     properties: {
       RefId: { type: 'string', format: 'uuid' },
-      senderId: { type: 'string' },
       organizationRefId: { type: 'string', format: 'uuid' },
+      podURL: { type: 'string' },
       workerId: {
         type: 'object',
         properties: {
@@ -613,7 +606,6 @@ router.get('/schemas/organization', (req, res) => {
     type: 'object',
     properties: {
       RefId: { type: 'string', format: 'uuid' },
-      senderId: { type: 'string' },
       organizationId: {
         type: 'object',
         properties: {
@@ -632,10 +624,12 @@ router.get('/schemas/organization', (req, res) => {
           }
         }
       },
-      name: { type: 'string' },
-      'isMulti-state': { type: 'boolean' }
+      tradeName: { type: 'string' },
+      physicalAddresses: { type: 'array' },
+      industryIdentifiers: { type: 'array' },
+      organizationActivity: { type: 'array' }
     },
-    required: ['organizationId', 'name'],
+    required: ['organizationId'],
     additionalProperties: true
   });
 });
