@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Open Skills Proficiency API - Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-block {
+            background: #1e293b;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #3b82f6;
+            color: white;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .skill-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        .status-connected {
+            background-color: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        .status-disconnected {
+            background-color: #ef4444;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
+    <!-- Live Status Bar -->
+    <div id="status-bar" class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-2 px-4 text-sm">
+        <div class="container mx-auto max-w-7xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="status-indicator status-disconnected" id="status-dot"></span>
+                <span id="status-text">Checking server connection...</span>
+            </div>
+            <div class="text-xs text-gray-400" id="status-info"></div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <header class="text-center mb-12 fade-in">
+            <div class="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                Pre-Release • January 2026
+            </div>
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">
+                HR Open Skills Proficiency API
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                The first open, comprehensive standard for representing skills proficiency data across HCM, assessment, learning, and talent platforms.
+            </p>
+            <div class="mt-4 mb-6 space-y-2">
+                <div>
+                    <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-pre-release-of-the-first-ever-skills-proficiency-data-api-schema"
+                       target="_blank"
+                       class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold text-lg transition">
+                        📰 Skills API Press Release
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div>
+                    <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-official-release-of-the-trusted-career-profile-tcp"
+                       target="_blank"
+                       class="inline-flex items-center text-green-600 hover:text-green-800 font-semibold text-lg transition">
+                        🎫 Trusted Career Profile (TCP) Release
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-center gap-4">
+                <a href="/api/v1/skills/docs" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Explore API
+                </a>
+                <a href="/samples.html" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition">
+                    📂 Browse Sample Files
+                </a>
+            </div>
+        </header>
+
+        <!-- What is it? -->
+        <section class="mb-16 fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">What is the Skills Proficiency API?</h2>
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        The <strong>Skills Proficiency Data API Schema</strong> is a groundbreaking open standard that enables organizations to consistently describe, exchange, and interpret skills proficiency information across systems. It creates a common language for skills data that works seamlessly with existing standards.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6 mt-8">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl skill-card border border-blue-100">
+                            <div class="text-3xl mb-3">🔄</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Interoperable</h3>
+                            <p class="text-gray-600 text-sm">Works across HCM, assessment, learning, talent, and skills intelligence platforms</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl skill-card border border-purple-100">
+                            <div class="text-3xl mb-3">🎯</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Precise</h3>
+                            <p class="text-gray-600 text-sm">Structured proficiency levels with ranks, scales, and evidence sources</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-xl skill-card border border-green-100">
+                            <div class="text-3xl mb-3">🤝</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Complementary</h3>
+                            <p class="text-gray-600 text-sm">Works alongside JEDx, Open Badges, CLR, CTDL, and other standards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Major Use Cases -->
+        <section class="mb-16 fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Major Use Cases & Platform Interoperability</h2>
+                <p class="text-gray-600 mb-8 text-lg">
+                    The Skills Proficiency API enables <strong>seamless interoperability across HCM, assessment, learning, talent, and skills intelligence platforms</strong>, unlocking powerful use cases for modern workforce management.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="border-2 border-blue-200 rounded-xl p-6 hover:border-blue-400 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">💼</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Skills-Based Hiring & Talent Matching</h3>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Define precise skill requirements in job postings</li>
+                                    <li>• Automatically match candidates to opportunities</li>
+                                    <li>• Identify skills gaps before hiring</li>
+                                    <li>• Reduce bias by focusing on verified skills</li>
+                                </ul>
+                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                                    <strong>Platform Integration:</strong> ATS systems, job boards, talent marketplaces
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-purple-200 rounded-xl p-6 hover:border-purple-400 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">📊</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Workforce Analytics & Intelligence</h3>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Aggregate enterprise-wide skills inventory</li>
+                                    <li>• Track skills currency and decay over time</li>
+                                    <li>• Identify internal mobility opportunities</li>
+                                    <li>• Predict future skills needs</li>
+                                </ul>
+                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                                    <strong>Platform Integration:</strong> HCM systems, workforce planning tools, analytics dashboards
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-green-200 rounded-xl p-6 hover:border-green-400 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🎓</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Learning & Development Pathways</h3>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Map learning content to skill outcomes</li>
+                                    <li>• Recommend personalized training paths</li>
+                                    <li>• Track skill development over time</li>
+                                    <li>• Issue verified skill credentials</li>
+                                </ul>
+                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                                    <strong>Platform Integration:</strong> LMS platforms, course catalogs, credential systems, CLR/LER
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-orange-200 rounded-xl p-6 hover:border-orange-400 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">✅</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Skills Assessment & Validation</h3>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Map assessment scores to proficiency levels</li>
+                                    <li>• Issue verified digital badges</li>
+                                    <li>• Create portable skill credentials</li>
+                                    <li>• Enable third-party verification</li>
+                                </ul>
+                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                                    <strong>Platform Integration:</strong> Assessment platforms, certification bodies, Open Badges, Verifiable Credentials
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-indigo-200 rounded-xl p-6 hover:border-indigo-400 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🔄</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Internal Talent Mobility</h3>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Discover hidden talent across departments</li>
+                                    <li>• Match employees to stretch assignments</li>
+                                    <li>• Plan succession and career progression</li>
+                                    <li>• Reduce external hiring costs</li>
+                                </ul>
+                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                                    <strong>Platform Integration:</strong> HRIS, talent management systems, opportunity marketplaces
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-pink-200 rounded-xl p-6 hover:border-pink-400 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🤖</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Skills Intelligence & AI</h3>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Power AI-driven skills recommendations</li>
+                                    <li>• Identify emerging skills trends</li>
+                                    <li>• Benchmark against market data</li>
+                                    <li>• Generate skills taxonomy alignments</li>
+                                </ul>
+                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                                    <strong>Platform Integration:</strong> Skills ontology systems, AI/ML platforms, labor market analytics
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                        <span class="text-2xl">🌐</span>
+                        Cross-Platform Interoperability
+                    </h4>
+                    <p class="text-gray-700 mb-4">
+                        The Skills API creates a common language that allows skills data to flow seamlessly between different systems:
+                    </p>
+                    <div class="grid md:grid-cols-5 gap-4 text-center">
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <div class="font-bold text-sm text-blue-900">HCM Systems</div>
+                            <div class="text-xs text-gray-600 mt-1">Workday, SAP, Oracle</div>
+                        </div>
+                        <div class="text-2xl flex items-center justify-center text-blue-600">→</div>
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <div class="font-bold text-sm text-purple-900">Learning Platforms</div>
+                            <div class="text-xs text-gray-600 mt-1">Cornerstone, Degreed</div>
+                        </div>
+                        <div class="text-2xl flex items-center justify-center text-purple-600">→</div>
+                        <div class="bg-white rounded-lg p-3 shadow-sm">
+                            <div class="font-bold text-sm text-green-900">Talent Tools</div>
+                            <div class="text-xs text-gray-600 mt-1">Skills databases</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills API Role in TCP -->
+        <section class="mb-16 fade-in">
+            <div class="bg-gradient-to-r from-green-600 to-teal-600 rounded-2xl shadow-lg p-8 text-white">
+                <h2 class="text-3xl font-bold mb-6">Skills API Role in Trusted Career Profile (TCP)</h2>
+                <p class="text-green-100 mb-6 text-lg">
+                    The Skills API is the <strong>service layer</strong> that powers skills data for portable career credentials like TCP and CLR. It doesn't replace TCP - it feeds it.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                        <div class="text-3xl mb-3">📊</div>
+                        <h3 class="text-xl font-bold mb-2">Skills API</h3>
+                        <p class="text-sm text-green-100">Service layer that manages, validates, and queries skills assertions across systems</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                        <div class="text-3xl mb-3">→</div>
+                        <h3 class="text-xl font-bold mb-2">Feeds Into</h3>
+                        <p class="text-sm text-green-100">Provides structured skills data with evidence and proficiency levels</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                        <div class="text-3xl mb-3">🎫</div>
+                        <h3 class="text-xl font-bold mb-2">TCP / CLR</h3>
+                        <p class="text-sm text-green-100">Portable, verifiable career credential containing skills, education, employment</p>
+                    </div>
+                </div>
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6">
+                    <h4 class="font-bold mb-3">Real-World Flow:</h4>
+                    <div class="space-y-2 text-sm text-green-50">
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">1</span>
+                            <span>Person completes assessment, course, or gains work experience</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">2</span>
+                            <span><strong>Skills API</strong> creates verified skill assertions with evidence sources</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">3</span>
+                            <span>Skills data is packaged into <strong>TCP or CLR</strong> as a portable credential</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">4</span>
+                            <span>Person can share TCP/CLR with employers, systems validate using Skills API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works with JEDx -->
+        <section class="mb-16 fade-in">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg p-8 text-white">
+                <h2 class="text-3xl font-bold mb-6">Integration with JEDx API</h2>
+                <p class="text-blue-100 mb-6 text-lg">
+                    The Skills API is designed to complement the <strong>HR Open JEDx (Job Exchange Data)</strong> format, creating a powerful ecosystem for skills-based hiring and workforce transformation.
+                </p>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <span class="text-2xl">⚡</span>
+                        How They Work Together
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="font-bold mb-2 text-yellow-300">JEDx Provides:</div>
+                            <ul class="space-y-2 text-sm text-blue-100">
+                                <li>• Job postings structure</li>
+                                <li>• Worker profile format</li>
+                                <li>• Organization data</li>
+                                <li>• Employment records</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="font-bold mb-2 text-yellow-300">Skills API Adds:</div>
+                            <ul class="space-y-2 text-sm text-blue-100">
+                                <li>• Detailed skill requirements</li>
+                                <li>• Proficiency level measurements</li>
+                                <li>• Evidence-based assertions</li>
+                                <li>• Skills analytics & matching</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6">
+                    <h4 class="font-bold mb-3">Real-World Workflow:</h4>
+                    <div class="space-y-2 text-sm text-blue-50">
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">1</span>
+                            <span>Company posts job using <strong>JEDx format</strong> with position details</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">2</span>
+                            <span><strong>Skills API</strong> defines required skills with precise proficiency levels</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">3</span>
+                            <span>Candidate's skills are assessed and mapped to the same proficiency scales</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">4</span>
+                            <span>Analytics engine performs gap analysis and candidate matching</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Schema Explorer -->
+        <section class="mb-16 fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Interactive Schema Explorer</h2>
+                <p class="text-gray-600 mb-6">Explore real examples from our sample data. Click tabs to see different use cases.</p>
+
+                <!-- Tab Navigation -->
+                <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 pb-4">
+                    <button onclick="showTab('person')" class="tab-button active px-4 py-2 rounded-lg font-semibold" id="tab-person">
+                        🎓 CLR with Skills
+                    </button>
+                    <button onclick="showTab('job')" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700" id="tab-job">
+                        💼 Job Requirements
+                    </button>
+                    <button onclick="showTab('course')" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700" id="tab-course">
+                        📚 Learning Program
+                    </button>
+                    <button onclick="showTab('assessment')" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700" id="tab-assessment">
+                        ✅ Assessment
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="tab-content-person" class="tab-content">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-gray-900">Comprehensive Learner Record (CLR) with Skills</h3>
+                            <p class="text-gray-600 mb-4">Skills assertions within a CLR or Trusted Career Profile (TCP). The Skills API provides the skills data that populates these portable credentials.</p>
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded mb-4">
+                                <div class="font-bold text-blue-900 mb-2">How Skills API → TCP/CLR:</div>
+                                <ul class="text-sm text-blue-800 space-y-1">
+                                    <li>• Skills API manages skill assertions</li>
+                                    <li>• Assertions include evidence & sources</li>
+                                    <li>• Data feeds into TCP/CLR credentials</li>
+                                    <li>• Enables portable, verifiable skills</li>
+                                </ul>
+                            </div>
+                            <button onclick="fetchLiveData('person')" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                                🔄 Fetch CLR Example
+                            </button>
+                        </div>
+                        <div id="person-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+<pre>{
+  "identifier": "https://example.com/people/john-doe",
+  "targetType": "Person",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/PYTHON",
+        "name": "Python Programming",
+        "codedNotation": "PYTHON"
+      },
+      "proficiencyLevel": {
+        "id": "...4-level/4",
+        "name": "Advanced",
+        "description": "Independent application in
+                        complex contexts",
+        "rank": 4
+      },
+      "proficiencyScale": 4,
+      "source": {
+        "id": "https://example.com/assessments/...",
+        "type": "Assessment",
+        "name": "Python Certification 2024"
+      }
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-job" class="tab-content hidden">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-gray-900">Job Skills Requirements</h3>
+                            <p class="text-gray-600 mb-4">Define precise skill requirements for positions, specifying expected proficiency levels for each skill.</p>
+                            <div class="bg-purple-50 border-l-4 border-purple-600 p-4 rounded mb-4">
+                                <div class="font-bold text-purple-900 mb-2">Use Cases:</div>
+                                <ul class="text-sm text-purple-800 space-y-1">
+                                    <li>• Skills-based job postings</li>
+                                    <li>• Candidate screening & matching</li>
+                                    <li>• Skills gap identification</li>
+                                    <li>• Internal mobility planning</li>
+                                </ul>
+                            </div>
+                            <button onclick="fetchLiveData('job')" class="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
+                                🔄 Fetch Live Data
+                            </button>
+                        </div>
+                        <div id="job-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+<pre>{
+  "identifier": "https://example.com/jobs/SWE-001",
+  "targetType": "Job",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/PYTHON",
+        "name": "Python Programming",
+        "codedNotation": "PYTHON"
+      },
+      "proficiencyLevel": {
+        "id": "...4-level/4",
+        "name": "Advanced",
+        "description": "Independent application",
+        "rank": 4
+      },
+      "proficiencyScale": 4
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/SQL",
+        "name": "SQL Database Management",
+        "codedNotation": "SQL"
+      },
+      "proficiencyLevel": {
+        "id": "...4-level/3",
+        "name": "Intermediate",
+        "rank": 3
+      }
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-course" class="tab-content hidden">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-gray-900">Learning Program Skills</h3>
+                            <p class="text-gray-600 mb-4">Define what skills learners will acquire through courses, bootcamps, or training programs.</p>
+                            <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded mb-4">
+                                <div class="font-bold text-green-900 mb-2">Applications:</div>
+                                <ul class="text-sm text-green-800 space-y-1">
+                                    <li>• Course catalog skills mapping</li>
+                                    <li>• Learning pathway design</li>
+                                    <li>• Skills-based recommendations</li>
+                                    <li>• CLR integration</li>
+                                </ul>
+                            </div>
+                            <button onclick="fetchLiveData('course')" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition">
+                                🔄 Fetch Live Data
+                            </button>
+                        </div>
+                        <div id="course-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+<pre>{
+  "identifier": "https://example.com/courses/WEB-DEV",
+  "targetType": "LearningProgram",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/HTML",
+        "name": "HTML",
+        "description": "HTML markup",
+        "codedNotation": "HTML"
+      },
+      "proficiencyLevel": {
+        "id": "...4-level/3",
+        "name": "Intermediate",
+        "rank": 3
+      },
+      "proficiencyScale": 5,
+      "source": {
+        "id": "https://example.com/university",
+        "type": "EducationalOrganization",
+        "name": "Example University"
+      }
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-assessment" class="tab-content hidden">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-gray-900">Assessment Results</h3>
+                            <p class="text-gray-600 mb-4">Map assessment scores to standardized proficiency levels, creating verifiable skill credentials.</p>
+                            <div class="bg-orange-50 border-l-4 border-orange-600 p-4 rounded mb-4">
+                                <div class="font-bold text-orange-900 mb-2">Benefits:</div>
+                                <ul class="text-sm text-orange-800 space-y-1">
+                                    <li>• Objective skill measurement</li>
+                                    <li>• Certification issuance</li>
+                                    <li>• Open Badges integration</li>
+                                    <li>• Third-party verification</li>
+                                </ul>
+                            </div>
+                            <button onclick="fetchLiveData('assessment')" class="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 transition">
+                                🔄 Fetch Live Data
+                            </button>
+                        </div>
+                        <div id="assessment-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+<pre>{
+  "identifier": "https://example.com/assessments/...",
+  "targetType": "Assessment",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/REACT",
+        "name": "React.js",
+        "description": "React library",
+        "codedNotation": "REACT"
+      },
+      "proficiencyLevel": {
+        "id": "...4-level/3",
+        "name": "Intermediate",
+        "description": "Routine independence",
+        "rank": 3
+      },
+      "proficiencyScale": 10
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Standards Ecosystem -->
+        <section class="mb-16 fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Complementary Standards Ecosystem</h2>
+                <p class="text-gray-600 mb-6">The Skills API doesn't replace existing standards—it works alongside them to create a comprehensive ecosystem. It provides the <strong>skills data layer</strong> for portable credentials like TCP and CLR.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="border-2 border-green-400 bg-green-50 rounded-lg p-4 hover:border-green-600 transition">
+                        <div class="font-bold text-gray-900 mb-2">🎫 HR Open TCP</div>
+                        <p class="text-sm text-gray-700"><strong>Trusted Career Profile</strong> - Portable, verifiable career credential (uses Skills API)</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                        <div class="font-bold text-gray-900 mb-2">HR Open JEDx API</div>
+                        <p class="text-sm text-gray-600">Employment data exchange format for jobs, workers, and organizations</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                        <div class="font-bold text-gray-900 mb-2">IMS CLR</div>
+                        <p class="text-sm text-gray-600">Comprehensive Learner Record for lifelong learning (uses Skills API)</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                        <div class="font-bold text-gray-900 mb-2">IMS Open Badges</div>
+                        <p class="text-sm text-gray-600">Digital credentials and achievements with verification</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                        <div class="font-bold text-gray-900 mb-2">CTDL</div>
+                        <p class="text-sm text-gray-600">Credential Transparency Description Language</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                        <div class="font-bold text-gray-900 mb-2">LER / T3</div>
+                        <p class="text-sm text-gray-600">Learning and Employment Records standards</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Skills Browser -->
+        <section class="mb-16 fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Live Skills Browser</h2>
+                <p class="text-gray-600 mb-6">Explore skills loaded from the running API server. Click "Load Skills" to see live data.</p>
+
+                <div class="mb-6">
+                    <button onclick="loadSkills()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition">
+                        🔍 Load Skills from API
+                    </button>
+                    <button onclick="loadProficiencyScales()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition ml-2">
+                        📊 Load Proficiency Scales
+                    </button>
+                </div>
+
+                <div id="skills-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="col-span-full text-center text-gray-400 py-8">
+                        Click "Load Skills" to fetch live data from the API
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Try It Out -->
+        <section class="mb-16 fade-in">
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-lg p-8 text-white text-center">
+                <h2 class="text-3xl font-bold mb-4">Ready to Explore?</h2>
+                <p class="text-purple-100 mb-6 max-w-2xl mx-auto">
+                    This demo server provides full implementations of both the JEDx and Skills APIs with sample data, documentation, and Postman collections.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="/api/v1/skills/skills" target="_blank" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition">
+                        GET /skills
+                    </a>
+                    <a href="/api/v1/jedx/jobs" target="_blank" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition">
+                        GET /jobs
+                    </a>
+                    <a href="/samples.html" class="bg-purple-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-900 transition">
+                        📂 Interactive Browser
+                    </a>
+                    <a href="/api/v1/skills/docs" target="_blank" class="bg-purple-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-900 transition">
+                        API Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 py-8 border-t border-gray-200">
+            <p class="mb-2">
+                <a href="https://www.hropenstandards.org/" class="text-blue-600 hover:underline font-semibold">HR Open Standards</a>
+            </p>
+            <p class="text-sm">
+                Skills Proficiency Data API Schema • Pre-Release 2026 •
+                <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-pre-release-of-the-first-ever-skills-proficiency-data-api-schema" class="text-blue-600 hover:underline">Read the Announcement</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Check server status on load
+        async function checkServerStatus() {
+            const statusDot = document.getElementById('status-dot');
+            const statusText = document.getElementById('status-text');
+            const statusInfo = document.getElementById('status-info');
+
+            try {
+                const response = await fetch('/api/v1/skills/docs');
+                if (!response.ok) throw new Error('Server unavailable');
+
+                const data = await response.json();
+
+                statusDot.className = 'status-indicator status-connected';
+                statusText.textContent = '✓ Server Connected';
+                statusInfo.textContent = `${data.currentData.skills} skills • ${data.currentData.assertions} assertions • ${data.currentData.credentials} credentials loaded`;
+
+            } catch (error) {
+                statusDot.className = 'status-indicator status-disconnected';
+                statusText.textContent = '✗ Server Disconnected';
+                statusInfo.textContent = 'Make sure the server is running on port 3000';
+            }
+        }
+
+        // Check status on page load
+        window.addEventListener('DOMContentLoaded', checkServerStatus);
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active', 'bg-blue-600', 'text-white');
+                button.classList.add('bg-gray-100', 'text-gray-700');
+            });
+
+            // Show selected tab content
+            document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
+
+            // Add active class to clicked button
+            const activeButton = document.getElementById(`tab-${tabName}`);
+            activeButton.classList.add('active', 'bg-blue-600', 'text-white');
+            activeButton.classList.remove('bg-gray-100', 'text-gray-700');
+        }
+
+        // Fetch live data from API
+        async function fetchLiveData(tabName) {
+            const codeBlock = document.getElementById(`${tabName}-code`);
+            codeBlock.innerHTML = '<pre class="text-yellow-300">⏳ Fetching live data from server...</pre>';
+
+            try {
+                let url, data;
+
+                switch(tabName) {
+                    case 'person':
+                        // Fetch comprehensive learner record sample
+                        url = '/api/v1/sample-data/skillsapi/comprehensive-learner-record';
+                        break;
+                    case 'job':
+                        // Fetch job skills sample
+                        url = '/api/v1/sample-data/skillsapi/job-swe-001-skills';
+                        break;
+                    case 'course':
+                        // Fetch course skills sample
+                        url = '/api/v1/sample-data/skillsapi/course-skills-assertions';
+                        break;
+                    case 'assessment':
+                        // Fetch open badge credential sample
+                        url = '/api/v1/sample-data/skillsapi/open-badge-credential';
+                        break;
+                }
+
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                data = await response.json();
+
+                // Format and display the data
+                codeBlock.innerHTML = `<pre class="text-gray-300">${JSON.stringify(data, null, 2)}</pre>`;
+
+                // Add success indicator
+                setTimeout(() => {
+                    codeBlock.scrollTop = 0;
+                }, 100);
+
+            } catch (error) {
+                codeBlock.innerHTML = `<pre class="text-red-400">❌ Error fetching data: ${error.message}\n\nMake sure the server is running on port 3000.</pre>`;
+            }
+        }
+
+        // Load skills from API
+        async function loadSkills() {
+            const skillsList = document.getElementById('skills-list');
+            skillsList.innerHTML = '<div class="col-span-full text-center text-yellow-500 py-8">⏳ Loading skills from API...</div>';
+
+            try {
+                const response = await fetch('/api/v1/skills/skills');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                const skills = data.itemListElement || [];
+
+                if (skills.length === 0) {
+                    skillsList.innerHTML = '<div class="col-span-full text-center text-gray-400 py-8">No skills found in the database</div>';
+                    return;
+                }
+
+                skillsList.innerHTML = skills.map(skill => `
+                    <div class="skill-card bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 cursor-pointer" onclick='showSkillDetail(${JSON.stringify(skill)})'>
+                        <div class="font-bold text-gray-900 mb-2">${skill.name || 'Unnamed Skill'}</div>
+                        ${skill.codedNotation ? `<div class="text-xs font-mono text-blue-600 bg-blue-100 px-2 py-1 rounded inline-block mb-2">${skill.codedNotation}</div>` : ''}
+                        ${skill.description ? `<p class="text-sm text-gray-600 line-clamp-2">${skill.description}</p>` : ''}
+                        <div class="mt-3 text-xs text-blue-600 font-semibold">→ Click to view details</div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                skillsList.innerHTML = `<div class="col-span-full text-center text-red-500 py-8">❌ Error loading skills: ${error.message}</div>`;
+            }
+        }
+
+        // Load proficiency scales from API
+        async function loadProficiencyScales() {
+            const skillsList = document.getElementById('skills-list');
+            skillsList.innerHTML = '<div class="col-span-full text-center text-yellow-500 py-8">⏳ Loading proficiency scales...</div>';
+
+            try {
+                const response = await fetch('/api/v1/skills/proficiency-scales');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                const scales = data.itemListElement || [];
+
+                if (scales.length === 0) {
+                    skillsList.innerHTML = '<div class="col-span-full text-center text-gray-400 py-8">No proficiency scales found</div>';
+                    return;
+                }
+
+                skillsList.innerHTML = scales.map(scale => `
+                    <div class="col-span-full bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${scale.name || 'Unnamed Scale'}</h3>
+                        ${scale.description ? `<p class="text-gray-600 mb-4">${scale.description}</p>` : ''}
+                        ${scale.hasDefinedTerm ? `
+                            <div class="grid md:grid-cols-5 gap-3">
+                                ${scale.hasDefinedTerm.map(term => `
+                                    <div class="bg-white rounded-lg p-3 border border-purple-200">
+                                        <div class="text-lg font-bold text-purple-600">${term.termCode}</div>
+                                        <div class="font-semibold text-gray-900 text-sm">${term.name}</div>
+                                        ${term.description ? `<div class="text-xs text-gray-600 mt-1">${term.description}</div>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                skillsList.innerHTML = `<div class="col-span-full text-center text-red-500 py-8">❌ Error loading proficiency scales: ${error.message}</div>`;
+            }
+        }
+
+        // Show skill detail modal
+        function showSkillDetail(skill) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto p-8" onclick="event.stopPropagation()">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">${skill.name || 'Unnamed Skill'}</h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                    </div>
+                    ${skill.codedNotation ? `<div class="text-sm font-mono text-blue-600 bg-blue-100 px-3 py-1 rounded inline-block mb-4">${skill.codedNotation}</div>` : ''}
+                    ${skill.description ? `<p class="text-gray-700 mb-6">${skill.description}</p>` : ''}
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h4 class="font-bold text-gray-900 mb-3">Full JSON:</h4>
+                        <pre class="text-xs text-gray-700 overflow-auto bg-white p-4 rounded border border-gray-200">${JSON.stringify(skill, null, 2)}</pre>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        // Add fade-in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

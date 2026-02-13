@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Data Browser - HR Open APIs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-block {
+            background: #1e293b;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .file-item {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .file-item:hover {
+            transform: translateX(4px);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .file-item.active {
+            background-color: rgba(59, 130, 246, 0.15);
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-6 px-4 shadow-lg">
+        <div class="container mx-auto max-w-7xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">Sample Data Browser</h1>
+                    <p class="text-blue-100">Explore JEDx and Skills API sample data files</p>
+                </div>
+                <a href="/" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- File List Sidebar -->
+            <div class="md:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Available Files</h2>
+
+                    <div class="mb-4">
+                        <input
+                            type="text"
+                            id="search-input"
+                            placeholder="Search files..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            oninput="filterFiles(this.value)"
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <button onclick="loadFileList()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                            🔄 Refresh File List
+                        </button>
+                    </div>
+
+                    <div id="file-list" class="space-y-2 max-h-[600px] overflow-y-auto">
+                        <div class="text-center text-gray-400 py-8">
+                            Loading files...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Display Area -->
+            <div class="md:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900" id="file-title">Select a file to view</h2>
+                        <div class="flex gap-2">
+                            <button
+                                onclick="copyToClipboard()"
+                                class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition text-sm"
+                                id="copy-btn"
+                                disabled
+                            >
+                                📋 Copy JSON
+                            </button>
+                            <button
+                                onclick="downloadFile()"
+                                class="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition text-sm"
+                                id="download-btn"
+                                disabled
+                            >
+                                ⬇️ Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="file-path" class="mb-4 text-sm text-gray-500"></div>
+
+                    <div id="content-display" class="code-block p-6 text-sm text-gray-300 font-mono overflow-auto max-h-[700px]">
+                        <pre class="text-gray-400">Select a file from the list to view its contents</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = null;
+        let currentFileName = null;
+        let allFiles = [];
+
+        // Load file list on page load
+        window.addEventListener('DOMContentLoaded', loadFileList);
+
+        async function loadFileList() {
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '<div class="text-center text-yellow-500 py-4">⏳ Loading...</div>';
+
+            try {
+                const response = await fetch('/api/v1/sample-data');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                allFiles = data.files || [];
+
+                displayFiles(allFiles);
+
+            } catch (error) {
+                fileList.innerHTML = `<div class="text-center text-red-500 py-4">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        function displayFiles(files) {
+            const fileList = document.getElementById('file-list');
+
+            if (files.length === 0) {
+                fileList.innerHTML = '<div class="text-center text-gray-400 py-4">No files found</div>';
+                return;
+            }
+
+            // Group files by directory
+            const grouped = {};
+            files.forEach(file => {
+                const parts = file.name.split('/');
+                const dir = parts.length > 1 ? parts[0] : 'Root';
+                if (!grouped[dir]) grouped[dir] = [];
+                grouped[dir].push(file);
+            });
+
+            fileList.innerHTML = Object.entries(grouped).map(([dir, files]) => `
+                <div class="mb-4">
+                    <div class="text-xs font-bold text-gray-500 uppercase mb-2 px-2">${dir}</div>
+                    ${files.map(file => `
+                        <div class="file-item p-3 rounded-lg border border-gray-200 mb-1" onclick="loadFile('${file.url}', '${file.name}')" data-filename="${file.name}">
+                            <div class="font-semibold text-gray-900 text-sm">${file.name.split('/').pop().replace('.json', '')}</div>
+                            <div class="text-xs text-gray-500 mt-1">${file.path}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        function filterFiles(query) {
+            if (!query.trim()) {
+                displayFiles(allFiles);
+                return;
+            }
+
+            const filtered = allFiles.filter(file =>
+                file.name.toLowerCase().includes(query.toLowerCase()) ||
+                file.path.toLowerCase().includes(query.toLowerCase())
+            );
+
+            displayFiles(filtered);
+        }
+
+        async function loadFile(url, filename) {
+            const contentDisplay = document.getElementById('content-display');
+            const fileTitle = document.getElementById('file-title');
+            const filePath = document.getElementById('file-path');
+
+            contentDisplay.innerHTML = '<pre class="text-yellow-300">⏳ Loading file...</pre>';
+            fileTitle.textContent = filename;
+            filePath.textContent = `📄 ${url}`;
+
+            // Update active state
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.filename === filename) {
+                    item.classList.add('active');
+                }
+            });
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                currentData = data;
+                currentFileName = filename;
+
+                contentDisplay.innerHTML = `<pre class="text-gray-300">${JSON.stringify(data, null, 2)}</pre>`;
+
+                // Enable buttons
+                document.getElementById('copy-btn').disabled = false;
+                document.getElementById('download-btn').disabled = false;
+
+            } catch (error) {
+                contentDisplay.innerHTML = `<pre class="text-red-400">❌ Error loading file: ${error.message}</pre>`;
+            }
+        }
+
+        function copyToClipboard() {
+            if (!currentData) return;
+
+            const text = JSON.stringify(currentData, null, 2);
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('bg-green-700');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('bg-green-700');
+                }, 2000);
+            });
+        }
+
+        function downloadFile() {
+            if (!currentData || !currentFileName) return;
+
+            const blob = new Blob([JSON.stringify(currentData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFileName.split('/').pop();
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

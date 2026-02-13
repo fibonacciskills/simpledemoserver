@@ -1,0 +1,187 @@
+{
+  "identifier": "https://university.example.com/courses/CS-502-ADVANCED-WEB",
+  "targetType": "LearningProgram",
+  "description": "Advanced Web Development course showing skills from multiple taxonomies and progression throughout the course",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.onetcenter.org/skills/2.C.4.a",
+        "name": "JavaScript Programming",
+        "description": "Client-side and server-side JavaScript development",
+        "codedNotation": "ONET-2.C.4.a"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/5/level-2",
+        "name": "Novice",
+        "description": "Beginning of course assessment",
+        "rank": 2
+      },
+      "proficiencyScale": 5,
+      "source": {
+        "id": "https://university.example.com/assessments/week-1",
+        "type": "Assessment",
+        "name": "Week 1 Pre-Assessment"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.onetcenter.org/skills/2.C.4.a",
+        "name": "JavaScript Programming",
+        "description": "Client-side and server-side JavaScript development",
+        "codedNotation": "ONET-2.C.4.a"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/5/level-4",
+        "name": "Advanced",
+        "description": "End of course assessment",
+        "rank": 4
+      },
+      "proficiencyScale": 5,
+      "source": {
+        "id": "https://university.example.com/assessments/final-exam",
+        "type": "Assessment",
+        "name": "Final Exam"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://ec.europa.eu/esco/skill/S1.2.3",
+        "name": "Database Design",
+        "description": "Design and implement relational database schemas (ESCO Taxonomy)",
+        "codedNotation": "ESCO-S1.2.3"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/4/level-2",
+        "name": "Novice",
+        "description": "Midterm assessment",
+        "rank": 2
+      },
+      "proficiencyScale": 4,
+      "source": {
+        "id": "https://university.example.com/assessments/midterm",
+        "type": "Assessment",
+        "name": "Midterm Project"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://ec.europa.eu/esco/skill/S1.2.3",
+        "name": "Database Design",
+        "description": "Design and implement relational database schemas (ESCO Taxonomy)",
+        "codedNotation": "ESCO-S1.2.3"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/4/level-3",
+        "name": "Intermediate",
+        "description": "Final project assessment",
+        "rank": 3
+      },
+      "proficiencyScale": 4,
+      "source": {
+        "id": "https://university.example.com/assessments/final-project",
+        "type": "Assessment",
+        "name": "Capstone Project"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://lightcast.io/skills/KS120FG6YP8QNKZ8R9XY",
+        "name": "RESTful API Development",
+        "description": "Design and implementation of REST APIs (Lightcast Taxonomy)",
+        "codedNotation": "LIGHTCAST-REST"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/10/level-5",
+        "name": "Developing Competence",
+        "description": "Mid-course practical assessment",
+        "rank": 5
+      },
+      "proficiencyScale": 10,
+      "source": {
+        "id": "https://university.example.com/assessments/lab-5",
+        "type": "Assessment",
+        "name": "Lab Assignment 5"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://lightcast.io/skills/KS120FG6YP8QNKZ8R9XY",
+        "name": "RESTful API Development",
+        "description": "Design and implementation of REST APIs (Lightcast Taxonomy)",
+        "codedNotation": "LIGHTCAST-REST"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/10/level-8",
+        "name": "Proficient",
+        "description": "Final practical assessment",
+        "rank": 8
+      },
+      "proficiencyScale": 10,
+      "source": {
+        "id": "https://university.example.com/assessments/final-project",
+        "type": "Assessment",
+        "name": "Capstone Project"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://university.example.com/custom-taxonomy/SECURITY-001",
+        "name": "Web Application Security",
+        "description": "Understanding and implementing security best practices (Custom Taxonomy)",
+        "codedNotation": "CUSTOM-SEC-001"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/7.5/level-3",
+        "name": "Fundamental Understanding",
+        "description": "Security module assessment",
+        "rank": 3
+      },
+      "proficiencyScale": 7.5,
+      "source": {
+        "id": "https://university.example.com/assessments/security-module",
+        "type": "Assessment",
+        "name": "Security Module Quiz"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://university.example.com/custom-taxonomy/SECURITY-001",
+        "name": "Web Application Security",
+        "description": "Understanding and implementing security best practices (Custom Taxonomy)",
+        "codedNotation": "CUSTOM-SEC-001"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/7.5/level-6",
+        "name": "Applied Competence",
+        "description": "Implementation in final project",
+        "rank": 6
+      },
+      "proficiencyScale": 7.5,
+      "source": {
+        "id": "https://university.example.com/assessments/final-project",
+        "type": "Assessment",
+        "name": "Capstone Project - Security Component"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/REACT",
+        "name": "React.js Framework",
+        "description": "Frontend development using React (HR Open Standards)",
+        "codedNotation": "HROPEN-REACT"
+      },
+      "proficiencyLevel": {
+        "id": "https://university.example.com/scales/4/level-3",
+        "name": "Intermediate",
+        "description": "Single assessment level",
+        "rank": 3
+      },
+      "proficiencyScale": 4,
+      "source": {
+        "id": "https://university.example.com",
+        "type": "EducationalOrganization",
+        "name": "Tech University"
+      }
+    }
+  ]
+}
