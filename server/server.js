@@ -16,8 +16,11 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(morgan('dev'));
 
-// API Info endpoint
-app.get('/', (req, res) => {
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API Info endpoint (JSON response for API clients)
+app.get('/api', (req, res) => {
   res.json({
     name: 'JEDx & Skills API Demo Server',
     version: '1.0.0',
@@ -146,13 +149,16 @@ app.listen(PORT, () => {
 ║   Server running on: http://localhost:${PORT}              ║
 ║   Environment: ${process.env.NODE_ENV || 'development'}                                    ║
 ╟───────────────────────────────────────────────────────────╢
+║   Interactive Guide:                                      ║
+║   • Skills API Guide: http://localhost:${PORT}/            ║
+╟───────────────────────────────────────────────────────────╢
 ║   Available APIs:                                         ║
 ║   • JEDx API:   http://localhost:${PORT}/api/v1/jedx       ║
 ║   • Skills API: http://localhost:${PORT}/api/v1/skills     ║
 ║   • Sample Data: http://localhost:${PORT}/api/v1/sample-data ║
 ╟───────────────────────────────────────────────────────────╢
 ║   Documentation:                                          ║
-║   • API Info: http://localhost:${PORT}/                    ║
+║   • API Info: http://localhost:${PORT}/api                 ║
 ║   • Health:   http://localhost:${PORT}/health              ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
