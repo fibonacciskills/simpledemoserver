@@ -636,12 +636,18 @@ router.get('/schemas/organization', (req, res) => {
 
 // ==================== DOCUMENTATION ====================
 
-router.get('/docs', (req, res) => {
+// Note: The main /docs endpoint is now handled by Swagger UI in server.js
+// This endpoint provides API info and redirects to Swagger UI
+router.get('/docs-legacy', (req, res) => {
   res.json({
     name: 'JEDx API',
     version: '1.0.0',
     description: 'Job Exchange Data API for workforce data exchange',
     baseUrl: '/api/v1/jedx',
+    documentation: {
+      swagger: '/api/v1/jedx/docs',
+      openapi: '/api/v1/jedx/openapi.json'
+    },
     resources: {
       jobs: {
         endpoints: [
@@ -657,14 +663,34 @@ router.get('/docs', (req, res) => {
         endpoints: [
           'GET /workers',
           'GET /workers/:workerId',
-          'POST /workers'
+          'POST /workers',
+          'PUT /workers/:workerId',
+          'DELETE /workers/:workerId'
         ]
       },
       organizations: {
         endpoints: [
           'GET /organizations',
           'GET /organizations/:orgId',
-          'POST /organizations'
+          'POST /organizations',
+          'PUT /organizations/:orgId',
+          'DELETE /organizations/:orgId'
+        ]
+      },
+      reports: {
+        endpoints: [
+          'GET /reports/compensation',
+          'POST /reports/compensation',
+          'GET /reports/hours',
+          'POST /reports/hours'
+        ]
+      },
+      schemas: {
+        endpoints: [
+          'GET /schemas',
+          'GET /schemas/job',
+          'GET /schemas/worker',
+          'GET /schemas/organization'
         ]
       }
     },

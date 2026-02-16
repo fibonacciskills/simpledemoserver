@@ -624,12 +624,18 @@ router.post('/taxonomies/map', (req, res) => {
 
 // ==================== DOCUMENTATION ====================
 
-router.get('/docs', (req, res) => {
+// Note: The main /docs endpoint is now handled by Swagger UI in server.js
+// This endpoint redirects to the Swagger UI
+router.get('/docs-legacy', (req, res) => {
   res.json({
     name: 'HR Open Skills Data API',
     version: '1.0.0',
     description: 'Skills-based hiring, workforce transformation, and talent optimization',
     baseUrl: '/api/v1/skills',
+    documentation: {
+      swagger: '/api/v1/skills/docs',
+      openapi: '/api/v1/skills/openapi.json'
+    },
     standards: [
       'IMS Global Open Badges v3.0',
       'W3C Verifiable Credentials',
@@ -638,7 +644,7 @@ router.get('/docs', (req, res) => {
     ],
     resources: {
       skills: {
-        endpoints: ['GET /skills', 'GET /skills/:skillId', 'POST /skills']
+        endpoints: ['GET /skills', 'GET /skills/:skillId', 'POST /skills', 'GET /skills/search']
       },
       assertions: {
         endpoints: ['GET /assertions', 'POST /assertions', 'GET /assertions/:assertionId']
@@ -653,7 +659,7 @@ router.get('/docs', (req, res) => {
         endpoints: ['GET /analytics/skills-inventory', 'POST /analytics/gap-analysis', 'POST /analytics/mobility-candidates']
       },
       jedx: {
-        endpoints: ['GET /jedx/jobs/:jobId/skills', 'POST /jedx/match']
+        endpoints: ['GET /jedx/jobs/:jobId/skills', 'PUT /jedx/jobs/:jobId/skills', 'POST /jedx/match']
       },
       credentials: {
         endpoints: ['POST /credentials/badges', 'GET /credentials']

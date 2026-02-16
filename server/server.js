@@ -3,10 +3,15 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const fs = require('fs');
+const swaggerUi = require('swagger-ui-express');
 
 // Import routes
 const jedxRoutes = require('./routes/jedx');
 const skillsRoutes = require('./routes/skills');
+
+// Import Swagger configurations
+const swaggerSkillsSpec = require('./config/swagger-skills');
+const swaggerJedxSpec = require('./config/swagger-jedx');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -53,7 +58,37 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Mount routes
+// Swagger UI options
+const swaggerUiOptions = {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'HR Open Standards API Documentation',
+};
+
+// Mount Swagger UI for Skills API
+app.use(
+  '/api/v1/skills/docs',
+  swaggerUi.serveFiles(swaggerSkillsSpec, swaggerUiOptions),
+  swaggerUi.setup(swaggerSkillsSpec, swaggerUiOptions)
+);
+
+// Mount Swagger UI for JEDx API
+app.use(
+  '/api/v1/jedx/docs',
+  swaggerUi.serveFiles(swaggerJedxSpec, swaggerUiOptions),
+  swaggerUi.setup(swaggerJedxSpec, swaggerUiOptions)
+);
+
+// Serve OpenAPI JSON specs directly
+app.get('/api/v1/skills/openapi.json', (req, res) => {
+  res.json(swaggerSkillsSpec);
+});
+
+app.get('/api/v1/jedx/openapi.json', (req, res) => {
+  res.json(swaggerJedxSpec);
+});
+
+// Mount routes (must come after Swagger to avoid conflicts)
 app.use('/api/v1/jedx', jedxRoutes);
 app.use('/api/v1/skills', skillsRoutes);
 
