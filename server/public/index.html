@@ -3,391 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Open Skills Proficiency API - Interactive Guide</title>
+    <title>HR Open Skills Proficiency API</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef4ff',
+                            100: '#d9e5ff',
+                            200: '#bbcfff',
+                            300: '#8badff',
+                            400: '#5480ff',
+                            500: '#2d55fc',
+                            600: '#1735f1',
+                            700: '#1025de',
+                            800: '#1320b4',
+                            900: '#15218e',
+                            950: '#111656',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        .code-block {
-            background: #1e293b;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-        }
-        .tab-button {
-            transition: all 0.3s ease;
-        }
-        .tab-button.active {
-            background: #3b82f6;
-            color: white;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .skill-card {
-            transition: transform 0.2s, box-shadow 0.2s;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .skill-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
         }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out both;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out both;
+        }
+        .animate-slide-in {
+            animation: slideIn 0.4s ease-out both;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* Status indicator */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .status-dot.connected {
+            background-color: #10b981;
+            animation: pulse-ring 2s infinite;
+        }
+        .status-dot.disconnected {
+            background-color: #ef4444;
+        }
+
+        /* Glass card */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Card hover */
+        .card-lift {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .card-lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Tab styling */
+        .tab-btn {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: transparent;
+            border-radius: 1px;
+            transition: background 0.2s ease;
+        }
+        .tab-btn.active {
+            color: #2d55fc;
+        }
+        .tab-btn.active::after {
+            background: #2d55fc;
+        }
+
+        /* Code block */
+        .code-block {
+            background: #0f172a;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #2d55fc 0%, #7c3aed 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hero gradient bg */
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #1e1b4b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(45, 85, 252, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+
+        /* Line clamp */
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 2s infinite;
+
+        /* Nav link */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s;
         }
-        .status-connected {
-            background-color: #10b981;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #2d55fc;
+            transition: width 0.2s, left 0.2s;
+            border-radius: 1px;
         }
-        .status-disconnected {
-            background-color: #ef4444;
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+        /* Section reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Subtle grid pattern */
+        .grid-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.12) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        /* Ecosystem connector */
+        .connector {
+            position: relative;
+        }
+        .connector::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(to right, #cbd5e1, transparent);
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
-    <!-- Live Status Bar -->
-    <div id="status-bar" class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-2 px-4 text-sm">
-        <div class="container mx-auto max-w-7xl flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="status-indicator status-disconnected" id="status-dot"></span>
-                <span id="status-text">Checking server connection...</span>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+    <!-- Fixed Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-sm tracking-tight" id="nav-brand">HR Open Skills API</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#overview" class="nav-link text-sm font-medium" id="nav-link-1">Overview</a>
+                    <a href="#use-cases" class="nav-link text-sm font-medium" id="nav-link-2">Use Cases</a>
+                    <a href="#explorer" class="nav-link text-sm font-medium" id="nav-link-3">Explorer</a>
+                    <a href="#ecosystem" class="nav-link text-sm font-medium" id="nav-link-4">Ecosystem</a>
+                    <a href="#browser" class="nav-link text-sm font-medium" id="nav-link-5">Browser</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 text-xs font-medium" id="nav-status">
+                        <span class="status-dot disconnected" id="status-dot"></span>
+                        <span id="status-text" class="hidden sm:inline">Connecting...</span>
+                    </div>
+                    <a href="/api/v1/skills/docs" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+                        API Docs
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
             </div>
-            <div class="text-xs text-gray-400" id="status-info"></div>
         </div>
-    </div>
+    </nav>
 
-    <div class="container mx-auto px-4 py-8 max-w-7xl">
-        <!-- Header -->
-        <header class="text-center mb-12 fade-in">
-            <div class="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                Pre-Release • January 2026
-            </div>
-            <h1 class="text-5xl font-bold text-gray-900 mb-4">
-                HR Open Skills Proficiency API
-            </h1>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                The first open, comprehensive standard for representing skills proficiency data across HCM, assessment, learning, and talent platforms. Compatible with leading digital credentials (OB3.0, CLR2.0).
-            </p>
-            <div class="mt-4 mb-6 space-y-2">
-                <div>
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-32 pb-20 px-6">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="max-w-3xl">
+                <div class="animate-fade-up">
+                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+                        <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                        Pre-Release &middot; January 2026
+                    </span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 animate-fade-up delay-1">
+                    Skills Proficiency<br>
+                    <span class="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">Data API Schema</span>
+                </h1>
+                <p class="text-lg text-slate-300 leading-relaxed max-w-xl mb-8 animate-fade-up delay-2">
+                    The first open standard for representing skills proficiency data across HCM, assessment, learning, and talent platforms. Compatible with OB3.0, CLR2.0, and TCP.
+                </p>
+                <div class="flex flex-wrap gap-3 mb-10 animate-fade-up delay-3">
+                    <a href="/api/v1/skills/docs" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-brand-500/25">
+                        Explore the API
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                    <a href="/samples.html" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/10 text-white font-semibold px-6 py-3 rounded-xl transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                        Browse Samples
+                    </a>
+                </div>
+                <div class="flex flex-wrap gap-6 animate-fade-up delay-4">
                     <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-pre-release-of-the-first-ever-skills-proficiency-data-api-schema"
-                       target="_blank"
-                       class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold text-lg transition">
-                        📰 Skills API Press Release
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
+                       target="_blank" rel="noopener"
+                       class="group inline-flex items-center gap-2 text-sm text-slate-400 hover:text-blue-300 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                        Skills API Press Release
+                        <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                     </a>
-                </div>
-                <div>
                     <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-official-release-of-the-trusted-career-profile-tcp"
-                       target="_blank"
-                       class="inline-flex items-center text-green-600 hover:text-green-800 font-semibold text-lg transition">
-                        🎫 Trusted Career Profile (TCP) Release
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
+                       target="_blank" rel="noopener"
+                       class="group inline-flex items-center gap-2 text-sm text-slate-400 hover:text-emerald-300 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
+                        TCP Release Announcement
+                        <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                     </a>
                 </div>
             </div>
-            <div class="mt-6 flex justify-center gap-4">
-                <a href="/api/v1/skills/docs" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                    Explore API
-                </a>
-                <a href="/samples.html" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition">
-                    📂 Browse Sample Files
-                </a>
+            <!-- Server info badge -->
+            <div class="mt-10 animate-fade-up delay-5">
+                <div class="inline-flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 text-sm">
+                    <span class="status-dot disconnected" id="hero-status-dot"></span>
+                    <span class="text-slate-400" id="hero-status-text">Checking server connection...</span>
+                    <span class="text-slate-500 hidden" id="hero-status-info"></span>
+                </div>
             </div>
-        </header>
+        </div>
+    </section>
 
-        <!-- What is it? -->
-        <section class="mb-16 fade-in">
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">What is the Skills Proficiency API?</h2>
-                <div class="prose prose-lg max-w-none">
-                    <p class="text-gray-700 leading-relaxed mb-4">
-                        The <strong>Skills Proficiency Data API Schema</strong> is a groundbreaking open standard that enables organizations to consistently describe, exchange, and interpret skills proficiency information across systems. It creates a common language for skills data that works seamlessly with existing standards.
+    <!-- Main Content -->
+    <main class="grid-pattern">
+
+        <!-- Overview Section -->
+        <section id="overview" class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-14">
+                    <p class="text-brand-500 font-semibold text-sm tracking-wide uppercase mb-3">Overview</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">What is the Skills Proficiency API?</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                        A groundbreaking open standard that enables organizations to consistently describe, exchange, and interpret skills proficiency information across systems.
                     </p>
-                    <div class="grid md:grid-cols-3 gap-6 mt-8">
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl skill-card border border-blue-100">
-                            <div class="text-3xl mb-3">🔄</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2">Interoperable</h3>
-                            <p class="text-gray-600 text-sm">Works across HCM, assessment, learning, talent, and skills intelligence platforms</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 card-lift">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
                         </div>
-                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl skill-card border border-purple-100">
-                            <div class="text-3xl mb-3">🎯</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2">Precise</h3>
-                            <p class="text-gray-600 text-sm">Structured proficiency levels with ranks, scales, and evidence sources</p>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Interoperable</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Works across HCM, assessment, learning, talent, and skills intelligence platforms with zero friction.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 card-lift">
+                        <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
                         </div>
-                        <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-xl skill-card border border-green-100">
-                            <div class="text-3xl mb-3">🤝</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2">Complementary</h3>
-                            <p class="text-gray-600 text-sm">Works alongside JEDx, Open Badges, CLR, CASE CTDL, and other standards</p>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Precise</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Structured proficiency levels with ranks, scales, and evidence sources for accurate skill measurement.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 card-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
                         </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Complementary</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Works alongside JEDx, Open Badges, CLR, CASE CTDL, and other standards seamlessly.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Major Use Cases -->
-        <section class="mb-16 fade-in">
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Major Use Cases & Platform Interoperability</h2>
-                <p class="text-gray-600 mb-8 text-lg">
-                    The Skills Proficiency API enables <strong>seamless interoperability across HCM, assessment, learning, talent, and skills intelligence platforms</strong>, unlocking powerful use cases for modern workforce management.
-                </p>
-
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div class="border-2 border-blue-200 rounded-xl p-6 hover:border-blue-400 transition">
-                        <div class="flex items-start gap-4">
-                            <div class="text-4xl">💼</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Skills-Based Hiring & Talent Matching</h3>
-                                <ul class="text-gray-700 space-y-2 text-sm">
-                                    <li>• Define precise skill requirements in job postings</li>
-                                    <li>• Automatically match candidates to opportunities</li>
-                                    <li>• Identify skills gaps before hiring</li>
-                                    <li>• Reduce bias by focusing on verified skills</li>
-                                </ul>
-                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                                    <strong>Platform Integration:</strong> ATS systems, job boards, talent marketplaces
-                                </div>
+        <!-- Use Cases Section -->
+        <section id="use-cases" class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-14">
+                    <p class="text-brand-500 font-semibold text-sm tracking-wide uppercase mb-3">Capabilities</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Major Use Cases</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Seamless interoperability across HCM, assessment, learning, talent, and skills intelligence platforms.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Hiring -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift group">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
                             </div>
+                            <h3 class="font-bold text-slate-900">Skills-Based Hiring</h3>
                         </div>
+                        <ul class="space-y-2 text-sm text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5 flex-shrink-0">&bull;</span>Define precise skill requirements in job postings</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5 flex-shrink-0">&bull;</span>Automatically match candidates to opportunities</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5 flex-shrink-0">&bull;</span>Reduce bias by focusing on verified skills</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 border-t border-slate-100 pt-3">ATS systems, job boards, talent marketplaces</p>
                     </div>
-
-                    <div class="border-2 border-purple-200 rounded-xl p-6 hover:border-purple-400 transition">
-                        <div class="flex items-start gap-4">
-                            <div class="text-4xl">📊</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Workforce Analytics & Intelligence</h3>
-                                <ul class="text-gray-700 space-y-2 text-sm">
-                                    <li>• Aggregate enterprise-wide skills inventory</li>
-                                    <li>• Track skills currency and decay over time</li>
-                                    <li>• Identify internal mobility opportunities</li>
-                                    <li>• Predict future skills needs</li>
-                                </ul>
-                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                                    <strong>Platform Integration:</strong> HCM systems, workforce planning tools, analytics dashboards
-                                </div>
+                    <!-- Analytics -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift group">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center group-hover:bg-violet-100 transition-colors">
+                                <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
                             </div>
+                            <h3 class="font-bold text-slate-900">Workforce Analytics</h3>
                         </div>
+                        <ul class="space-y-2 text-sm text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><span class="text-violet-500 mt-0.5 flex-shrink-0">&bull;</span>Aggregate enterprise-wide skills inventory</li>
+                            <li class="flex items-start gap-2"><span class="text-violet-500 mt-0.5 flex-shrink-0">&bull;</span>Track skills currency and decay over time</li>
+                            <li class="flex items-start gap-2"><span class="text-violet-500 mt-0.5 flex-shrink-0">&bull;</span>Predict future skills needs</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 border-t border-slate-100 pt-3">HCM systems, workforce planning, analytics dashboards</p>
                     </div>
-
-                    <div class="border-2 border-green-200 rounded-xl p-6 hover:border-green-400 transition">
-                        <div class="flex items-start gap-4">
-                            <div class="text-4xl">🎓</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Learning & Development Pathways</h3>
-                                <ul class="text-gray-700 space-y-2 text-sm">
-                                    <li>• Map learning content to skill outcomes</li>
-                                    <li>• Recommend personalized training paths</li>
-                                    <li>• Track skill development over time</li>
-                                    <li>• Issue verified skill credentials</li>
-                                </ul>
-                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                                    <strong>Platform Integration:</strong> LMS platforms, course catalogs, credential systems, CLR/LER
-                                </div>
+                    <!-- L&D -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift group">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                                </svg>
                             </div>
+                            <h3 class="font-bold text-slate-900">Learning Pathways</h3>
                         </div>
+                        <ul class="space-y-2 text-sm text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5 flex-shrink-0">&bull;</span>Map learning content to skill outcomes</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5 flex-shrink-0">&bull;</span>Recommend personalized training paths</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5 flex-shrink-0">&bull;</span>Issue verified skill credentials</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 border-t border-slate-100 pt-3">LMS platforms, course catalogs, CLR/LER</p>
                     </div>
-
-                    <div class="border-2 border-orange-200 rounded-xl p-6 hover:border-orange-400 transition">
-                        <div class="flex items-start gap-4">
-                            <div class="text-4xl">✅</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Skills Assessment & Validation</h3>
-                                <ul class="text-gray-700 space-y-2 text-sm">
-                                    <li>• Map assessment scores to proficiency levels</li>
-                                    <li>• Issue verified digital badges</li>
-                                    <li>• Create portable skill credentials</li>
-                                    <li>• Enable third-party verification</li>
-                                </ul>
-                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                                    <strong>Platform Integration:</strong> Assessment platforms, certification bodies, Open Badges, Verifiable Credentials
-                                </div>
+                    <!-- Assessment -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift group">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+                                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
                             </div>
+                            <h3 class="font-bold text-slate-900">Assessment & Validation</h3>
                         </div>
+                        <ul class="space-y-2 text-sm text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5 flex-shrink-0">&bull;</span>Map assessment scores to proficiency levels</li>
+                            <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5 flex-shrink-0">&bull;</span>Issue verified digital badges</li>
+                            <li class="flex items-start gap-2"><span class="text-amber-500 mt-0.5 flex-shrink-0">&bull;</span>Enable third-party verification</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 border-t border-slate-100 pt-3">Assessment platforms, certification bodies, Open Badges</p>
                     </div>
-
-                    <div class="border-2 border-indigo-200 rounded-xl p-6 hover:border-indigo-400 transition">
-                        <div class="flex items-start gap-4">
-                            <div class="text-4xl">🔄</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Internal Talent Mobility</h3>
-                                <ul class="text-gray-700 space-y-2 text-sm">
-                                    <li>• Discover hidden talent across departments</li>
-                                    <li>• Match employees to stretch assignments</li>
-                                    <li>• Plan succession and career progression</li>
-                                    <li>• Reduce external hiring costs</li>
-                                </ul>
-                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                                    <strong>Platform Integration:</strong> HRIS, talent management systems, opportunity marketplaces
-                                </div>
+                    <!-- Mobility -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift group">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                                </svg>
                             </div>
+                            <h3 class="font-bold text-slate-900">Internal Mobility</h3>
                         </div>
+                        <ul class="space-y-2 text-sm text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><span class="text-indigo-500 mt-0.5 flex-shrink-0">&bull;</span>Discover hidden talent across departments</li>
+                            <li class="flex items-start gap-2"><span class="text-indigo-500 mt-0.5 flex-shrink-0">&bull;</span>Match employees to stretch assignments</li>
+                            <li class="flex items-start gap-2"><span class="text-indigo-500 mt-0.5 flex-shrink-0">&bull;</span>Plan succession and career progression</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 border-t border-slate-100 pt-3">HRIS, talent management, opportunity marketplaces</p>
                     </div>
-
-                    <div class="border-2 border-pink-200 rounded-xl p-6 hover:border-pink-400 transition">
-                        <div class="flex items-start gap-4">
-                            <div class="text-4xl">🤖</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Skills Intelligence & AI</h3>
-                                <ul class="text-gray-700 space-y-2 text-sm">
-                                    <li>• Power AI-driven skills recommendations</li>
-                                    <li>• Identify emerging skills trends</li>
-                                    <li>• Benchmark against market data</li>
-                                    <li>• Generate skills taxonomy alignments</li>
-                                </ul>
-                                <div class="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                                    <strong>Platform Integration:</strong> Skills ontology systems, AI/ML platforms, labor market analytics
-                                </div>
+                    <!-- AI -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift group">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-pink-50 flex items-center justify-center group-hover:bg-pink-100 transition-colors">
+                                <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
                             </div>
+                            <h3 class="font-bold text-slate-900">Skills Intelligence & AI</h3>
                         </div>
+                        <ul class="space-y-2 text-sm text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><span class="text-pink-500 mt-0.5 flex-shrink-0">&bull;</span>Power AI-driven skills recommendations</li>
+                            <li class="flex items-start gap-2"><span class="text-pink-500 mt-0.5 flex-shrink-0">&bull;</span>Identify emerging skills trends</li>
+                            <li class="flex items-start gap-2"><span class="text-pink-500 mt-0.5 flex-shrink-0">&bull;</span>Generate skills taxonomy alignments</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 border-t border-slate-100 pt-3">Skills ontology systems, AI/ML platforms, labor analytics</p>
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6">
-                    <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl">🌐</span>
+                <!-- Interop flow -->
+                <div class="mt-10 bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         Cross-Platform Interoperability
-                    </h4>
-                    <p class="text-gray-700 mb-4">
-                        The Skills API creates a common language that allows skills data to flow seamlessly between different systems:
-                    </p>
-                    <div class="grid md:grid-cols-5 gap-4 text-center">
-                        <div class="bg-white rounded-lg p-3 shadow-sm">
-                            <div class="font-bold text-sm text-blue-900">HCM Systems</div>
-                            <div class="text-xs text-gray-600 mt-1">Workday, SAP, Oracle</div>
-                        </div>
-                        <div class="text-2xl flex items-center justify-center text-blue-600">→</div>
-                        <div class="bg-white rounded-lg p-3 shadow-sm">
-                            <div class="font-bold text-sm text-purple-900">Learning Platforms</div>
-                            <div class="text-xs text-gray-600 mt-1">Cornerstone, Degreed</div>
-                        </div>
-                        <div class="text-2xl flex items-center justify-center text-purple-600">→</div>
-                        <div class="bg-white rounded-lg p-3 shadow-sm">
-                            <div class="font-bold text-sm text-green-900">Talent Tools</div>
-                            <div class="text-xs text-gray-600 mt-1">Skills databases</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills API Role in TCP -->
-        <section class="mb-16 fade-in">
-            <div class="bg-gradient-to-r from-green-600 to-teal-600 rounded-2xl shadow-lg p-8 text-white">
-                <h2 class="text-3xl font-bold mb-6">Skills API Role in Trusted Career Profile (TCP)</h2>
-                <p class="text-green-100 mb-6 text-lg">
-                    The Skills API is the <strong>service layer</strong> that powers skills data for portable career credentials like TCP and CLR. It doesn't replace TCP - it feeds it.
-                </p>
-                <div class="grid md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                        <div class="text-3xl mb-3">📊</div>
-                        <h3 class="text-xl font-bold mb-2">Skills API</h3>
-                        <p class="text-sm text-green-100">Service layer that manages, validates, and queries skills assertions across systems</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                        <div class="text-3xl mb-3">→</div>
-                        <h3 class="text-xl font-bold mb-2">Feeds Into</h3>
-                        <p class="text-sm text-green-100">Provides structured skills data with evidence and proficiency levels</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                        <div class="text-3xl mb-3">🎫</div>
-                        <h3 class="text-xl font-bold mb-2">TCP / CLR</h3>
-                        <p class="text-sm text-green-100">Portable, verifiable career credential containing skills, education, employment</p>
-                    </div>
-                </div>
-                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6">
-                    <h4 class="font-bold mb-3">Real-World Flow:</h4>
-                    <div class="space-y-2 text-sm text-green-50">
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">1</span>
-                            <span>Person completes assessment, course, or gains work experience</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">2</span>
-                            <span><strong>Skills API</strong> creates verified skill assertions with evidence sources</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">3</span>
-                            <span>Skills data is packaged into <strong>TCP or CLR</strong> as a portable credential</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-green-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">4</span>
-                            <span>Person can share TCP/CLR with employers, systems validate using Skills API</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How it Works with JEDx -->
-        <section class="mb-16 fade-in">
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg p-8 text-white">
-                <h2 class="text-3xl font-bold mb-6">Integration with JEDx API</h2>
-                <p class="text-blue-100 mb-6 text-lg">
-                    The Skills API is designed to complement the <strong>HR Open JEDx (Job Exchange Data)</strong> format, creating a powerful ecosystem for skills-based hiring and workforce transformation.
-                </p>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
-                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span class="text-2xl">⚡</span>
-                        How They Work Together
                     </h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-white/10 rounded-lg p-4">
-                            <div class="font-bold mb-2 text-yellow-300">JEDx Provides:</div>
-                            <ul class="space-y-2 text-sm text-blue-100">
-                                <li>• Job postings structure</li>
-                                <li>• Worker profile format</li>
-                                <li>• Organization data</li>
-                                <li>• Employment records</li>
-                            </ul>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                        <div class="bg-slate-50 rounded-xl px-6 py-4 text-center min-w-[140px]">
+                            <div class="font-bold text-sm text-slate-900">HCM Systems</div>
+                            <div class="text-xs text-slate-500 mt-1">Workday, SAP, Oracle</div>
                         </div>
-                        <div class="bg-white/10 rounded-lg p-4">
-                            <div class="font-bold mb-2 text-yellow-300">Skills API Adds:</div>
-                            <ul class="space-y-2 text-sm text-blue-100">
-                                <li>• Detailed skill requirements</li>
-                                <li>• Proficiency level measurements</li>
-                                <li>• Evidence-based assertions</li>
-                                <li>• Skills analytics & matching</li>
-                            </ul>
+                        <svg class="w-6 h-6 text-brand-400 flex-shrink-0 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <div class="bg-brand-50 border-2 border-brand-200 rounded-xl px-6 py-4 text-center min-w-[140px]">
+                            <div class="font-bold text-sm text-brand-900">Skills API</div>
+                            <div class="text-xs text-brand-600 mt-1">Common language</div>
+                        </div>
+                        <svg class="w-6 h-6 text-brand-400 flex-shrink-0 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <div class="bg-slate-50 rounded-xl px-6 py-4 text-center min-w-[140px]">
+                            <div class="font-bold text-sm text-slate-900">Learning</div>
+                            <div class="text-xs text-slate-500 mt-1">Cornerstone, Degreed</div>
+                        </div>
+                        <svg class="w-6 h-6 text-brand-400 flex-shrink-0 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <div class="bg-slate-50 rounded-xl px-6 py-4 text-center min-w-[140px]">
+                            <div class="font-bold text-sm text-slate-900">Talent Tools</div>
+                            <div class="text-xs text-slate-500 mt-1">Skills databases</div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6">
-                    <h4 class="font-bold mb-3">Real-World Workflow:</h4>
-                    <div class="space-y-2 text-sm text-blue-50">
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">1</span>
-                            <span>Company posts job using <strong>JEDx format</strong> with position details</span>
+            </div>
+        </section>
+
+        <!-- TCP & JEDx Integration -->
+        <section class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6">
+                <!-- TCP Card -->
+                <div class="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-8 text-white shadow-lg">
+                    <p class="text-emerald-200 font-semibold text-xs tracking-wide uppercase mb-3">Trusted Career Profile</p>
+                    <h3 class="text-2xl font-extrabold mb-4">Skills API Role in TCP</h3>
+                    <p class="text-emerald-100 text-sm leading-relaxed mb-6">
+                        The Skills API is the service layer that powers skills data for portable career credentials. It doesn't replace TCP &mdash; it feeds it.
+                    </p>
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                            <svg class="w-7 h-7 mx-auto mb-2 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                            <div class="text-xs font-bold">Skills API</div>
                         </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">2</span>
-                            <span><strong>Skills API</strong> defines required skills with precise proficiency levels</span>
+                        <div class="flex items-center justify-center">
+                            <svg class="w-6 h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">3</span>
-                            <span>Candidate's skills are assessed and mapped to the same proficiency scales</span>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                            <svg class="w-7 h-7 mx-auto mb-2 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
+                            <div class="text-xs font-bold">TCP / CLR</div>
                         </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-yellow-400 text-blue-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs flex-shrink-0">4</span>
-                            <span>Analytics engine performs gap analysis and candidate matching</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 space-y-3">
+                        <div class="flex items-start gap-3 text-sm text-emerald-50">
+                            <span class="bg-yellow-400 text-emerald-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">1</span>
+                            <span>Person completes assessment, course, or gains experience</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-emerald-50">
+                            <span class="bg-yellow-400 text-emerald-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">2</span>
+                            <span><strong>Skills API</strong> creates verified assertions with evidence</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-emerald-50">
+                            <span class="bg-yellow-400 text-emerald-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">3</span>
+                            <span>Skills data is packaged into <strong>TCP or CLR</strong> credential</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-emerald-50">
+                            <span class="bg-yellow-400 text-emerald-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">4</span>
+                            <span>Person shares credential; systems validate via Skills API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JEDx Card -->
+                <div class="bg-gradient-to-br from-brand-600 to-indigo-700 rounded-2xl p-8 text-white shadow-lg">
+                    <p class="text-blue-200 font-semibold text-xs tracking-wide uppercase mb-3">JEDx Integration</p>
+                    <h3 class="text-2xl font-extrabold mb-4">How It Works with JEDx</h3>
+                    <p class="text-blue-100 text-sm leading-relaxed mb-6">
+                        The Skills API complements HR Open JEDx, creating a powerful ecosystem for skills-based hiring and workforce transformation.
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                            <div class="text-xs font-bold text-yellow-300 mb-2">JEDx Provides</div>
+                            <ul class="space-y-1.5 text-xs text-blue-100">
+                                <li>Job postings structure</li>
+                                <li>Worker profile format</li>
+                                <li>Organization data</li>
+                                <li>Employment records</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                            <div class="text-xs font-bold text-yellow-300 mb-2">Skills API Adds</div>
+                            <ul class="space-y-1.5 text-xs text-blue-100">
+                                <li>Detailed skill requirements</li>
+                                <li>Proficiency measurements</li>
+                                <li>Evidence-based assertions</li>
+                                <li>Skills analytics & matching</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 space-y-3">
+                        <div class="flex items-start gap-3 text-sm text-blue-50">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">1</span>
+                            <span>Company posts job using <strong>JEDx format</strong></span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-blue-50">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">2</span>
+                            <span><strong>Skills API</strong> defines required proficiency levels</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-blue-50">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">3</span>
+                            <span>Candidate skills mapped to same proficiency scales</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-blue-50">
+                            <span class="bg-yellow-400 text-blue-900 rounded-full w-5 h-5 flex items-center justify-center font-bold text-[10px] flex-shrink-0 mt-0.5">4</span>
+                            <span>Analytics engine performs gap analysis & matching</span>
                         </div>
                     </div>
                 </div>
@@ -395,47 +629,56 @@
         </section>
 
         <!-- Interactive Schema Explorer -->
-        <section class="mb-16 fade-in">
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Interactive Schema Explorer</h2>
-                <p class="text-gray-600 mb-6">Explore real examples from our sample data. Click tabs to see different use cases.</p>
-
-                <!-- Tab Navigation -->
-                <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 pb-4">
-                    <button onclick="showTab('person')" class="tab-button active px-4 py-2 rounded-lg font-semibold" id="tab-person">
-                        🎓 CLR with Skills
-                    </button>
-                    <button onclick="showTab('job')" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700" id="tab-job">
-                        💼 Job Requirements
-                    </button>
-                    <button onclick="showTab('course')" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700" id="tab-course">
-                        📚 Learning Program
-                    </button>
-                    <button onclick="showTab('assessment')" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700" id="tab-assessment">
-                        ✅ Assessment
-                    </button>
+        <section id="explorer" class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-14">
+                    <p class="text-brand-500 font-semibold text-sm tracking-wide uppercase mb-3">Interactive</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Schema Explorer</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Explore real examples from our sample data. Click tabs to see different use cases.
+                    </p>
                 </div>
 
-                <!-- Tab Content -->
-                <div id="tab-content-person" class="tab-content">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 text-gray-900">Comprehensive Learner Record (CLR) with Skills</h3>
-                            <p class="text-gray-600 mb-4">Skills assertions within a CLR or Trusted Career Profile (TCP). The Skills API provides the skills data that populates these portable credentials.</p>
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded mb-4">
-                                <div class="font-bold text-blue-900 mb-2">How Skills API → TCP/CLR:</div>
-                                <ul class="text-sm text-blue-800 space-y-1">
-                                    <li>• Skills API manages skill assertions</li>
-                                    <li>• Assertions include evidence & sources</li>
-                                    <li>• Data feeds into TCP/CLR credentials</li>
-                                    <li>• Enables portable, verifiable skills</li>
-                                </ul>
-                            </div>
-                            <button onclick="fetchLiveData('person')" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
-                                🔄 Fetch CLR Example
-                            </button>
-                        </div>
-                        <div id="person-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                    <!-- Tab Navigation -->
+                    <div class="flex border-b border-slate-200 overflow-x-auto">
+                        <button onclick="showTab('person')" class="tab-btn active px-6 py-4 text-sm font-semibold whitespace-nowrap" id="tab-person">
+                            CLR with Skills
+                        </button>
+                        <button onclick="showTab('job')" class="tab-btn px-6 py-4 text-sm font-semibold text-slate-500 whitespace-nowrap" id="tab-job">
+                            Job Requirements
+                        </button>
+                        <button onclick="showTab('course')" class="tab-btn px-6 py-4 text-sm font-semibold text-slate-500 whitespace-nowrap" id="tab-course">
+                            Learning Program
+                        </button>
+                        <button onclick="showTab('assessment')" class="tab-btn px-6 py-4 text-sm font-semibold text-slate-500 whitespace-nowrap" id="tab-assessment">
+                            Assessment
+                        </button>
+                    </div>
+
+                    <!-- Tab Contents -->
+                    <div class="p-6 sm:p-8">
+                        <!-- Person Tab -->
+                        <div id="tab-content-person" class="tab-content">
+                            <div class="grid lg:grid-cols-2 gap-8">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-3">Comprehensive Learner Record</h3>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-5">Skills assertions within a CLR or Trusted Career Profile. The Skills API provides the skills data that populates these portable credentials.</p>
+                                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-5">
+                                        <div class="font-semibold text-blue-900 text-sm mb-2">How Skills API feeds TCP/CLR:</div>
+                                        <ul class="text-xs text-blue-800 space-y-1.5">
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Skills API manages skill assertions</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Assertions include evidence & sources</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Data feeds into TCP/CLR credentials</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Enables portable, verifiable skills</li>
+                                        </ul>
+                                    </div>
+                                    <button onclick="fetchLiveData('person')" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        Fetch CLR Example
+                                    </button>
+                                </div>
+                                <div id="person-code" class="code-block p-5 text-xs text-slate-300 overflow-auto max-h-96 custom-scrollbar">
 <pre>{
   "identifier": "https://example.com/people/john-doe",
   "targetType": "Person",
@@ -462,29 +705,31 @@
     }
   ]
 }</pre>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-content-job" class="tab-content hidden">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 text-gray-900">Job Skills Requirements</h3>
-                            <p class="text-gray-600 mb-4">Define precise skill requirements for positions, specifying expected proficiency levels for each skill.</p>
-                            <div class="bg-purple-50 border-l-4 border-purple-600 p-4 rounded mb-4">
-                                <div class="font-bold text-purple-900 mb-2">Use Cases:</div>
-                                <ul class="text-sm text-purple-800 space-y-1">
-                                    <li>• Skills-based job postings</li>
-                                    <li>• Candidate screening & matching</li>
-                                    <li>• Skills gap identification</li>
-                                    <li>• Internal mobility planning</li>
-                                </ul>
+                                </div>
                             </div>
-                            <button onclick="fetchLiveData('job')" class="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
-                                🔄 Fetch Live Data
-                            </button>
                         </div>
-                        <div id="job-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+
+                        <!-- Job Tab -->
+                        <div id="tab-content-job" class="tab-content hidden">
+                            <div class="grid lg:grid-cols-2 gap-8">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-3">Job Skills Requirements</h3>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-5">Define precise skill requirements for positions, specifying expected proficiency levels for each skill.</p>
+                                    <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 mb-5">
+                                        <div class="font-semibold text-violet-900 text-sm mb-2">Use Cases:</div>
+                                        <ul class="text-xs text-violet-800 space-y-1.5">
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-violet-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Skills-based job postings</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-violet-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Candidate screening & matching</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-violet-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Skills gap identification</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-violet-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Internal mobility planning</li>
+                                        </ul>
+                                    </div>
+                                    <button onclick="fetchLiveData('job')" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        Fetch Live Data
+                                    </button>
+                                </div>
+                                <div id="job-code" class="code-block p-5 text-xs text-slate-300 overflow-auto max-h-96 custom-scrollbar">
 <pre>{
   "identifier": "https://example.com/jobs/SWE-001",
   "targetType": "Job",
@@ -517,29 +762,31 @@
     }
   ]
 }</pre>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-content-course" class="tab-content hidden">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 text-gray-900">Learning Program Skills</h3>
-                            <p class="text-gray-600 mb-4">Define what skills learners will acquire through courses, bootcamps, or training programs.</p>
-                            <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded mb-4">
-                                <div class="font-bold text-green-900 mb-2">Applications:</div>
-                                <ul class="text-sm text-green-800 space-y-1">
-                                    <li>• Course catalog skills mapping</li>
-                                    <li>• Learning pathway design</li>
-                                    <li>• Skills-based recommendations</li>
-                                    <li>• CLR integration</li>
-                                </ul>
+                                </div>
                             </div>
-                            <button onclick="fetchLiveData('course')" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition">
-                                🔄 Fetch Live Data
-                            </button>
                         </div>
-                        <div id="course-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+
+                        <!-- Course Tab -->
+                        <div id="tab-content-course" class="tab-content hidden">
+                            <div class="grid lg:grid-cols-2 gap-8">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-3">Learning Program Skills</h3>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-5">Define what skills learners will acquire through courses, bootcamps, or training programs.</p>
+                                    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 mb-5">
+                                        <div class="font-semibold text-emerald-900 text-sm mb-2">Applications:</div>
+                                        <ul class="text-xs text-emerald-800 space-y-1.5">
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Course catalog skills mapping</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Learning pathway design</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Skills-based recommendations</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>CLR integration</li>
+                                        </ul>
+                                    </div>
+                                    <button onclick="fetchLiveData('course')" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        Fetch Live Data
+                                    </button>
+                                </div>
+                                <div id="course-code" class="code-block p-5 text-xs text-slate-300 overflow-auto max-h-96 custom-scrollbar">
 <pre>{
   "identifier": "https://example.com/courses/WEB-DEV",
   "targetType": "LearningProgram",
@@ -565,29 +812,31 @@
     }
   ]
 }</pre>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-content-assessment" class="tab-content hidden">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 text-gray-900">Assessment Results</h3>
-                            <p class="text-gray-600 mb-4">Map assessment scores to standardized proficiency levels, creating verifiable skill credentials.</p>
-                            <div class="bg-orange-50 border-l-4 border-orange-600 p-4 rounded mb-4">
-                                <div class="font-bold text-orange-900 mb-2">Benefits:</div>
-                                <ul class="text-sm text-orange-800 space-y-1">
-                                    <li>• Objective skill measurement</li>
-                                    <li>• Certification issuance</li>
-                                    <li>• Open Badges integration</li>
-                                    <li>• Third-party verification</li>
-                                </ul>
+                                </div>
                             </div>
-                            <button onclick="fetchLiveData('assessment')" class="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 transition">
-                                🔄 Fetch Live Data
-                            </button>
                         </div>
-                        <div id="assessment-code" class="code-block p-4 text-xs text-gray-300 font-mono overflow-auto max-h-96">
+
+                        <!-- Assessment Tab -->
+                        <div id="tab-content-assessment" class="tab-content hidden">
+                            <div class="grid lg:grid-cols-2 gap-8">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-3">Assessment Results</h3>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-5">Map assessment scores to standardized proficiency levels, creating verifiable skill credentials.</p>
+                                    <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-5">
+                                        <div class="font-semibold text-amber-900 text-sm mb-2">Benefits:</div>
+                                        <ul class="text-xs text-amber-800 space-y-1.5">
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Objective skill measurement</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Certification issuance</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Open Badges integration</li>
+                                            <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Third-party verification</li>
+                                        </ul>
+                                    </div>
+                                    <button onclick="fetchLiveData('assessment')" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        Fetch Live Data
+                                    </button>
+                                </div>
+                                <div id="assessment-code" class="code-block p-5 text-xs text-slate-300 overflow-auto max-h-96 custom-scrollbar">
 <pre>{
   "identifier": "https://example.com/assessments/...",
   "targetType": "Assessment",
@@ -609,6 +858,8 @@
     }
   ]
 }</pre>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -616,298 +867,358 @@
         </section>
 
         <!-- Standards Ecosystem -->
-        <section class="mb-16 fade-in">
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Complementary Standards Ecosystem</h2>
-                <p class="text-gray-600 mb-6">The Skills API doesn't replace existing standards—it works alongside them to create a comprehensive ecosystem. It provides the <strong>skills data layer</strong> for portable credentials like TCP and CLR.</p>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="border-2 border-green-400 bg-green-50 rounded-lg p-4 hover:border-green-600 transition">
-                        <div class="font-bold text-gray-900 mb-2">🎫 HR Open TCP</div>
-                        <p class="text-sm text-gray-700"><strong>Trusted Career Profile</strong> - Portable, verifiable career credential (uses Skills API)</p>
+        <section id="ecosystem" class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-14">
+                    <p class="text-brand-500 font-semibold text-sm tracking-wide uppercase mb-3">Standards</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Complementary Ecosystem</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                        The Skills API works alongside existing standards to create a comprehensive skills data layer.
+                    </p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border-2 border-emerald-200 card-lift">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-sm">HR Open TCP</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed"><strong>Trusted Career Profile</strong> &mdash; Portable, verifiable career credential powered by Skills API</p>
                     </div>
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                        <div class="font-bold text-gray-900 mb-2">HR Open JEDx API</div>
-                        <p class="text-sm text-gray-600">Employment data exchange format for jobs, workers, and organizations</p>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-sm">HR Open JEDx</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">Employment data exchange format for jobs, workers, and organizations</p>
                     </div>
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                        <div class="font-bold text-gray-900 mb-2">IMS CLR</div>
-                        <p class="text-sm text-gray-600">Comprehensive Learner Record for lifelong learning (uses Skills API)</p>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-sm">IMS CLR</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">Comprehensive Learner Record for lifelong learning, powered by Skills API</p>
                     </div>
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                        <div class="font-bold text-gray-900 mb-2">IMS Open Badges</div>
-                        <p class="text-sm text-gray-600">Digital credentials and achievements with verification</p>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-sm">IMS Open Badges</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">Digital credentials and achievements with verification</p>
                     </div>
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                        <div class="font-bold text-gray-900 mb-2">CTDL</div>
-                        <p class="text-sm text-gray-600">Credential Transparency Description Language</p>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-sm">CTDL</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">Credential Transparency Description Language</p>
                     </div>
-                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                        <div class="font-bold text-gray-900 mb-2">LER / T3</div>
-                        <p class="text-sm text-gray-600">Learning and Employment Records standards</p>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 card-lift">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-sm">LER / T3</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">Learning and Employment Records standards</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Live Skills Browser -->
-        <section class="mb-16 fade-in">
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Live Skills Browser</h2>
-                <p class="text-gray-600 mb-6">Explore skills loaded from the running API server. Click "Load Skills" to see live data.</p>
+        <section id="browser" class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-14">
+                    <p class="text-brand-500 font-semibold text-sm tracking-wide uppercase mb-3">Live Data</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Skills Browser</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Explore skills loaded from the running API server in real time.
+                    </p>
+                </div>
 
-                <div class="mb-6">
-                    <button onclick="loadSkills()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition">
-                        🔍 Load Skills from API
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button onclick="loadSkills()" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-brand-500/25">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        Load Skills from API
                     </button>
-                    <button onclick="loadProficiencyScales()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition ml-2">
-                        📊 Load Proficiency Scales
+                    <button onclick="loadProficiencyScales()" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-xl border border-slate-200 transition-all hover:shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        Load Proficiency Scales
                     </button>
                 </div>
 
                 <div id="skills-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="col-span-full text-center text-gray-400 py-8">
-                        Click "Load Skills" to fetch live data from the API
+                    <div class="col-span-full text-center text-slate-400 py-16 bg-white rounded-2xl border border-slate-100 border-dashed">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                        <p class="font-medium text-slate-500">Click "Load Skills" to fetch live data from the API</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Try It Out -->
-        <section class="mb-16 fade-in">
-            <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-lg p-8 text-white text-center">
-                <h2 class="text-3xl font-bold mb-4">Ready to Explore?</h2>
-                <p class="text-purple-100 mb-6 max-w-2xl mx-auto">
-                    This demo server provides full implementations of both the JEDx and Skills APIs with sample data, documentation, and Postman collections.
-                </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="/api/v1/skills/skills" target="_blank" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition">
-                        GET /skills
-                    </a>
-                    <a href="/api/v1/jedx/jobs" target="_blank" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition">
-                        GET /jobs
-                    </a>
-                    <a href="/samples.html" class="bg-purple-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-900 transition">
-                        📂 Interactive Browser
-                    </a>
-                    <a href="/api/v1/skills/docs" target="_blank" class="bg-purple-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-900 transition">
-                        API Documentation
-                    </a>
+        <!-- CTA Section -->
+        <section class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-10 sm:p-14 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 20% 50%, rgba(45, 85, 252, 0.15), transparent 50%), radial-gradient(circle at 80% 50%, rgba(124, 58, 237, 0.15), transparent 50%);"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Ready to Explore?</h2>
+                        <p class="text-slate-400 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
+                            Full implementations of both the JEDx and Skills APIs with sample data, documentation, and Postman collections.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <a href="/api/v1/skills/skills" target="_blank" class="inline-flex items-center gap-2 bg-white text-slate-900 font-semibold px-5 py-3 rounded-xl hover:bg-slate-100 transition-colors text-sm">
+                                <span class="font-mono text-xs bg-slate-100 px-2 py-0.5 rounded text-slate-600">GET</span>
+                                /skills
+                            </a>
+                            <a href="/api/v1/jedx/jobs" target="_blank" class="inline-flex items-center gap-2 bg-white text-slate-900 font-semibold px-5 py-3 rounded-xl hover:bg-slate-100 transition-colors text-sm">
+                                <span class="font-mono text-xs bg-slate-100 px-2 py-0.5 rounded text-slate-600">GET</span>
+                                /jobs
+                            </a>
+                            <a href="/samples.html" class="inline-flex items-center gap-2 bg-white/10 text-white font-semibold px-5 py-3 rounded-xl hover:bg-white/15 transition-colors text-sm border border-white/10">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                                Sample Browser
+                            </a>
+                            <a href="/api/v1/skills/docs" target="_blank" class="inline-flex items-center gap-2 bg-white/10 text-white font-semibold px-5 py-3 rounded-xl hover:bg-white/15 transition-colors text-sm border border-white/10">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                API Documentation
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+    </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-600 py-8 border-t border-gray-200">
-            <p class="mb-2">
-                <a href="https://www.hropenstandards.org/" class="text-blue-600 hover:underline font-semibold">HR Open Standards</a>
-            </p>
-            <p class="text-sm">
-                Skills Proficiency Data API Schema • Pre-Release 2026 •
-                <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-pre-release-of-the-first-ever-skills-proficiency-data-api-schema" class="text-blue-600 hover:underline">Read the Announcement</a>
-            </p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white">
+        <div class="max-w-6xl mx-auto px-6 py-10">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <a href="https://www.hropenstandards.org/" target="_blank" rel="noopener" class="text-sm font-semibold text-slate-900 hover:text-brand-600 transition-colors">
+                        HR Open Standards
+                    </a>
+                </div>
+                <p class="text-xs text-slate-500 text-center sm:text-right">
+                    Skills Proficiency Data API Schema &middot; Pre-Release 2026 &middot;
+                    <a href="https://www.hropenstandards.org/news/hr-open-standards-announces-pre-release-of-the-first-ever-skills-proficiency-data-api-schema" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-600 transition-colors">
+                        Read the Announcement
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Check server status on load
+        // ── Navigation scroll behavior ──
+        const navbar = document.getElementById('navbar');
+        const navBrand = document.getElementById('nav-brand');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+                navbar.style.backdropFilter = 'blur(12px)';
+                navbar.style.webkitBackdropFilter = 'blur(12px)';
+                navbar.style.borderBottom = '1px solid rgba(226, 232, 240, 0.8)';
+                navBrand.style.color = '#0f172a';
+                navLinks.forEach(l => l.style.color = '#475569');
+            } else {
+                navbar.style.background = 'transparent';
+                navbar.style.backdropFilter = 'none';
+                navbar.style.webkitBackdropFilter = 'none';
+                navbar.style.borderBottom = 'none';
+                navBrand.style.color = '#ffffff';
+                navLinks.forEach(l => l.style.color = '#94a3b8');
+            }
+        });
+
+        // ── Scroll reveal ──
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ── Server status check ──
         async function checkServerStatus() {
-            const statusDot = document.getElementById('status-dot');
+            const dots = [document.getElementById('status-dot'), document.getElementById('hero-status-dot')];
             const statusText = document.getElementById('status-text');
-            const statusInfo = document.getElementById('status-info');
+            const heroText = document.getElementById('hero-status-text');
+            const heroInfo = document.getElementById('hero-status-info');
 
             try {
                 const response = await fetch('/api/v1/skills/docs');
                 if (!response.ok) throw new Error('Server unavailable');
-
                 const data = await response.json();
 
-                statusDot.className = 'status-indicator status-connected';
-                statusText.textContent = '✓ Server Connected';
-                statusInfo.textContent = `${data.currentData.skills} skills • ${data.currentData.assertions} assertions • ${data.currentData.credentials} credentials loaded`;
-
+                dots.forEach(d => { d.className = 'status-dot connected'; });
+                statusText.textContent = 'Connected';
+                heroText.textContent = 'Server Connected';
+                heroInfo.classList.remove('hidden');
+                heroInfo.textContent = `${data.currentData.skills} skills \u00b7 ${data.currentData.assertions} assertions \u00b7 ${data.currentData.credentials} credentials`;
             } catch (error) {
-                statusDot.className = 'status-indicator status-disconnected';
-                statusText.textContent = '✗ Server Disconnected';
-                statusInfo.textContent = 'Make sure the server is running on port 3000';
+                dots.forEach(d => { d.className = 'status-dot disconnected'; });
+                statusText.textContent = 'Disconnected';
+                heroText.textContent = 'Server Disconnected \u2014 Start the server on port 3000';
             }
         }
 
-        // Check status on page load
         window.addEventListener('DOMContentLoaded', checkServerStatus);
 
+        // ── Tab switching ──
         function showTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active');
+                b.classList.add('text-slate-500');
             });
-
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active', 'bg-blue-600', 'text-white');
-                button.classList.add('bg-gray-100', 'text-gray-700');
-            });
-
-            // Show selected tab content
             document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
-
-            // Add active class to clicked button
-            const activeButton = document.getElementById(`tab-${tabName}`);
-            activeButton.classList.add('active', 'bg-blue-600', 'text-white');
-            activeButton.classList.remove('bg-gray-100', 'text-gray-700');
+            const btn = document.getElementById(`tab-${tabName}`);
+            btn.classList.add('active');
+            btn.classList.remove('text-slate-500');
         }
 
-        // Fetch live data from API
+        // ── Fetch live data ──
         async function fetchLiveData(tabName) {
             const codeBlock = document.getElementById(`${tabName}-code`);
-            codeBlock.innerHTML = '<pre class="text-yellow-300">⏳ Fetching live data from server...</pre>';
+            codeBlock.innerHTML = '<pre class="text-amber-400 animate-pulse">Fetching live data from server...</pre>';
 
             try {
-                let url, data;
+                const urls = {
+                    person: '/api/v1/sample-data/skillsapi/comprehensive-learner-record',
+                    job: '/api/v1/sample-data/skillsapi/job-swe-001-skills',
+                    course: '/api/v1/sample-data/skillsapi/course-skills-assertions',
+                    assessment: '/api/v1/sample-data/skillsapi/open-badge-credential',
+                };
 
-                switch(tabName) {
-                    case 'person':
-                        // Fetch comprehensive learner record sample
-                        url = '/api/v1/sample-data/skillsapi/comprehensive-learner-record';
-                        break;
-                    case 'job':
-                        // Fetch job skills sample
-                        url = '/api/v1/sample-data/skillsapi/job-swe-001-skills';
-                        break;
-                    case 'course':
-                        // Fetch course skills sample
-                        url = '/api/v1/sample-data/skillsapi/course-skills-assertions';
-                        break;
-                    case 'assessment':
-                        // Fetch open badge credential sample
-                        url = '/api/v1/sample-data/skillsapi/open-badge-credential';
-                        break;
-                }
-
-                const response = await fetch(url);
+                const response = await fetch(urls[tabName]);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-                data = await response.json();
-
-                // Format and display the data
-                codeBlock.innerHTML = `<pre class="text-gray-300">${JSON.stringify(data, null, 2)}</pre>`;
-
-                // Add success indicator
-                setTimeout(() => {
-                    codeBlock.scrollTop = 0;
-                }, 100);
-
+                const data = await response.json();
+                codeBlock.innerHTML = `<pre class="text-slate-300">${JSON.stringify(data, null, 2)}</pre>`;
+                codeBlock.scrollTop = 0;
             } catch (error) {
-                codeBlock.innerHTML = `<pre class="text-red-400">❌ Error fetching data: ${error.message}\n\nMake sure the server is running on port 3000.</pre>`;
+                codeBlock.innerHTML = `<pre class="text-red-400">Error: ${error.message}\n\nMake sure the server is running on port 3000.</pre>`;
             }
         }
 
-        // Load skills from API
+        // ── Load skills ──
         async function loadSkills() {
-            const skillsList = document.getElementById('skills-list');
-            skillsList.innerHTML = '<div class="col-span-full text-center text-yellow-500 py-8">⏳ Loading skills from API...</div>';
+            const list = document.getElementById('skills-list');
+            list.innerHTML = '<div class="col-span-full text-center text-amber-500 py-16 animate-pulse">Loading skills from API...</div>';
 
             try {
                 const response = await fetch('/api/v1/skills/skills');
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
                 const data = await response.json();
                 const skills = data.itemListElement || [];
 
                 if (skills.length === 0) {
-                    skillsList.innerHTML = '<div class="col-span-full text-center text-gray-400 py-8">No skills found in the database</div>';
+                    list.innerHTML = '<div class="col-span-full text-center text-slate-400 py-16 bg-white rounded-2xl border border-slate-100">No skills found in the database</div>';
                     return;
                 }
 
-                skillsList.innerHTML = skills.map(skill => `
-                    <div class="skill-card bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 cursor-pointer" onclick='showSkillDetail(${JSON.stringify(skill)})'>
-                        <div class="font-bold text-gray-900 mb-2">${skill.name || 'Unnamed Skill'}</div>
-                        ${skill.codedNotation ? `<div class="text-xs font-mono text-blue-600 bg-blue-100 px-2 py-1 rounded inline-block mb-2">${skill.codedNotation}</div>` : ''}
-                        ${skill.description ? `<p class="text-sm text-gray-600 line-clamp-2">${skill.description}</p>` : ''}
-                        <div class="mt-3 text-xs text-blue-600 font-semibold">→ Click to view details</div>
+                list.innerHTML = skills.map(skill => `
+                    <div class="bg-white rounded-2xl p-5 border border-slate-100 card-lift cursor-pointer group" onclick='showSkillDetail(${JSON.stringify(skill).replace(/'/g, "&#39;")})'>
+                        <div class="font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">${skill.name || 'Unnamed Skill'}</div>
+                        ${skill.codedNotation ? `<span class="text-[10px] font-mono font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded-md inline-block mb-2">${skill.codedNotation}</span>` : ''}
+                        ${skill.description ? `<p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${skill.description}</p>` : ''}
+                        <div class="mt-3 text-xs text-brand-500 font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            View details
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
                     </div>
                 `).join('');
-
             } catch (error) {
-                skillsList.innerHTML = `<div class="col-span-full text-center text-red-500 py-8">❌ Error loading skills: ${error.message}</div>`;
+                list.innerHTML = `<div class="col-span-full text-center text-red-500 py-16 bg-white rounded-2xl border border-slate-100">Error loading skills: ${error.message}</div>`;
             }
         }
 
-        // Load proficiency scales from API
+        // ── Load proficiency scales ──
         async function loadProficiencyScales() {
-            const skillsList = document.getElementById('skills-list');
-            skillsList.innerHTML = '<div class="col-span-full text-center text-yellow-500 py-8">⏳ Loading proficiency scales...</div>';
+            const list = document.getElementById('skills-list');
+            list.innerHTML = '<div class="col-span-full text-center text-amber-500 py-16 animate-pulse">Loading proficiency scales...</div>';
 
             try {
                 const response = await fetch('/api/v1/skills/proficiency-scales');
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
                 const data = await response.json();
                 const scales = data.itemListElement || [];
 
                 if (scales.length === 0) {
-                    skillsList.innerHTML = '<div class="col-span-full text-center text-gray-400 py-8">No proficiency scales found</div>';
+                    list.innerHTML = '<div class="col-span-full text-center text-slate-400 py-16 bg-white rounded-2xl border border-slate-100">No proficiency scales found</div>';
                     return;
                 }
 
-                skillsList.innerHTML = scales.map(scale => `
-                    <div class="col-span-full bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">${scale.name || 'Unnamed Scale'}</h3>
-                        ${scale.description ? `<p class="text-gray-600 mb-4">${scale.description}</p>` : ''}
+                list.innerHTML = scales.map(scale => `
+                    <div class="col-span-full bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">${scale.name || 'Unnamed Scale'}</h3>
+                        ${scale.description ? `<p class="text-slate-600 text-sm mb-6">${scale.description}</p>` : ''}
                         ${scale.hasDefinedTerm ? `
-                            <div class="grid md:grid-cols-5 gap-3">
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                                 ${scale.hasDefinedTerm.map(term => `
-                                    <div class="bg-white rounded-lg p-3 border border-purple-200">
-                                        <div class="text-lg font-bold text-purple-600">${term.termCode}</div>
-                                        <div class="font-semibold text-gray-900 text-sm">${term.name}</div>
-                                        ${term.description ? `<div class="text-xs text-gray-600 mt-1">${term.description}</div>` : ''}
+                                    <div class="bg-slate-50 rounded-xl p-4 text-center border border-slate-100 card-lift">
+                                        <div class="text-2xl font-bold text-brand-500 mb-1">${term.termCode}</div>
+                                        <div class="font-semibold text-slate-900 text-sm">${term.name}</div>
+                                        ${term.description ? `<div class="text-[10px] text-slate-500 mt-1 leading-relaxed">${term.description}</div>` : ''}
                                     </div>
                                 `).join('')}
                             </div>
                         ` : ''}
                     </div>
                 `).join('');
-
             } catch (error) {
-                skillsList.innerHTML = `<div class="col-span-full text-center text-red-500 py-8">❌ Error loading proficiency scales: ${error.message}</div>`;
+                list.innerHTML = `<div class="col-span-full text-center text-red-500 py-16 bg-white rounded-2xl border border-slate-100">Error loading proficiency scales: ${error.message}</div>`;
             }
         }
 
-        // Show skill detail modal
+        // ── Skill detail modal ──
         function showSkillDetail(skill) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in';
+            overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
-            modal.innerHTML = `
-                <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto p-8" onclick="event.stopPropagation()">
+            overlay.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto p-8 animate-fade-up" onclick="event.stopPropagation()">
                     <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-2xl font-bold text-gray-900">${skill.name || 'Unnamed Skill'}</h3>
-                        <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                        <h3 class="text-xl font-bold text-slate-900">${skill.name || 'Unnamed Skill'}</h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-slate-600 transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
                     </div>
-                    ${skill.codedNotation ? `<div class="text-sm font-mono text-blue-600 bg-blue-100 px-3 py-1 rounded inline-block mb-4">${skill.codedNotation}</div>` : ''}
-                    ${skill.description ? `<p class="text-gray-700 mb-6">${skill.description}</p>` : ''}
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <h4 class="font-bold text-gray-900 mb-3">Full JSON:</h4>
-                        <pre class="text-xs text-gray-700 overflow-auto bg-white p-4 rounded border border-gray-200">${JSON.stringify(skill, null, 2)}</pre>
+                    ${skill.codedNotation ? `<span class="text-xs font-mono font-semibold text-brand-600 bg-brand-50 px-3 py-1 rounded-lg inline-block mb-4">${skill.codedNotation}</span>` : ''}
+                    ${skill.description ? `<p class="text-slate-600 text-sm leading-relaxed mb-6">${skill.description}</p>` : ''}
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-100">
+                        <h4 class="font-semibold text-slate-900 text-sm mb-3">Full JSON</h4>
+                        <pre class="text-xs text-slate-700 overflow-auto bg-white p-4 rounded-lg border border-slate-200 font-mono custom-scrollbar max-h-64">${JSON.stringify(skill, null, 2)}</pre>
                     </div>
                 </div>
             `;
 
-            document.body.appendChild(modal);
+            document.body.appendChild(overlay);
         }
 
-        // Add fade-in animation on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        });
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        // Trigger initial scroll check for navbar
+        window.dispatchEvent(new Event('scroll'));
     </script>
 </body>
 </html>
