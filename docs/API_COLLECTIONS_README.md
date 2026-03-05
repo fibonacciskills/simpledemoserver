@@ -148,7 +148,7 @@ GET /assertions?personId=person-12345
 - External taxonomy alignment
 
 **Standards**:
-- IMS Global Open Badges v3.0
+- 1EdTech Open Badges v3.0
 - W3C Verifiable Credentials
 - Credential Engine (CTDL)
 - IEEE Competency Standards
@@ -451,7 +451,7 @@ Authorization: Bearer {{api_token}}
 
 - **Data Format**: JSON-LD 1.1
 - **Vocabulary**: Schema.org
-- **Credentials**: IMS Global Open Badges v3.0, W3C Verifiable Credentials
+- **Credentials**: 1EdTech Open Badges v3.0, W3C Verifiable Credentials
 - **Competencies**: IEEE 1484.20.2-2022, IEEE 1484.20.3-2023
 - **Credentials**: Credential Engine CTDL
 - **Taxonomies**: ESCO, O*NET, Lightcast
@@ -497,7 +497,7 @@ For questions or issues:
 
 These Postman collections implement open standards from:
 - HR Open Standards Consortium
-- IMS Global Learning Consortium
+- 1EdTech Learning Consortium
 - Credential Engine
 - IEEE Learning Technology Standards Committee
 

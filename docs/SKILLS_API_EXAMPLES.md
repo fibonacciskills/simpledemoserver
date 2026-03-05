@@ -130,7 +130,7 @@ POST /analytics/mobility-candidates
 
 **Structure**:
 - W3C Verifiable Credential wrapper
-- IMS Global Open Badges v3.0 format
+- 1EdTech Open Badges v3.0 format
 - Achievement metadata (name, description, criteria, image)
 - Multiple skill assertions embedded in credential
 - Cryptographic proof for verification
@@ -178,7 +178,7 @@ POST /assessments/create-assertion (from assessment to badge)
 
 **Structure**:
 - W3C Verifiable Credential wrapper
-- IMS Global CLR v2.0 format
+- 1EdTech CLR v2.0 format
 - Multiple embedded credentials:
   - Degree (MS in Computer Science)
   - Course completion (CS-401)
@@ -249,7 +249,7 @@ GET /assertions?personId=student-12345 (source data)
 - **Purpose**: Skills-based workflows and talent optimization
 - **Resources**: Skills, Assertions, Proficiency Scales, Credentials
 - **Format**: JSON-LD with semantic web support
-- **Standards**: IMS Global, W3C, Schema.org, Credential Engine
+- **Standards**: 1EdTech, W3C, Schema.org, Credential Engine
 - **Use Cases**: Skills-based hiring, learning pathways, credentials, analytics
 
 ### But They **Integrate** Seamlessly
@@ -332,7 +332,7 @@ All examples follow this pattern:
 3. **Time-bound** - All assertions have validity periods
 4. **Evidence-based** - Link to assessments, projects, courses, work experience
 5. **Provenance** - Track source and asserter
-6. **Standards-aligned** - ESCO, O*NET, IMS Global, W3C
+6. **Standards-aligned** - ESCO, O*NET, 1EdTech, W3C
 
 ---
 
@@ -443,7 +443,7 @@ All examples follow this pattern:
    - CLR created by university
    - Badge verified by employer
    - Skills mapped to O*NET for labor market alignment
-   - All using open standards (IMS Global, W3C, Schema.org)
+   - All using open standards (1EdTech, W3C, Schema.org)
 
 4. **JEDx + Skills API = Complete Solution**
    - JEDx handles employment data (jobs, workers, orgs, pay)
@@ -467,4 +467,4 @@ All examples follow this pattern:
 ---
 
 **Generated**: 2026-02-03
-**Standards**: IMS Global CLR v2.0, Open Badges v3.0, W3C VC, HR Open JEDx, Schema.org
+**Standards**: 1EdTech CLR v2.0, Open Badges v3.0, W3C VC, HR Open JEDx, Schema.org

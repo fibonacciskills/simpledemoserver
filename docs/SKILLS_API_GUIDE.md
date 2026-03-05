@@ -223,7 +223,7 @@ Link skills to jobs, workers, and roles.
 Issue Open Badges and verifiable credentials.
 
 **Standards**:
-- IMS Global Open Badges v3.0
+- 1EdTech Open Badges v3.0
 - W3C Verifiable Credentials
 - Comprehensive Learner Record (CLR)
 
@@ -505,7 +505,7 @@ graph TD
 
 This API aligns with multiple industry standards:
 
-### IMS Global (1EdTech)
+### 1EdTech
 - **Open Badges v3.0**: Digital credentials for skills
 - **Comprehensive Learner Record (CLR)**: Learning and employment history
 
@@ -704,7 +704,7 @@ Content-Type: application/json
 ## Additional Resources
 
 - **HR Open Workgroup**: https://www.hropenstandards.org/
-- **IMS Global Open Badges**: https://openbadges.org/
+- **1EdTech Open Badges**: https://openbadges.org/
 - **Credential Engine**: https://credentialengine.org/
 - **Schema.org**: https://schema.org/
 - **JSON-LD**: https://json-ld.org/

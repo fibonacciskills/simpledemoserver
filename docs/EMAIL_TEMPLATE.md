@@ -6,7 +6,7 @@ Copy and customize these templates based on your audience.
 
 ## Template 1: For Technical Reviewers
 
-**Subject:** REST API Implementation Ready - Jobs + Skills (JEDx & IMS Global)
+**Subject:** REST API Implementation Ready - Jobs + Skills (JEDx & 1EdTech)
 
 Hi [Name],
 
@@ -30,7 +30,7 @@ Same Job ID (`SWE-001`) provides:
 
 **📁 Standards Used:**
 - JEDx format for workforce data exchange
-- IMS Global Open Badges v3.0 for skills and credentials
+- 1EdTech Open Badges v3.0 for skills and credentials
 - REST with standard HTTP methods
 - JSON-LD for linked data
 
@@ -112,7 +112,7 @@ Our skills-based workforce API is ready for integration. Here's what you need:
 
 **📊 Data Formats:**
 - **JEDx** for workforce data (jobs, workers, organizations)
-- **IMS Global Open Badges v3.0** for skills and credentials
+- **1EdTech Open Badges v3.0** for skills and credentials
 - JSON-LD with proper @context for linked data
 - Standard REST with JSON payloads
 
@@ -187,7 +187,7 @@ Quick update: The REST API with CRUD operations is complete and ready.
 **What's Working:**
 - Full CRUD for jobs (Create, Read, Update, Delete)
 - Job attributes connected to required skills
-- Industry standard formats (JEDx, IMS Global)
+- Industry standard formats (JEDx, 1EdTech)
 - Live server running at [URL]
 - Complete documentation provided
 
@@ -240,7 +240,7 @@ We can now connect:
 - Track skill development over time
 
 **Standards Used:**
-- IMS Global Open Badges v3.0 (same standard as Canvas, Moodle)
+- 1EdTech Open Badges v3.0 (same standard as Canvas, Moodle)
 - Schema.org vocabularies
 - Compatible with existing LMS systems
 

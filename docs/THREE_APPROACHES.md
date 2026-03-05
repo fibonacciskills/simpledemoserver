@@ -35,7 +35,7 @@ We provide **three different approaches** to demonstrate flexibility and standar
 **Status:**
 - ⚠️ **Proposed extension** to JEDx
 - ✅ Backward compatible (skills field is optional)
-- ✅ Based on IMS Global OB v3.0
+- ✅ Based on 1EdTech OB v3.0
 - 📄 See: `JEDX_SKILLS_PROPOSAL.md`
 
 **Use When:**
@@ -79,7 +79,7 @@ We provide **three different approaches** to demonstrate flexibility and standar
 **Pros:**
 - ✅ 100% standards-compliant
 - ✅ JEDx schema valid
-- ✅ IMS Global OB v3.0 valid
+- ✅ 1EdTech OB v3.0 valid
 - ✅ No extensions needed
 - ✅ Works today with existing systems
 
@@ -156,7 +156,7 @@ Response:
 | **Requests Needed** | 1 | 2 files | 2 HTTP |
 | **Single Source of Truth** | ✅ Yes | ⚠️ Can diverge | ⚠️ Managed by server |
 | **JEDx Valid** | ⚠️ Extension | ✅ Yes | ✅ Yes |
-| **IMS Global Valid** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **1EdTech Valid** | ✅ Yes | ✅ Yes | ✅ Yes |
 | **Backward Compatible** | ✅ Yes | ✅ Yes | ✅ Yes |
 | **Production Ready** | Proposed | ✅ Yes | ✅ Yes |
 | **Best For** | Innovation | Validation | APIs |

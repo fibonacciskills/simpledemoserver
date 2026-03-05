@@ -11,7 +11,7 @@ Use this outline for meetings, presentations, or walkthroughs.
 **Key Message:**
 - Not just specs - working implementation
 - You can test it right now
-- Built on JEDx and IMS Global standards
+- Built on JEDx and 1EdTech standards
 
 ---
 
@@ -46,7 +46,7 @@ Use this outline for meetings, presentations, or walkthroughs.
 - Node.js/Express server
 - JSON-LD payloads
 - JEDx format (workforce data)
-- IMS Global Open Badges v3.0 (skills)
+- 1EdTech Open Badges v3.0 (skills)
 
 ---
 
@@ -172,7 +172,7 @@ DELETE /jobs/DEVOPS-001
 |----------|----------------|---------------|
 | **REST** | API architecture | Universal understanding |
 | **JEDx** | Workforce data | State labor exchange format |
-| **IMS Global OB v3.0** | Skills & credentials | Education/workforce standard |
+| **1EdTech OB v3.0** | Skills & credentials | Education/workforce standard |
 | **Schema.org** | Vocabulary | SEO & linked data |
 | **JSON-LD** | Data format | Machine-readable context |
 
@@ -431,7 +431,7 @@ The `@context` tells machines how to interpret the data.
 → "This is a working implementation with real endpoints, real data, and industry-standard formats. You can test it right now."
 
 **If asked: "What standards are you using?"**
-→ "JEDx for workforce data exchange and IMS Global Open Badges v3.0 for skills and credentials - both industry standards."
+→ "JEDx for workforce data exchange and 1EdTech Open Badges v3.0 for skills and credentials - both industry standards."
 
 **If asked: "Can I see a real example?"**
 → [Open sample-data/job-skills-architecture.json] "Here's a complete payload showing a job with its required skills."

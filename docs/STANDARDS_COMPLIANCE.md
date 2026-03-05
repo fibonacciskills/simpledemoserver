@@ -12,7 +12,7 @@
 The `job-skills-architecture.json` file adds a `skills` field to the JEDx job schema. This is:
 - ✅ **Proposed enhancement** to JEDx standard (see `JEDX_SKILLS_PROPOSAL.md`)
 - ✅ **Backward compatible** - skills field is optional
-- ✅ **Based on IMS Global Open Badges v3.0** - proven standard
+- ✅ **Based on 1EdTech Open Badges v3.0** - proven standard
 - ✅ **Enables machine-readable HR systems**
 
 **Why propose this?** To connect JEDx job data with skills/credentials/learning systems for better matching, analytics, and workforce planning.
@@ -25,7 +25,7 @@ The `job-skills-architecture.json` file adds a `skills` field to the JEDx job sc
 
 **Updated to use:**
 - **Canonical JEDx job structure** (from plumbingMultiState_4054/job_2.json)
-- **IMS Global Open Badges v3.0** (Skills API section only)
+- **1EdTech Open Badges v3.0** (Skills API section only)
 
 **Standard JEDx Job Fields:**
 ```json
@@ -50,7 +50,7 @@ The `job-skills-architecture.json` file adds a `skills` field to the JEDx job sc
 }
 ```
 
-**Standard Skills API Section (IMS Global OB v3.0):**
+**Standard Skills API Section (1EdTech OB v3.0):**
 ```json
 {
   "skills": {
@@ -100,7 +100,7 @@ The `job-skills-architecture.json` file adds a `skills` field to the JEDx job sc
 - ❌ `provider` (EducationalOrganization details)
 
 **Kept standard fields:**
-- ✅ `@context` (IMS Global + Schema.org)
+- ✅ `@context` (1EdTech + Schema.org)
 - ✅ `@type: SkillAssertionCollection`
 - ✅ `id`, `name`, `description`
 - ✅ `targetType`, `targetId`
@@ -164,7 +164,7 @@ The `job-skills-architecture.json` file adds a `skills` field to the JEDx job sc
 
 ## Standards Reference
 
-### IMS Global Open Badges v3.0
+### 1EdTech Open Badges v3.0
 
 **Specification:** https://purl.imsglobal.org/spec/ob/v3p0/
 
@@ -216,20 +216,20 @@ The `job-skills-architecture.json` file adds a `skills` field to the JEDx job sc
 | `@context` | JSON-LD | Required for linked data |
 | `@type` | JSON-LD | Required type declaration |
 | `@id` | JSON-LD | Unique identifier URI |
-| `id` | IMS Global | Identifier (non-JSON-LD contexts) |
-| `type` | IMS Global | Type (non-JSON-LD contexts) |
+| `id` | 1EdTech | Identifier (non-JSON-LD contexts) |
+| `type` | 1EdTech | Type (non-JSON-LD contexts) |
 | `name` | Schema.org | Human-readable name |
 | `description` | Schema.org | Human-readable description |
-| `skill` | IMS Global | Skill reference |
-| `proficiencyLevel` | IMS Global | Proficiency/competency level |
-| `proficiencyScale` | IMS Global | Scale reference |
+| `skill` | 1EdTech | Skill reference |
+| `proficiencyLevel` | 1EdTech | Proficiency/competency level |
+| `proficiencyScale` | 1EdTech | Scale reference |
 | `codedNotation` | Schema.org | Short code for skill |
 | `termCode` | Schema.org | Code for term in scale |
 | `inDefinedTermSet` | Schema.org | Parent term set reference |
-| `source` | IMS Global | Assertion source |
-| `targetType` | IMS Global | Type of target entity |
-| `targetId` | IMS Global | Target entity identifier |
-| `assertions` | IMS Global | Array of skill assertions |
+| `source` | 1EdTech | Assertion source |
+| `targetType` | 1EdTech | Type of target entity |
+| `targetId` | 1EdTech | Target entity identifier |
+| `assertions` | 1EdTech | Array of skill assertions |
 | `RefId` | JEDx | UUID reference |
 | `senderId` | JEDx | Sender identifier |
 | `receiverId` | JEDx | Receiver identifier |
@@ -244,9 +244,9 @@ The `job-skills-architecture.json` file adds a `skills` field to the JEDx job sc
 
 | Field | Why Removed | Alternative |
 |-------|-------------|-------------|
-| `courseMetadata` | Not in IMS Global spec | Use separate Course entity |
-| `learningOutcome` | Not in IMS Global spec | Use `description` or separate LearningOutcome entity |
-| `assessmentMethod` | Not in IMS Global spec | Use evidence/assessment entities |
+| `courseMetadata` | Not in 1EdTech spec | Use separate Course entity |
+| `learningOutcome` | Not in 1EdTech spec | Use `description` or separate LearningOutcome entity |
+| `assessmentMethod` | Not in 1EdTech spec | Use evidence/assessment entities |
 | `metadata` section | Custom container | Flatten into main object if needed |
 | `academicTerm` | Not in spec | Use temporal properties if needed |
 | `instructor` | Not in spec | Link to separate Person entity |
@@ -266,7 +266,7 @@ https://json-ld.org/playground/
 # Paste your JSON and verify it processes without errors
 ```
 
-**2. IMS Global Compliance:**
+**2. 1EdTech Compliance:**
 - Check against spec: https://purl.imsglobal.org/spec/ob/v3p0/
 - Verify all required fields present
 - Ensure types match specification
@@ -278,7 +278,7 @@ https://json-ld.org/playground/
 ### Validation Checklist
 
 **For Skills API Files:**
-- [ ] Has valid `@context` with IMS Global context URL
+- [ ] Has valid `@context` with 1EdTech context URL
 - [ ] Uses `SkillAssertionCollection` or `SkillAssertion` types
 - [ ] All skills have `@id`, `@type`, `name`, `codedNotation`
 - [ ] Proficiency levels are `DefinedTerm` objects
@@ -341,8 +341,8 @@ https://json-ld.org/playground/
 |------|--------|-------|
 | `job-skills-architecture.json` | ✅ Proposed Extension | JEDx + skills field (proposed enhancement) |
 | `job-swe-001.json` | ✅ Fully Compliant | Pure JEDx, no extensions |
-| `job-swe-001-skills.json` | ✅ Fully Compliant | Pure IMS Global Skills API |
-| `course-skills-assertions.json` | ✅ Compliant | IMS Global only, custom fields removed |
+| `job-swe-001-skills.json` | ✅ Fully Compliant | Pure 1EdTech Skills API |
+| `course-skills-assertions.json` | ✅ Compliant | 1EdTech only, custom fields removed |
 | `open-badge-credential.json` | ✅ Compliant | Already standard (need to verify) |
 | `comprehensive-learner-record.json` | ✅ Compliant | Already standard (need to verify) |
 
@@ -363,19 +363,19 @@ https://json-ld.org/playground/
 ## What to Tell Stakeholders
 
 **Short Version:**
-> "We've updated our sample files to use only industry-standard fields from IMS Global Open Badges v3.0 and JEDx specifications. This ensures maximum interoperability with other systems."
+> "We've updated our sample files to use only industry-standard fields from 1EdTech Open Badges v3.0 and JEDx specifications. This ensures maximum interoperability with other systems."
 
 **Long Version:**
-> "Our skills data now follows IMS Global Open Badges v3.0 and JEDx standards without custom extensions. We removed education-specific fields like courseMetadata and learningOutcome that weren't part of the core specifications. This makes our data 100% standards-compliant and ensures it can be consumed by any system supporting these standards without requiring custom parsing logic."
+> "Our skills data now follows 1EdTech Open Badges v3.0 and JEDx standards without custom extensions. We removed education-specific fields like courseMetadata and learningOutcome that weren't part of the core specifications. This makes our data 100% standards-compliant and ensures it can be consumed by any system supporting these standards without requiring custom parsing logic."
 
 **Technical Version:**
-> "Migrated from extended schema to strict IMS Global OB v3.0 + JEDx compliance. Removed custom properties: courseMetadata, learningOutcome, assessmentMethod, provider, and metadata container. All files now validate against official specifications with zero extensions. Job structure uses canonical JEDx schema from production samples."
+> "Migrated from extended schema to strict 1EdTech OB v3.0 + JEDx compliance. Removed custom properties: courseMetadata, learningOutcome, assessmentMethod, provider, and metadata container. All files now validate against official specifications with zero extensions. Job structure uses canonical JEDx schema from production samples."
 
 ---
 
 ## Benefits of This Change
 
-✅ **Interoperability:** Works with any IMS Global-compliant system
+✅ **Interoperability:** Works with any 1EdTech-compliant system
 ✅ **Simplicity:** Fewer fields, clearer structure
 ✅ **Validation:** Can validate against official schemas
 ✅ **Future-proof:** Won't break when standards update

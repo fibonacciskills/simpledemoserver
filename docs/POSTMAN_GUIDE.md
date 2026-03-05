@@ -72,7 +72,7 @@ Worker compensation and hours reporting:
 - **POST** `/reports/hours` - Submit hours report
 
 ### 📁 Skills API
-IMS Global Open Badges v3.0 compatible skills endpoints:
+1EdTech Open Badges v3.0 compatible skills endpoints:
 - **GET** `/skills` - Get skills for any target (Job, Person, Role, etc.)
 - **PUT** `/skills` - Create/update skill assertions
 - **GET** `/proficiency-scales` - List available scales
@@ -95,7 +95,7 @@ The collection includes full Skills Proficiency API support:
 GET /jobs/SWE-001/skills
 ```
 
-Returns skills in IMS Global Open Badges v3.0 format:
+Returns skills in 1EdTech Open Badges v3.0 format:
 - JSON-LD context
 - SkillAssertionCollection with assertions
 - Proficiency levels with ranks
@@ -284,7 +284,7 @@ pm.test("Response has job object", function () {
 - **JEDx Schemas**: `/schemas` directory in the project
 - **Skills API Spec**: `skillsapi/openapi.yaml`
 - **Sample Data**: `sample-data/` directory
-- **IMS Global OB Context**: https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json
+- **1EdTech OB Context**: https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json
 
 ## API Versioning
 

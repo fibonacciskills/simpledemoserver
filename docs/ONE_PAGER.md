@@ -45,7 +45,7 @@ GET /api/v1/jedx/jobs/SWE-001/skills
 
 - ✅ 10+ real JSON files in `/sample-data/`
 - ✅ Jobs, Skills, People, Courses, Badges
-- ✅ All follow industry standards (JEDx, IMS Global)
+- ✅ All follow industry standards (JEDx, 1EdTech)
 
 ---
 
@@ -67,7 +67,7 @@ Import `JEDx_API.postman_collection.json` → Send any request
 ## Standards Used
 
 - ✅ **JEDx** - Workforce data exchange format
-- ✅ **IMS Global Open Badges v3.0** - Skills & credentials
+- ✅ **1EdTech Open Badges v3.0** - Skills & credentials
 - ✅ **Schema.org** - Linked data vocabulary
 - ✅ **REST** - Standard HTTP methods
 
@@ -107,7 +107,7 @@ A: No - working server with real endpoints and data.
 A: Yes - server runs locally or on Render. Postman collection included.
 
 **Q: What standards does it follow?**
-A: JEDx (workforce data) + IMS Global Open Badges (skills/credentials).
+A: JEDx (workforce data) + 1EdTech Open Badges (skills/credentials).
 
 **Q: Where are the payload examples?**
 A: `/sample-data/` directory - 10+ real JSON files.

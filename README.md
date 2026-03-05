@@ -191,7 +191,7 @@ POST {{skills_base_url}}/jedx/match
 - **Framework**: Express.js
 - **Data Format**: JSON-LD 1.1
 - **Storage**: In-memory (for demo)
-- **Standards**: IMS Global Open Badges v3.0, W3C Verifiable Credentials
+- **Standards**: 1EdTech Open Badges v3.0, W3C Verifiable Credentials
 
 ### Data Flow
 
@@ -204,7 +204,7 @@ Sample JSON Files → Load on Startup → In-Memory Storage → REST API → Pos
 This demo implements:
 
 - **HR Open JEDx** - Job Exchange Data format
-- **IMS Global Open Badges v3.0** - Digital credentials
+- **1EdTech Open Badges v3.0** - Digital credentials
 - **W3C Verifiable Credentials** - Cryptographically secure credentials
 - **JSON-LD 1.1** - Linked Data format
 - **Schema.org** - Vocabulary for structured data
@@ -283,7 +283,7 @@ This is a demo implementation. Feel free to:
 ## 🔗 Resources
 
 - **HR Open Standards**: https://www.hropenstandards.org/
-- **IMS Global Open Badges**: https://openbadges.org/
+- **1EdTech Open Badges**: https://openbadges.org/
 - **Credential Engine**: https://credentialengine.org/
 - **W3C Verifiable Credentials**: https://www.w3.org/TR/vc-data-model/
 - **Schema.org**: https://schema.org/
@@ -304,4 +304,4 @@ MIT License - Free for demo, educational, and commercial use.
 **Version**: 1.0.0
 **Last Updated**: 2026-02-03
 **Node Version**: 16+
-**Standards**: HR Open JEDx, IMS Global OB v3.0, W3C VC, JSON-LD 1.1
+**Standards**: HR Open JEDx, 1EdTech OB v3.0, W3C VC, JSON-LD 1.1

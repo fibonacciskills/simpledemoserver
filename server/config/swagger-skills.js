@@ -19,7 +19,7 @@ The **Skills Proficiency Data API** is the first open, comprehensive standard fo
 - 🤝 **Complementary**: Integrates with JEDx, Open Badges, CLR, and other standards
 
 ## Standards Compliance
-- IMS Global Open Badges v3.0
+- 1EdTech Open Badges v3.0
 - W3C Verifiable Credentials
 - JSON-LD 1.1
 - Schema.org

@@ -404,7 +404,7 @@ This is a demo server. Feel free to:
 ## 📚 Resources
 
 - **HR Open Standards**: https://www.hropenstandards.org/
-- **IMS Global Open Badges**: https://openbadges.org/
+- **1EdTech Open Badges**: https://openbadges.org/
 - **Skills API Guide**: See `SKILLS_API_GUIDE.md`
 - **JEDx Guide**: See `POSTMAN_GUIDE.md`
 

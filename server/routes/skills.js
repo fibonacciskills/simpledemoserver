@@ -637,7 +637,7 @@ router.get('/docs-legacy', (req, res) => {
       openapi: '/api/v1/skills/openapi.json'
     },
     standards: [
-      'IMS Global Open Badges v3.0',
+      '1EdTech Open Badges v3.0',
       'W3C Verifiable Credentials',
       'JSON-LD 1.1',
       'Schema.org'

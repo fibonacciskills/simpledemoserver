@@ -2,7 +2,7 @@
   "info": {
     "name": "JEDx API Collection",
     "_postman_id": "jedx-api-v1",
-    "description": "# JEDx API - Job Exchange Data Format\n\n## Overview\n\nThe Job Exchange Data (JEDx) API provides a standardized format for exchanging workforce data including jobs, workers, organizations, and skills information.\n\n## Key Features\n\n- **Jobs Management**: CRUD operations for job roles and positions\n- **Workers**: Employee/worker data exchange\n- **Organizations**: Legal entity and employer information\n- **Skills API Integration**: Skills proficiency data using IMS Global standards\n- **Reports**: Compensation and hours worked reporting\n\n## Authentication\n\nThis collection uses Bearer token authentication. Set your API token in the collection variables.\n\n## Base URL\n\nDefault: `https://api.jedx.example.com/v1`\n\n## Data Standards\n\n- JSON Schema Draft-07\n- IMS Global Open Badges v3.0 (for Skills)\n- ISO standards for dates, countries, currencies\n\n## Privacy & Security\n\n- POD (Privacy Obligation Document) URLs included in responses\n- RefId-based referential integrity\n- Sender/Receiver tracking for data provenance",
+    "description": "# JEDx API - Job Exchange Data Format\n\n## Overview\n\nThe Job Exchange Data (JEDx) API provides a standardized format for exchanging workforce data including jobs, workers, organizations, and skills information.\n\n## Key Features\n\n- **Jobs Management**: CRUD operations for job roles and positions\n- **Workers**: Employee/worker data exchange\n- **Organizations**: Legal entity and employer information\n- **Skills API Integration**: Skills proficiency data using 1EdTech standards\n- **Reports**: Compensation and hours worked reporting\n\n## Authentication\n\nThis collection uses Bearer token authentication. Set your API token in the collection variables.\n\n## Base URL\n\nDefault: `https://api.jedx.example.com/v1`\n\n## Data Standards\n\n- JSON Schema Draft-07\n- 1EdTech Open Badges v3.0 (for Skills)\n- ISO standards for dates, countries, currencies\n\n## Privacy & Security\n\n- POD (Privacy Obligation Document) URLs included in responses\n- RefId-based referential integrity\n- Sender/Receiver tracking for data provenance",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "version": "1.0.0"
   },
@@ -310,7 +310,7 @@
                 }
               ]
             },
-            "description": "Get skill assertions for a job using the Skills Proficiency API format. Returns skills with proficiency levels, scales, and full JSON-LD context.\n\n**Format**: IMS Global Open Badges v3.0 compatible\n**Returns**: SkillAssertionCollection"
+            "description": "Get skill assertions for a job using the Skills Proficiency API format. Returns skills with proficiency levels, scales, and full JSON-LD context.\n\n**Format**: 1EdTech Open Badges v3.0 compatible\n**Returns**: SkillAssertionCollection"
           },
           "response": [
             {
@@ -826,7 +826,7 @@
     },
     {
       "name": "Skills API",
-      "description": "Skills Proficiency API endpoints following IMS Global Open Badges v3.0 standards. Provides skill assertions with proficiency levels for jobs, workers, and other targets.",
+      "description": "Skills Proficiency API endpoints following 1EdTech Open Badges v3.0 standards. Provides skill assertions with proficiency levels for jobs, workers, and other targets.",
       "item": [
         {
           "name": "Get Skills by Target",
@@ -859,7 +859,7 @@
                 }
               ]
             },
-            "description": "Generic Skills API endpoint. Retrieve skill assertions for any target object type.\n\n**Target Types**: Job, Person, Role, Assessment, Framework, LearningProgram, Other\n\n**Format**: IMS Global Open Badges v3.0 compatible JSON-LD"
+            "description": "Generic Skills API endpoint. Retrieve skill assertions for any target object type.\n\n**Target Types**: Job, Person, Role, Assessment, Framework, LearningProgram, Other\n\n**Format**: 1EdTech Open Badges v3.0 compatible JSON-LD"
           },
           "response": [
             {

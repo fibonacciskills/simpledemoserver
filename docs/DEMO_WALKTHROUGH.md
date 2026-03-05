@@ -4,7 +4,7 @@ A step-by-step guide to demonstrate the JEDx & Skills API implementation.
 
 ## 🎯 What We're Showing
 
-We've implemented **REST endpoints with CRUD operations** that show **Job attributes AND associated skills** using standardized formats (JEDx + IMS Global Open Badges).
+We've implemented **REST endpoints with CRUD operations** that show **Job attributes AND associated skills** using standardized formats (JEDx + 1EdTech Open Badges).
 
 ---
 
@@ -203,7 +203,7 @@ Show we're using **industry standards**, not making it up.
 
 ### Data Standards
 ✅ **JEDx** format for jobs/workers/organizations
-✅ **IMS Global Open Badges v3.0** for skills
+✅ **1EdTech Open Badges v3.0** for skills
 ✅ **JSON-LD** with proper @context
 ✅ **Schema.org** vocabulary where applicable
 
@@ -243,7 +243,7 @@ GET http://localhost:3000/api/v1/jedx/jobs/SWE-001
 ```bash
 GET http://localhost:3000/api/v1/jedx/jobs/SWE-001/skills
 ```
-**Say:** "Same job ID, now showing required skills with proficiency levels using IMS Global standards."
+**Say:** "Same job ID, now showing required skills with proficiency levels using 1EdTech standards."
 
 ### 4. Show Payload Example (30 seconds)
 **Open:** `sample-data/job-skills-architecture.json`
@@ -307,7 +307,7 @@ When explaining, emphasize:
 
 4. **"Industry standards"**
    - JEDx for workforce data
-   - IMS Global for skills/credentials
+   - 1EdTech for skills/credentials
    - Schema.org vocabularies
    - JSON-LD for linked data
 
@@ -349,7 +349,7 @@ open http://localhost:3000/api/v1/jedx/jobs/SWE-001
 - [x] **Job skills** - Skills with proficiency levels
 - [x] **Combined view** - Both in single payload possible
 - [x] **Working implementation** - Server runs and responds
-- [x] **Industry standards** - JEDx + IMS Global compliance
+- [x] **Industry standards** - JEDx + 1EdTech compliance
 
 **Status: ✅ COMPLETE**
 

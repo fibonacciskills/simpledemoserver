@@ -201,7 +201,7 @@ GET /analytics/skills-inventory
 
 **1. Standards Used**
 - JEDx for workforce data
-- IMS Global Open Badges v3.0 for skills
+- 1EdTech Open Badges v3.0 for skills
 - Schema.org vocabularies
 - JSON-LD for linked data
 
@@ -218,7 +218,7 @@ GET /analytics/skills-inventory
 - Scaling considerations
 
 **What to Say:**
-> "This isn't proprietary. We're using JEDx (state labor exchange standard) and IMS Global Open Badges (education/workforce standard). Any system that speaks REST can integrate. We're not locked into a vendor."
+> "This isn't proprietary. We're using JEDx (state labor exchange standard) and 1EdTech Open Badges (education/workforce standard). Any system that speaks REST can integrate. We're not locked into a vendor."
 
 **What They Learn:**
 - ✅ Based on industry standards (lower risk)

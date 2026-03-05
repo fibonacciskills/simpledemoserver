@@ -62,7 +62,7 @@ We propose extending the JEDx (Job Exchange Data) format to include structured s
 
 ### Add Optional "skills" Field to JEDx Job Schema
 
-Extend the job schema to include an optional `skills` field containing a **SkillAssertionCollection** (IMS Global Open Badges v3.0 format).
+Extend the job schema to include an optional `skills` field containing a **SkillAssertionCollection** (1EdTech Open Badges v3.0 format).
 
 ### Example: Extended JEDx Job
 
@@ -125,7 +125,7 @@ Extend the job schema to include an optional `skills` field containing a **Skill
 
 ### 1. Builds on Existing Standards
 
-**Not inventing new formats** - reusing **IMS Global Open Badges v3.0**:
+**Not inventing new formats** - reusing **1EdTech Open Badges v3.0**:
 - Already used by education institutions worldwide
 - Standard format for skills and credentials
 - Supported by LMS platforms (Canvas, Moodle, Blackboard)
@@ -184,7 +184,7 @@ Extend the job schema to include an optional `skills` field containing a **Skill
   "properties": {
     "skills": {
       "type": "object",
-      "description": "Skills and qualifications required for the job using IMS Global Open Badges v3.0 SkillAssertionCollection format",
+      "description": "Skills and qualifications required for the job using 1EdTech Open Badges v3.0 SkillAssertionCollection format",
       "properties": {
         "type": {
           "type": "string",
@@ -323,7 +323,7 @@ Or explicitly allow skills field while keeping strict validation for other prope
 3. Employers unsure what skills graduates have
 
 **With Skills Extension:**
-1. Courses define skill outcomes (IMS Global format)
+1. Courses define skill outcomes (1EdTech format)
 2. Graduates get digital credentials with skills
 3. Compare graduate skills to job requirements
 4. Show: "CS degree develops skills for 85 job titles"
@@ -387,10 +387,10 @@ GET /api/v1/jedx/jobs/SWE-001/skills
 
 This proposal aligns with:
 
-✅ **IMS Global Open Badges v3.0**
+✅ **1EdTech Open Badges v3.0**
 - Standard skills/credential format
 - Used by education worldwide
-- Active standard body (IMS Global)
+- Active standard body (1EdTech)
 
 ✅ **Schema.org Vocabulary**
 - Skill, JobPosting, Course types
@@ -473,7 +473,7 @@ This proposal aligns with:
 **Pros:**
 - ✅ Single integrated format
 - ✅ Backward compatible
-- ✅ Reuses proven standards (IMS Global)
+- ✅ Reuses proven standards (1EdTech)
 - ✅ Enables new use cases
 - ✅ Natural evolution of JEDx
 
@@ -528,7 +528,7 @@ This proposal aligns with:
 
 ## Conclusion
 
-**JEDx is excellent at job metadata.** This proposal enhances it to include **machine-readable qualifications** by integrating with IMS Global Open Badges v3.0 - a proven, widely-adopted standard for skills and credentials.
+**JEDx is excellent at job metadata.** This proposal enhances it to include **machine-readable qualifications** by integrating with 1EdTech Open Badges v3.0 - a proven, widely-adopted standard for skills and credentials.
 
 **Key Benefits:**
 - ✅ Backward compatible
@@ -546,7 +546,7 @@ This proposal aligns with:
 ### Skills Field Structure
 
 ```
-job.skills                           SkillAssertionCollection (IMS Global)
+job.skills                           SkillAssertionCollection (1EdTech)
 ├── type                             "SkillAssertionCollection"
 ├── targetType                       URI (e.g., https://schema.org/JobPosting)
 ├── targetId                         URI pointing to this job
