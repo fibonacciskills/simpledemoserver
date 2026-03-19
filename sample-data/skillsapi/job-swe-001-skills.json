@@ -1,6 +1,7 @@
 {
   "identifier": "https://techcorp.example.com/jobs/SWE-001",
   "targetType": "Job",
+  "proficiencyScale": "https://techcorp.example.com/proficiency-scales/4-level",
   "assertions": [
     {
       "skill": {
@@ -15,7 +16,11 @@
         "description": "Applies Go independently in complex contexts, designing scalable architectures and implementing advanced patterns",
         "rank": 4
       },
-      "proficiencyScale": 4
+      "performanceContext": [
+        "https://techcorp.example.com/contexts/backend-services",
+        "https://techcorp.example.com/contexts/microservices"
+      ],
+      "proficiencyContext": "https://techcorp.example.com/rubrics/engineering-levels/senior"
     },
     {
       "skill": {
@@ -30,7 +35,9 @@
         "description": "Performs PostgreSQL operations with routine independence",
         "rank": 3
       },
-      "proficiencyScale": 4
+      "performanceContext": [
+        "https://techcorp.example.com/contexts/data-platform"
+      ]
     },
     {
       "skill": {
@@ -44,8 +51,7 @@
         "name": "Novice",
         "description": "Basic working knowledge with guidance from documentation",
         "rank": 2
-      },
-      "proficiencyScale": 4
+      }
     }
   ]
 }

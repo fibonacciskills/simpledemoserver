@@ -1,6 +1,7 @@
 {
   "identifier": "https://university.example.com/courses/CS-401",
-  "targetType": "Course",
+  "targetType": "LearningProgram",
+  "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
   "assertions": [
     {
       "skill": {
@@ -15,7 +16,11 @@
         "description": "Applies Go independently in complex contexts including distributed systems and microservices. Can design scalable architectures and implement advanced patterns.",
         "rank": 4
       },
-      "proficiencyScale": 4,
+      "performanceContext": [
+        "https://ceds.ed.gov/element/001015",
+        "https://university.example.com/contexts/distributed-systems-lab"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
       "source": {
         "id": "https://university.example.com",
         "type": "EducationalOrganization",
@@ -35,7 +40,7 @@
         "description": "Designs complex database schemas, optimizes queries for performance, and implements advanced PostgreSQL features",
         "rank": 4
       },
-      "proficiencyScale": 4
+      "proficiencyContext": "https://ceds.ed.gov/element/000558"
     },
     {
       "skill": {
@@ -50,7 +55,9 @@
         "description": "Implements microservices architectures with guidance, understanding core patterns and trade-offs",
         "rank": 3
       },
-      "proficiencyScale": 4
+      "performanceContext": [
+        "https://university.example.com/contexts/capstone-project"
+      ]
     },
     {
       "skill": {
@@ -64,8 +71,7 @@
         "name": "Intermediate",
         "description": "Creates Dockerfiles, manages multi-container applications with Docker Compose, and understands container networking",
         "rank": 3
-      },
-      "proficiencyScale": 4
+      }
     },
     {
       "skill": {
@@ -80,7 +86,10 @@
         "description": "Designs robust RESTful APIs with proper resource modeling, versioning strategies, and comprehensive error handling",
         "rank": 4
       },
-      "proficiencyScale": 4
+      "performanceContext": [
+        "https://university.example.com/contexts/api-design-practicum"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558"
     }
   ]
 }

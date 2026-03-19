@@ -139,7 +139,8 @@ function transformToOpenAPIFormat(data) {
   const transformAssertion = (assertion) => ({
     skill: transformSkill(assertion.skill),
     proficiencyLevel: transformProficiencyLevel(assertion.proficiencyLevel),
-    proficiencyScale: assertion.proficiencyScale,
+    ...(assertion.performanceContext && { performanceContext: assertion.performanceContext }),
+    ...(assertion.proficiencyContext && { proficiencyContext: assertion.proficiencyContext }),
     ...(assertion.source && {
       source: {
         id: assertion.source['@id'] || assertion.source.id,
@@ -152,6 +153,7 @@ function transformToOpenAPIFormat(data) {
   return {
     identifier: data.identifier || data['@id'] || data.id || data.targetId,
     targetType: data.targetType?.replace('https://schema.org/', '') || 'Other',
+    ...(data.proficiencyScale && { proficiencyScale: data.proficiencyScale }),
     assertions: (data.assertions || []).map(transformAssertion)
   };
 }
@@ -190,7 +192,7 @@ router.get('/', (req, res) => {
     skillData = person;
   }
 
-  // If no match, return empty
+  // If no match, return empty collection
   if (!skillData) {
     return res.json({
       identifier,

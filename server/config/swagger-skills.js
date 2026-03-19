@@ -7,7 +7,7 @@ module.exports = {
   openapi: '3.0.0',
   info: {
     title: 'HR Open Skills Proficiency Data API',
-    version: '1.0.0',
+    version: '0.9',
     description: `
 # Skills-Based Hiring & Workforce Transformation API
 
@@ -111,7 +111,7 @@ The **Skills Proficiency Data API** is the first open, comprehensive standard fo
             required: true,
             schema: {
               type: 'string',
-              enum: ['Person', 'Job', 'LearningProgram', 'Assessment', 'Organization'],
+              enum: ['Job', 'Person', 'JobRole', 'Assessment', 'Framework', 'LearningProgram', 'Other'],
             },
             description: 'Type of the target entity',
           },
@@ -645,6 +645,7 @@ The **Skills Proficiency Data API** is the first open, comprehensive standard fo
       },
       SkillAssertion: {
         type: 'object',
+        required: ['skill', 'proficiencyLevel'],
         properties: {
           skill: {
             $ref: '#/components/schemas/Skill',
@@ -652,15 +653,23 @@ The **Skills Proficiency Data API** is the first open, comprehensive standard fo
           proficiencyLevel: {
             $ref: '#/components/schemas/ProficiencyLevel',
           },
-          proficiencyScale: {
-            type: 'integer',
-            description: 'Maximum scale value',
-            example: 4,
+          performanceContext: {
+            type: 'array',
+            description: 'Optional references describing the situational context in which the skill was demonstrated or assessed. Each entry can be a URI referencing an external ontology node.',
+            items: { type: 'string', format: 'uri' },
+            example: ['https://ceds.ed.gov/element/001015'],
+          },
+          proficiencyContext: {
+            type: 'string',
+            format: 'uri',
+            description: 'URI referencing an external rubric criterion level or proficiency definition from a competency framework such as CEDS, CASE, ASN, SCD or other standardized rubric models.',
+            example: 'https://ceds.ed.gov/element/000558',
           },
           source: {
             type: 'object',
+            description: 'Entity that issued or generated the assertion',
             properties: {
-              id: { type: 'string' },
+              id: { type: 'string', format: 'uri' },
               type: { type: 'string', example: 'Assessment' },
               name: { type: 'string' },
             },
@@ -687,6 +696,7 @@ The **Skills Proficiency Data API** is the first open, comprehensive standard fo
       },
       SkillAssertionCollection: {
         type: 'object',
+        required: ['identifier', 'targetType', 'assertions'],
         properties: {
           identifier: {
             type: 'string',
@@ -695,8 +705,14 @@ The **Skills Proficiency Data API** is the first open, comprehensive standard fo
           },
           targetType: {
             type: 'string',
-            enum: ['Person', 'Job', 'LearningProgram', 'Assessment', 'Organization'],
+            enum: ['Job', 'Person', 'JobRole', 'Assessment', 'Framework', 'LearningProgram', 'Other'],
             example: 'Person',
+          },
+          proficiencyScale: {
+            type: 'string',
+            format: 'uri',
+            description: 'URI identifying the proficiency scale against which all proficiency levels in this collection are defined.',
+            example: 'https://api.hropen.org/proficiency-scales/4-level',
           },
           assertions: {
             type: 'array',
