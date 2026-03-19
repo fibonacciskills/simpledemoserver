@@ -186,7 +186,11 @@
           "inDefinedTermSet": "https://university.example.com/proficiency-scales/4-level",
           "termCode": "5"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
+        "performanceContext": [
+          "https://university.example.com/contexts/distributed-systems-lab",
+          "https://university.example.com/contexts/capstone-project"
+        ],
+        "proficiencyContext": "https://ceds.ed.gov/element/000558",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -250,7 +254,10 @@
           "name": "Advanced",
           "termCode": "4"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
+        "performanceContext": [
+          "https://university.example.com/contexts/data-modeling-lab"
+        ],
+        "proficiencyContext": "https://ceds.ed.gov/element/000558",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -279,7 +286,11 @@
           "name": "Advanced",
           "termCode": "4"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
+        "performanceContext": [
+          "https://university.example.com/contexts/capstone-project",
+          "https://university.example.com/contexts/distributed-systems-lab"
+        ],
+        "proficiencyContext": "https://case.georgiastandards.org/rubric/microservices-design",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -312,7 +323,9 @@
           "name": "Intermediate",
           "termCode": "3"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
+        "performanceContext": [
+          "https://university.example.com/contexts/devops-workshop"
+        ],
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [
@@ -341,7 +354,10 @@
           "name": "Advanced",
           "termCode": "4"
         },
-        "proficiencyScale": "https://university.example.com/proficiency-scales/4-level",
+        "performanceContext": [
+          "https://university.example.com/contexts/api-design-practicum"
+        ],
+        "proficiencyContext": "https://ceds.ed.gov/element/000558",
         "validFrom": "2025-12-15T00:00:00Z",
         "validUntil": "2027-12-15T00:00:00Z",
         "evidence": [

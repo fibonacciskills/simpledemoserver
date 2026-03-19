@@ -1,0 +1,100 @@
+{
+  "identifier": "https://assessments.example.com/results/DATA-SCIENCE-EVAL-2026-001",
+  "targetType": "Assessment",
+  "proficiencyScale": "https://assessments.example.com/proficiency-scales/5-level",
+  "assertions": [
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/PYTHON-DATA-SCIENCE",
+        "name": "Python for Data Science",
+        "description": "Application of Python programming for data analysis, machine learning, and statistical modeling using libraries such as pandas, scikit-learn, and NumPy",
+        "codedNotation": "PY-DS"
+      },
+      "proficiencyLevel": {
+        "id": "https://assessments.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "description": "Independently builds end-to-end data pipelines and ML models in Python with production-quality code",
+        "rank": 4
+      },
+      "performanceContext": [
+        "https://assessments.example.com/contexts/timed-coding-challenge",
+        "https://assessments.example.com/contexts/real-world-dataset"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
+      "source": {
+        "id": "https://assessments.example.com",
+        "type": "Organization",
+        "name": "SkillAssess Platform"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/STATISTICAL-MODELING",
+        "name": "Statistical Modeling",
+        "description": "Design and application of statistical models including regression, classification, and hypothesis testing for data-driven decision making",
+        "codedNotation": "STAT-MODEL"
+      },
+      "proficiencyLevel": {
+        "id": "https://assessments.example.com/proficiency-scales/5-level/3",
+        "name": "Intermediate",
+        "description": "Applies standard statistical models with routine independence and interprets results correctly",
+        "rank": 3
+      },
+      "performanceContext": [
+        "https://assessments.example.com/contexts/case-study-analysis"
+      ],
+      "proficiencyContext": "https://case.georgiastandards.org/rubric/quantitative-reasoning",
+      "source": {
+        "id": "https://assessments.example.com",
+        "type": "Organization",
+        "name": "SkillAssess Platform"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/DATA-VISUALIZATION",
+        "name": "Data Visualization",
+        "description": "Creation of clear, effective visual representations of data using tools such as matplotlib, seaborn, Tableau, and D3.js",
+        "codedNotation": "DATA-VIZ"
+      },
+      "proficiencyLevel": {
+        "id": "https://assessments.example.com/proficiency-scales/5-level/4",
+        "name": "Advanced",
+        "description": "Designs compelling, accurate visualizations that communicate complex data insights to diverse audiences",
+        "rank": 4
+      },
+      "performanceContext": [
+        "https://assessments.example.com/contexts/dashboard-design-exercise",
+        "https://assessments.example.com/contexts/stakeholder-presentation"
+      ],
+      "source": {
+        "id": "https://assessments.example.com",
+        "type": "Organization",
+        "name": "SkillAssess Platform"
+      }
+    },
+    {
+      "skill": {
+        "id": "https://api.hropen.org/skills/SQL-DATA-ANALYSIS",
+        "name": "SQL for Data Analysis",
+        "description": "Writing complex SQL queries for data extraction, transformation, and analysis across relational databases",
+        "codedNotation": "SQL-DA"
+      },
+      "proficiencyLevel": {
+        "id": "https://assessments.example.com/proficiency-scales/5-level/5",
+        "name": "Expert",
+        "description": "Recognized authority in SQL, capable of optimizing complex queries, designing schemas, and mentoring others",
+        "rank": 5
+      },
+      "performanceContext": [
+        "https://assessments.example.com/contexts/live-database-challenge"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
+      "source": {
+        "id": "https://assessments.example.com",
+        "type": "Organization",
+        "name": "SkillAssess Platform"
+      }
+    }
+  ]
+}
