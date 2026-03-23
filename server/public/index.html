@@ -274,6 +274,7 @@
                     <a href="#use-cases" class="nav-link text-sm font-medium" id="nav-link-2">Use Cases</a>
                     <a href="#explorer" class="nav-link text-sm font-medium" id="nav-link-3">Explorer</a>
                     <a href="#ecosystem" class="nav-link text-sm font-medium" id="nav-link-4">Ecosystem</a>
+                    <a href="#compare" class="nav-link text-sm font-medium" id="nav-link-6">Compare</a>
                     <a href="#browser" class="nav-link text-sm font-medium" id="nav-link-5">Browser</a>
                 </div>
                 <div class="flex items-center gap-3">
@@ -935,6 +936,231 @@
             </div>
         </section>
 
+        <!-- Spec Comparison -->
+        <section id="compare" class="py-20 px-6 reveal">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-14">
+                    <p class="text-brand-500 font-semibold text-sm tracking-wide uppercase mb-3">Compare</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Spec Comparison</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                        See how the Skills Proficiency API relates to other standards in the ecosystem.
+                    </p>
+                </div>
+
+                <!-- Dropdown -->
+                <div class="flex justify-center mb-10">
+                    <div class="relative">
+                        <label for="compare-select" class="sr-only">Compare against</label>
+                        <select id="compare-select" onchange="showComparison(this.value)"
+                            class="appearance-none bg-white border-2 border-slate-200 hover:border-brand-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-5 py-3 pr-10 text-sm font-semibold text-slate-700 cursor-pointer transition-all outline-none min-w-[320px]">
+                            <option value="">Select a spec to compare...</option>
+                            <option value="ob3">Open Badges 3.0</option>
+                        </select>
+                        <svg class="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                </div>
+
+                <!-- Empty state -->
+                <div id="compare-empty" class="text-center py-16 bg-white rounded-2xl border border-dashed border-slate-200">
+                    <svg class="w-12 h-12 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+                    <p class="text-slate-400 text-sm font-medium">Choose a specification above to see a side-by-side comparison</p>
+                </div>
+
+                <!-- OB3 Comparison -->
+                <div id="compare-ob3" class="hidden">
+                    <!-- Comparison Table -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-10">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200">
+                                        <th class="text-left px-6 py-4 font-bold text-slate-900 w-1/5">Dimension</th>
+                                        <th class="text-left px-6 py-4 font-bold text-brand-600 w-2/5">
+                                            <span class="flex items-center gap-2">
+                                                <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                                                HROpen Skills Proficiency API
+                                            </span>
+                                        </th>
+                                        <th class="text-left px-6 py-4 font-bold text-amber-600 w-2/5">
+                                            <span class="flex items-center gap-2">
+                                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                                Open Badges 3.0
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Purpose</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Query skill assertions with proficiency levels for a target (person, job, role)</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Issue verifiable credentials proving an achievement or skill</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Core Unit</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><strong>SkillAssertion</strong> &mdash; a skill + proficiency level + context</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><strong>AchievementCredential</strong> &mdash; a W3C Verifiable Credential wrapping an Achievement</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Data Shape</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Flat collection of assertions per target</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Self-contained credential document per achievement</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Proficiency</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><span class="inline-flex items-center gap-1 text-emerald-600 font-semibold text-xs bg-emerald-50 px-2 py-0.5 rounded-md mb-1">First-class</span><br>ProficiencyLevel with rank, scale URI, rubric context (CEDS/CASE)</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><span class="inline-flex items-center gap-1 text-slate-500 font-semibold text-xs bg-slate-100 px-2 py-0.5 rounded-md mb-1">Optional</span><br>Results array with rubric criteria, but not the primary focus</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Verification</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><span class="inline-flex items-center gap-1 text-slate-500 font-semibold text-xs bg-slate-100 px-2 py-0.5 rounded-md mb-1">None built-in</span><br>Trusts the source field</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><span class="inline-flex items-center gap-1 text-emerald-600 font-semibold text-xs bg-emerald-50 px-2 py-0.5 rounded-md mb-1">Core feature</span><br>EdDSA / JWT cryptographic proofs, revocation lists</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Identity</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Target identified by URI + targetType enum</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Recipient identified by HTTPS URL or DID; issuer has cryptographic keys</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Evidence</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">performanceContext URIs pointing to external ontology nodes</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Rich evidence model: artifacts, narratives, portfolios embedded or linked</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Interop Format</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">JSON (OpenAPI 3.1) + JSON-LD context extending OB3 context</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">W3C Verifiable Credentials JSON-LD, portable across wallets</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">API Model</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed"><code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded font-mono">GET /skills?identifier=&amp;targetType=</code> &mdash; read-only query</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">OAuth 2.0 credential exchange; issue, host, display roles</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Scope</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Narrow: "what skills does X have, at what level?"</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Broad: achievements, certifications, skills, micro-credentials</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Framework Alignment</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Via skill.id URI + codedNotation + proficiencyContext URI</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">Via alignment objects with targetUrl, targetName, targetType</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-900 align-top">Standards Referenced</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">CEDS, CASE, ASN, O*NET, HR Open</td>
+                                        <td class="px-6 py-4 text-slate-600 leading-relaxed">CASE, CTDL (Credential Engine), W3C VC, DIDs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Key Differences -->
+                    <div class="mb-10">
+                        <h3 class="text-xl font-extrabold text-slate-900 mb-6">Key Differences</h3>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-brand-600 font-bold text-sm">1</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm mb-2">Proficiency depth is this API's strength</h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">OB3 says "you earned this badge." This API says "you have Python at level 4 of 5 on the SFIA scale, demonstrated in a production engineering context." The proficiencyScale, proficiencyLevel.rank, and proficiencyContext fields have no direct OB3 equivalent.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-amber-600 font-bold text-sm">2</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm mb-2">OB3 has cryptographic trust; this API has none</h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">OB3 credentials are signed with EdDSA or JWT and can be independently verified. This API relies on whoever runs the endpoint being trustworthy &mdash; the source field is informational only.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-violet-600 font-bold text-sm">3</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm mb-2">OB3 is credential-centric; this API is query-centric</h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">OB3 produces portable documents a person carries in a wallet. This API is a service you call to look up skills &mdash; it doesn't produce portable artifacts.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-emerald-200 shadow-sm bg-emerald-50/30">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-emerald-600 font-bold text-sm">4</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm mb-2">They're complementary, not competing</h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">OB3 issues verifiable credentials proving achievements/skills. This API aggregates and queries those credentials, adding proficiency-scale normalization across frameworks. The context-v1.json already extends the OB3 JSON-LD context, confirming this layered design.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gap Analysis -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                                </div>
+                                <h4 class="font-bold text-slate-900">Where This API Fills OB3 Gaps</h4>
+                            </div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">Cross-framework proficiency comparison</strong> &mdash; OB3 has no way to say "this person is level 3 on scale X." This API normalizes proficiency across CEDS, CASE, ASN rubrics.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">Multi-target queries</strong> &mdash; OB3 is person-centric. This API can query skills for a Job, JobRole, Framework, or LearningProgram, enabling matching use cases.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">HR/workforce context</strong> &mdash; The targetType enum and performanceContext are HR-domain concepts absent from OB3.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                </div>
+                                <h4 class="font-bold text-slate-900">Where OB3 Fills This API's Gaps</h4>
+                            </div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">Trust/verification</strong> &mdash; No cryptographic proof in this API</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">Portability</strong> &mdash; OB3 credentials live in digital wallets; this API requires network access to the service</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">Revocation</strong> &mdash; OB3 has status lists and expiration; this API has no validity lifecycle</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-600 leading-relaxed"><strong class="text-slate-900">Rich evidence</strong> &mdash; OB3 can embed or link artifacts; this API only has opaque context URIs</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Live Skills Browser -->
         <section id="browser" class="py-20 px-6 reveal">
             <div class="max-w-6xl mx-auto">
@@ -1215,6 +1441,20 @@
             `;
 
             document.body.appendChild(overlay);
+        }
+
+        // ── Spec comparison ──
+        function showComparison(specId) {
+            document.getElementById('compare-empty').classList.toggle('hidden', specId !== '');
+            document.querySelectorAll('[id^="compare-"]').forEach(el => {
+                if (el.id !== 'compare-empty' && el.id !== 'compare-select') {
+                    el.classList.add('hidden');
+                }
+            });
+            if (specId) {
+                const target = document.getElementById(`compare-${specId}`);
+                if (target) target.classList.remove('hidden');
+            }
         }
 
         // Trigger initial scroll check for navbar
