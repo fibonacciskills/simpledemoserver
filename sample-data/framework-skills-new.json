@@ -1,51 +1,76 @@
 {
   "identifier": "https://example.com/frameworks/digital-literacy-standard",
   "targetType": "Framework",
+  "proficiencyScale": "https://example.com/proficiency-scales/4-level",
   "assertions": [
     {
       "skill": {
         "id": "https://api.hropen.org/skills/DIGITAL-COMMUNICATION",
         "name": "Digital Communication",
-        "description": "Effective communication using digital tools and platforms",
+        "description": "Effective communication using digital tools and platforms including email, messaging, and collaborative documents",
         "codedNotation": "DIG-COMM"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
+        "description": "Routine independence in common scenarios, selects appropriate digital channels for different communication needs",
         "rank": 3
       },
-      "proficiencyScale": 7.5
+      "performanceContext": [
+        "https://example.com/contexts/workplace-collaboration",
+        "https://example.com/contexts/remote-teams"
+      ],
+      "proficiencyContext": "https://example.com/rubrics/digital-literacy/communication",
+      "source": {
+        "id": "https://example.com/standards-body",
+        "type": "Organization",
+        "name": "Digital Literacy Standards Board"
+      }
     },
     {
       "skill": {
         "id": "https://api.hropen.org/skills/DATA-LITERACY",
         "name": "Data Literacy",
-        "description": "Ability to read, interpret, and communicate data insights",
+        "description": "Ability to read, interpret, and communicate data insights for informed decision-making",
         "codedNotation": "DATA-LIT"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/custom/2",
+        "id": "https://example.com/proficiency-scales/4-level/2",
         "name": "Novice",
-        "description": "Working knowledge with guidance",
+        "description": "Working knowledge with guidance, can interpret basic charts and summary statistics",
         "rank": 2
       },
-      "proficiencyScale": 6.25
+      "performanceContext": [
+        "https://example.com/contexts/data-driven-decision-making"
+      ],
+      "proficiencyContext": "https://example.com/rubrics/digital-literacy/data",
+      "source": {
+        "id": "https://example.com/standards-body",
+        "type": "Organization",
+        "name": "Digital Literacy Standards Board"
+      }
     },
     {
       "skill": {
         "id": "https://api.hropen.org/skills/CYBERSECURITY-AWARENESS",
         "name": "Cybersecurity Awareness",
-        "description": "Understanding of cybersecurity best practices and threat awareness",
+        "description": "Understanding of cybersecurity best practices, threat awareness, and safe online behavior",
         "codedNotation": "CYBERSEC"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/custom/3",
+        "id": "https://example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
+        "description": "Routine independence in identifying threats and applying security best practices",
         "rank": 3
       },
-      "proficiencyScale": 8.0
+      "performanceContext": [
+        "https://example.com/contexts/enterprise-security"
+      ],
+      "source": {
+        "id": "https://example.com/standards-body",
+        "type": "Organization",
+        "name": "Digital Literacy Standards Board"
       }
+    }
   ]
 }

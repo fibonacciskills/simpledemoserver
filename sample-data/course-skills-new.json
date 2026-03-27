@@ -1,21 +1,26 @@
 {
   "identifier": "https://example.com/courses/WEB-DEV-101",
   "targetType": "LearningProgram",
+  "proficiencyScale": "https://example.com/proficiency-scales/4-level",
   "assertions": [
     {
       "skill": {
         "id": "https://api.hropen.org/skills/HTML",
         "name": "HTML",
-        "description": "HTML markup and semantic web design",
+        "description": "HTML markup and semantic web design for creating accessible, well-structured web content",
         "codedNotation": "HTML"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
+        "description": "Routine independence in common scenarios including semantic markup and accessibility best practices",
         "rank": 3
       },
-      "proficiencyScale": 5,
+      "performanceContext": [
+        "https://ceds.ed.gov/element/001015",
+        "https://example.com/contexts/web-development-lab"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
       "source": {
         "id": "https://example.com/university",
         "type": "EducationalOrganization",
@@ -26,16 +31,19 @@
       "skill": {
         "id": "https://api.hropen.org/skills/CSS",
         "name": "CSS",
-        "description": "Cascading Style Sheets for web styling",
+        "description": "Cascading Style Sheets for web styling, layout systems, and responsive design",
         "codedNotation": "CSS"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
+        "description": "Routine independence in common scenarios including flexbox, grid, and responsive layouts",
         "rank": 3
       },
-      "proficiencyScale": 5,
+      "performanceContext": [
+        "https://example.com/contexts/web-development-lab"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
       "source": {
         "id": "https://example.com/university",
         "type": "EducationalOrganization",
@@ -46,16 +54,18 @@
       "skill": {
         "id": "https://api.hropen.org/skills/JAVASCRIPT",
         "name": "JavaScript",
-        "description": "JavaScript programming for web interactivity",
+        "description": "JavaScript programming for web interactivity, DOM manipulation, and asynchronous programming",
         "codedNotation": "JAVASCRIPT"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/2",
         "name": "Novice",
-        "description": "Working knowledge with guidance",
+        "description": "Working knowledge with guidance from documentation and instructors",
         "rank": 2
       },
-      "proficiencyScale": 5,
+      "performanceContext": [
+        "https://example.com/contexts/capstone-project"
+      ],
       "source": {
         "id": "https://example.com/university",
         "type": "EducationalOrganization",

@@ -1,21 +1,26 @@
 {
   "identifier": "https://example.com/people/john-doe-12345",
   "targetType": "Person",
+  "proficiencyScale": "https://example.com/proficiency-scales/4-level",
   "assertions": [
     {
       "skill": {
         "id": "https://api.hropen.org/skills/PYTHON",
         "name": "Python Programming",
-        "description": "Proficiency in Python programming language",
+        "description": "Proficiency in Python programming language for backend development, scripting, and data processing",
         "codedNotation": "PYTHON"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
-        "description": "Independent application in complex contexts",
+        "description": "Independent application in complex contexts, designing systems and mentoring others",
         "rank": 4
       },
-      "proficiencyScale": 4,
+      "performanceContext": [
+        "https://example.com/contexts/backend-services",
+        "https://example.com/contexts/automation"
+      ],
+      "proficiencyContext": "https://example.com/rubrics/engineering-levels/senior",
       "source": {
         "id": "https://example.com/assessments/python-cert-2024",
         "type": "Assessment",
@@ -26,16 +31,19 @@
       "skill": {
         "id": "https://api.hropen.org/skills/TEAMWORK",
         "name": "Team Collaboration",
-        "description": "Ability to work effectively in team environments",
+        "description": "Ability to work effectively in team environments, facilitate communication, and drive collaborative outcomes",
         "codedNotation": "TEAMWORK"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/custom/3.5",
+        "id": "https://example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
-        "description": "Independent application in complex contexts",
+        "description": "Independent application in complex contexts, leading cross-functional collaboration",
         "rank": 4
       },
-      "proficiencyScale": 3.5,
+      "performanceContext": [
+        "https://example.com/contexts/cross-functional-teams"
+      ],
+      "proficiencyContext": "https://example.com/rubrics/competency-framework/leadership",
       "source": {
         "id": "https://example.com/employer",
         "type": "Organization",

@@ -1,36 +1,53 @@
 {
   "identifier": "https://example.com/jobs/SOFTWARE-ENGINEER-001",
   "targetType": "Job",
+  "proficiencyScale": "https://example.com/proficiency-scales/4-level",
   "assertions": [
     {
       "skill": {
         "id": "https://api.hropen.org/skills/PYTHON",
         "name": "Python Programming",
-        "description": "Proficiency in Python programming language",
+        "description": "Proficiency in Python programming language for backend development, scripting, and data processing",
         "codedNotation": "PYTHON"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/4",
         "name": "Advanced",
-        "description": "Independent application in complex contexts",
+        "description": "Independent application in complex contexts, designing systems and mentoring others",
         "rank": 4
       },
-      "proficiencyScale": 4
+      "performanceContext": [
+        "https://example.com/contexts/backend-services",
+        "https://example.com/contexts/data-pipelines"
+      ],
+      "proficiencyContext": "https://example.com/rubrics/engineering-levels/senior",
+      "source": {
+        "id": "https://example.com",
+        "type": "Organization",
+        "name": "Example Corp"
+      }
     },
     {
       "skill": {
         "id": "https://api.hropen.org/skills/SQL",
         "name": "SQL Database Management",
-        "description": "Database design and query optimization",
+        "description": "Database design, query optimization, and data management across relational database systems",
         "codedNotation": "SQL"
       },
       "proficiencyLevel": {
         "id": "https://example.com/proficiency-scales/4-level/3",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
+        "description": "Routine independence in common scenarios including schema design and query optimization",
         "rank": 3
       },
-      "proficiencyScale": 4
+      "performanceContext": [
+        "https://example.com/contexts/data-platform"
+      ],
+      "source": {
+        "id": "https://example.com",
+        "type": "Organization",
+        "name": "Example Corp"
+      }
     }
   ]
 }

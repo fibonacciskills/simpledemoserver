@@ -1,51 +1,76 @@
 {
   "identifier": "https://example.com/assessments/full-stack-certification",
   "targetType": "Assessment",
+  "proficiencyScale": "https://example.com/proficiency-scales/10-level",
   "assertions": [
     {
       "skill": {
         "id": "https://api.hropen.org/skills/REACT",
         "name": "React.js",
-        "description": "React JavaScript library for building user interfaces",
+        "description": "React JavaScript library for building user interfaces, component architecture, and state management",
         "codedNotation": "REACT"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/4-level/3",
+        "id": "https://example.com/proficiency-scales/10-level/7",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
-        "rank": 3
+        "description": "Routine independence in common scenarios including component composition and hooks",
+        "rank": 7
       },
-      "proficiencyScale": 10
+      "performanceContext": [
+        "https://example.com/contexts/timed-coding-challenge",
+        "https://example.com/contexts/frontend-project"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
+      "source": {
+        "id": "https://example.com/certification-body",
+        "type": "Organization",
+        "name": "Full Stack Certification Board"
+      }
     },
     {
       "skill": {
         "id": "https://api.hropen.org/skills/NODEJS",
         "name": "Node.js",
-        "description": "Server-side JavaScript runtime",
+        "description": "Server-side JavaScript runtime for building scalable network applications and REST APIs",
         "codedNotation": "NODEJS"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/4-level/3",
+        "id": "https://example.com/proficiency-scales/10-level/7",
         "name": "Intermediate",
-        "description": "Routine independence in common scenarios",
-        "rank": 3
+        "description": "Routine independence in common scenarios including Express middleware and async patterns",
+        "rank": 7
       },
-      "proficiencyScale": 10
+      "performanceContext": [
+        "https://example.com/contexts/live-coding-exercise"
+      ],
+      "proficiencyContext": "https://ceds.ed.gov/element/000558",
+      "source": {
+        "id": "https://example.com/certification-body",
+        "type": "Organization",
+        "name": "Full Stack Certification Board"
+      }
     },
     {
       "skill": {
         "id": "https://api.hropen.org/skills/API-DESIGN",
         "name": "API Design",
-        "description": "RESTful API design and implementation",
+        "description": "RESTful API design and implementation including resource modeling, versioning, and documentation",
         "codedNotation": "API-DESIGN"
       },
       "proficiencyLevel": {
-        "id": "https://example.com/proficiency-scales/4-level/2",
+        "id": "https://example.com/proficiency-scales/10-level/5",
         "name": "Novice",
-        "description": "Working knowledge with guidance",
-        "rank": 2
+        "description": "Working knowledge with guidance, can implement basic REST endpoints",
+        "rank": 5
       },
-      "proficiencyScale": 10
+      "performanceContext": [
+        "https://example.com/contexts/case-study-analysis"
+      ],
+      "source": {
+        "id": "https://example.com/certification-body",
+        "type": "Organization",
+        "name": "Full Stack Certification Board"
+      }
     }
   ]
 }
