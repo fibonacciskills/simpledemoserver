@@ -43,7 +43,7 @@
       },
 
       "SkillAssertion": {
-        "@id": "schema:SkillAssertion",
+        "@id": "schema:PropertyValue",
         "@context": {
           "@protected": true,
           "skill": {
@@ -54,6 +54,15 @@
             "@id": "schema:hasDefinedTerm",
             "@type": "@id"
           },
+          "performanceContext": {
+            "@id": "schema:category",
+            "@type": "@id",
+            "@container": "@set"
+          },
+          "proficiencyContext": {
+            "@id": "schema:isBasedOn",
+            "@type": "@id"
+          },
           "source": {
             "@id": "schema:provider",
             "@type": "@id"
@@ -62,7 +71,7 @@
       },
 
       "Skill": {
-        "@id": "schema:Skill",
+        "@id": "schema:DefinedTerm",
         "@context": {
           "@protected": true,
           "id": "@id",

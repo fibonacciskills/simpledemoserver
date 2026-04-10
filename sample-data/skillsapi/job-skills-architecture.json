@@ -6,8 +6,8 @@
       "schema": "https://schema.org/",
       "id": "@id",
       "type": "@type",
-      "Skill": "schema:Skill",
-      "SkillAssertion": "schema:SkillAssertion",
+      "Skill": "schema:DefinedTerm",
+      "SkillAssertion": "schema:PropertyValue",
       "ProficiencyLevel": "schema:DefinedTerm",
       "targetType": {
         "@id": "schema:additionalType",

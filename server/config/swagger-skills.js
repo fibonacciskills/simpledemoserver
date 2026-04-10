@@ -1,10 +1,10 @@
 /**
- * Swagger/OpenAPI 3.0 Configuration for Skills Proficiency API
- * Generated from skillsapi/openapi.yaml
+ * Swagger/OpenAPI 3.1 Configuration for Skills Proficiency API
+ * Based on canonical openapi.yaml from SkillsData schema
  */
 
 module.exports = {
-  openapi: '3.0.0',
+  openapi: '3.1.0',
   info: {
     title: 'Skills Proficiency API',
     version: '0.9',
@@ -25,7 +25,7 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
   },
   servers: [
     {
-      url: 'http://localhost:3000/api/v1/skills',
+      url: 'http://localhost:3000/api/v1',
       description: 'Development server',
     },
   ],
@@ -36,7 +36,7 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
     },
   ],
   paths: {
-    '/': {
+    '/skills': {
       get: {
         summary: 'Get skill assertions for a target object',
         operationId: 'getSkills',
@@ -51,7 +51,6 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
               type: 'string',
               format: 'uri',
             },
-            example: 'https://example.com/people/john-doe',
           },
           {
             name: 'targetType',
@@ -88,17 +87,14 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
           identifier: {
             type: 'string',
             format: 'uri',
-            example: 'https://example.com/people/john-doe',
           },
           targetType: {
             type: 'string',
-            example: 'Person',
           },
           proficiencyScale: {
             type: 'string',
             format: 'uri',
             description: 'URI identifying the proficiency scale against which all proficiency levels in this collection are defined. The scale itself may reference external rubric models such as CEDS or CASE rubric definitions.',
-            example: 'https://api.hropen.org/proficiency-scales/4-level',
           },
           assertions: {
             type: 'array',
@@ -125,20 +121,18 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
               type: 'string',
               format: 'uri',
             },
-            example: ['https://ceds.ed.gov/element/001015'],
           },
           proficiencyContext: {
             type: 'string',
             format: 'uri',
             description: 'URI referencing an external rubric criterion level or proficiency definition from a competency framework such as CEDS, CASE, ASN, SCD or other standardized rubric models.',
-            example: 'https://ceds.ed.gov/element/000558',
           },
           source: {
             type: 'object',
             description: 'Entity that issued or generated the assertion',
             properties: {
               id: { type: 'string', format: 'uri' },
-              type: { type: 'string', example: 'Assessment' },
+              type: { type: 'string' },
               name: { type: 'string' },
             },
           },
@@ -152,20 +146,16 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
             type: 'string',
             format: 'uri',
             description: 'URI identifying the skill in an external taxonomy',
-            example: 'https://api.hropen.org/skills/PYTHON',
           },
           name: {
             type: 'string',
-            example: 'Python Programming',
           },
           description: {
             type: 'string',
-            example: 'Proficiency in Python programming language',
           },
           codedNotation: {
             type: 'string',
             description: 'Optional code or notation associated with the skill within a specific competency framework.',
-            example: 'PYTHON',
           },
         },
       },
@@ -180,16 +170,13 @@ ontology nodes (e.g., CEDS, CASE, ASN, SCD) via URI.
           },
           name: {
             type: 'string',
-            example: 'Advanced',
           },
           description: {
             type: 'string',
-            example: 'Independent application in complex contexts',
           },
           rank: {
             type: 'integer',
             description: 'Ordinal position within the proficiency scale.',
-            example: 4,
           },
         },
       },

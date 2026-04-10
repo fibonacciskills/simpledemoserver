@@ -1,0 +1,44 @@
+---
+title: Skills Proficiency Data Model
+---
+erDiagram
+    SkillAssertionCollection {
+        string identifier PK "URI"
+        string targetType
+        string proficiencyScale "URI (optional)"
+    }
+
+    SkillAssertion {
+        string id PK
+        string skill_id FK "URI → Skill"
+        string proficiencyLevel_id FK "URI → ProficiencyLevel"
+        string proficiencyContext "URI (optional)"
+        string source_id "URI (optional)"
+        string source_type "(optional)"
+        string source_name "(optional)"
+        string collection_id FK "→ SkillAssertionCollection"
+    }
+
+    Skill {
+        string id PK "URI"
+        string name
+        string description "(optional)"
+        string codedNotation "(optional)"
+    }
+
+    ProficiencyLevel {
+        string id PK "URI"
+        string name
+        string description "(optional)"
+        integer rank
+    }
+
+    PerformanceContext {
+        string assertion_id FK "→ SkillAssertion"
+        string uri "URI to external ontology node"
+    }
+
+    SkillAssertionCollection ||--o{ SkillAssertion : assertions
+    SkillAssertion ||--|| Skill : skill
+    SkillAssertion ||--|| ProficiencyLevel : proficiencyLevel
+    SkillAssertion ||--o{ PerformanceContext : performanceContext

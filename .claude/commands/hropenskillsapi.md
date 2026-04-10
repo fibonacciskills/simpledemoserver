@@ -8,7 +8,7 @@ The user wants to create a new sample data file. They will describe a subject (a
 
 Use `$ARGUMENTS` as the description of what to generate. If empty, ask the user what subject and skills they want to model.
 
-## Schema (from `server/config/swagger-skills.js`)
+## Schema (from `sample-data/skillsapi/openapi.yaml` / `server/config/swagger-skills.js`)
 
 The root object is a `SkillAssertionCollection`:
 
@@ -77,11 +77,18 @@ Follow these patterns from existing sample data:
 
 ## JSON-LD context (optional, for rich samples)
 
-For samples that need full linked-data fidelity (like the UNESCO example in `sample-data/unescoai_credengine.json`), include a `@context` block mapping types to schema.org terms. For simpler samples, omit the context and use plain JSON matching the OpenAPI spec.
+The canonical JSON-LD context is at `sample-data/skillsapi/context-v1.json`. Key type mappings:
+- `SkillAssertion` maps to `schema:PropertyValue`
+- `Skill` maps to `schema:DefinedTerm`
+- `ProficiencyLevel` maps to `schema:DefinedTerm`
+- `performanceContext` maps to `schema:category` with `@container: @set`
+- `proficiencyContext` maps to `schema:isBasedOn`
+
+For samples that need full linked-data fidelity (like the UNESCO example in `sample-data/unescoai_credengine.json`), include the context inline matching context-v1.json. For simpler samples, omit the context and use plain JSON matching the OpenAPI spec.
 
 ## Rules
 
-1. **Read existing samples first.** Before generating, read 1-2 relevant files from `sample-data/skillsapi/` to match the style for the chosen `targetType`. For frameworks, also read `sample-data/unescoai_credengine.json`.
+1. **Read existing samples first.** Before generating, read 1-2 relevant files from `sample-data/skillsapi/` to match the style for the chosen `targetType`. For frameworks, also read `sample-data/unescoai_credengine.json`. For context reference, see `sample-data/skillsapi/context-v1.json` and the data model in `sample-data/skillsapi/datamodel.mmd`.
 2. **Every assertion MUST have both `skill` and `proficiencyLevel`** with at minimum `name` and `rank`.
 3. **Skill IDs must be unique** within the collection -- no duplicate `skill.id` values.
 4. **Use realistic, domain-appropriate skill names and descriptions.** Draw on real competency frameworks (ESCO, O*NET, CEDS) when possible.
