@@ -1,0 +1,447 @@
+{
+  "@context": [
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+    {
+      "@protected": true,
+
+      "schema": "https://schema.org/",
+
+      "id": "@id",
+      "type": "@type",
+
+      "identifier": {
+        "@id": "@id"
+      },
+
+      "targetType": {
+        "@id": "schema:additionalType"
+      },
+
+      "proficiencyScale": {
+        "@id": "schema:isPartOf",
+        "@type": "@id"
+      },
+
+      "assertions": {
+        "@id": "schema:hasPart"
+      },
+
+      "SkillAssertionCollection": {
+        "@id": "schema:Collection",
+        "@context": {
+          "@protected": true,
+          "identifier": "@id",
+          "targetType": "schema:additionalType",
+          "proficiencyScale": {
+            "@id": "schema:isPartOf",
+            "@type": "@id"
+          },
+          "assertions": {
+            "@id": "schema:hasPart"
+          }
+        }
+      },
+
+      "SkillAssertion": {
+        "@id": "schema:SkillAssertion",
+        "@context": {
+          "@protected": true,
+          "skill": {
+            "@id": "schema:about",
+            "@type": "@id"
+          },
+          "proficiencyLevel": {
+            "@id": "schema:hasDefinedTerm",
+            "@type": "@id"
+          },
+          "source": {
+            "@id": "schema:provider",
+            "@type": "@id"
+          }
+        }
+      },
+
+      "Skill": {
+        "@id": "schema:Skill",
+        "@context": {
+          "@protected": true,
+          "id": "@id",
+          "type": "@type",
+          "name": "schema:name",
+          "description": "schema:description",
+          "codedNotation": "schema:identifier"
+        }
+      },
+
+      "ProficiencyLevel": {
+        "@id": "schema:DefinedTerm",
+        "@context": {
+          "@protected": true,
+          "id": "@id",
+          "type": "@type",
+          "name": "schema:name",
+          "description": "schema:description",
+          "rank": "schema:position"
+        }
+      },
+
+      "source": {
+        "@id": "schema:Organization",
+        "@context": {
+          "@protected": true,
+          "id": "@id",
+          "type": "@type",
+          "name": "schema:name"
+        }
+      }
+    }
+  ],
+
+  "type": "SkillAssertionCollection",
+
+  "identifier": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b",
+
+  "targetType": "Framework",
+
+  "proficiencyScale": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model",
+
+  "assertions": [
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D1.U",
+        "name": "Awareness and Agency in the Age of AI",
+        "description": "Students understand the nature and capabilities of AI, how it affects their daily lives, and develop agency as informed users of AI systems. They can explain foundational AI concepts and recognize AI-powered technologies in their environment.",
+        "codedNotation": "D1.U"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+        "name": "Understand",
+        "description": "Students foster an understanding of what AI is and construct age-appropriate interpretations of the values, ethical issues, concepts, processes, and technical methods underlying AI tools and their uses. They are able to explain or exemplify their knowledge with connections to real-life or social practices.",
+        "rank": 1
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D1.A",
+        "name": "Human-AI Collaboration and Critical Evaluation",
+        "description": "Students critically evaluate AI systems and their social implications, adapting their AI use based on context. They apply their understanding of human-AI interaction to collaborate effectively with AI tools across learning domains and assess the impact of AI on individuals, communities, and cultures.",
+        "codedNotation": "D1.A"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+        "name": "Apply",
+        "description": "Students enhance, transfer, and adapt their learned values, knowledge, and skills to new learning processes by addressing theoretical questions and/or practical tasks in more complex contexts, and by critically examining advanced technical methods behind AI tools.",
+        "rank": 2
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D1.C",
+        "name": "Human-Centred AI Co-Creation",
+        "description": "Students design and develop AI solutions that centre human values, needs, and wellbeing. They articulate a human-centred vision for AI and integrate considerations of equity, inclusion, accessibility, and sustainability into their AI design choices.",
+        "codedNotation": "D1.C"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+        "name": "Create",
+        "description": "Students generate new knowledge and create new AI artefacts, tools, systems, or practices that address authentic problems. They demonstrate mastery of AI competencies by combining technical and human-centred skills in original and meaningful ways.",
+        "rank": 3
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D2.U",
+        "name": "Ethical Awareness of AI",
+        "description": "Students understand the ethical implications of AI including bias, fairness, privacy, transparency, and accountability. They can identify ethical issues in AI systems and articulate why these issues matter for individuals, communities, and global society.",
+        "codedNotation": "D2.U"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+        "name": "Understand",
+        "description": "Students foster an understanding of what AI is and construct age-appropriate interpretations of the values, ethical issues, concepts, processes, and technical methods underlying AI tools and their uses. They are able to explain or exemplify their knowledge with connections to real-life or social practices.",
+        "rank": 1
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D2.A",
+        "name": "Ethical Decision-Making with AI",
+        "description": "Students apply ethical frameworks and principles when using, evaluating, and recommending AI tools. They assess the ethical trade-offs of AI applications and make informed, responsible decisions about AI use in their personal and academic contexts.",
+        "codedNotation": "D2.A"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+        "name": "Apply",
+        "description": "Students enhance, transfer, and adapt their learned values, knowledge, and skills to new learning processes by addressing theoretical questions and/or practical tasks in more complex contexts, and by critically examining advanced technical methods behind AI tools.",
+        "rank": 2
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D2.C",
+        "name": "Ethics by Design",
+        "description": "Students embed ethical principles into the design and development of AI systems. They proactively identify and mitigate potential harms, biases, and risks, and design for transparency, accountability, and inclusivity from the outset of any AI project.",
+        "codedNotation": "D2.C"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+        "name": "Create",
+        "description": "Students generate new knowledge and create new AI artefacts, tools, systems, or practices that address authentic problems. They demonstrate mastery of AI competencies by combining technical and human-centred skills in original and meaningful ways.",
+        "rank": 3
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D3.U",
+        "name": "AI Concepts, Methods, and Applications",
+        "description": "Students understand foundational AI concepts including machine learning, data collection and processing, model training, and inference. They can describe how AI systems work at a conceptual level and identify real-world applications across different domains.",
+        "codedNotation": "D3.U"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+        "name": "Understand",
+        "description": "Students foster an understanding of what AI is and construct age-appropriate interpretations of the values, ethical issues, concepts, processes, and technical methods underlying AI tools and their uses. They are able to explain or exemplify their knowledge with connections to real-life or social practices.",
+        "rank": 1
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D3.A",
+        "name": "Using AI Tools and Techniques",
+        "description": "Students apply AI tools and techniques appropriately across different contexts and learning domains. They curate and prepare data, work with pre-built AI models, evaluate model performance, and assess the suitability of AI tools for specific tasks and challenges.",
+        "codedNotation": "D3.A"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+        "name": "Apply",
+        "description": "Students enhance, transfer, and adapt their learned values, knowledge, and skills to new learning processes by addressing theoretical questions and/or practical tasks in more complex contexts, and by critically examining advanced technical methods behind AI tools.",
+        "rank": 2
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D3.C",
+        "name": "AI Development and Innovation",
+        "description": "Students design and develop AI-driven solutions using programming, data science, and machine learning techniques. They build, train, test, and iteratively refine AI models, and communicate their technical choices and outcomes to diverse audiences.",
+        "codedNotation": "D3.C"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+        "name": "Create",
+        "description": "Students generate new knowledge and create new AI artefacts, tools, systems, or practices that address authentic problems. They demonstrate mastery of AI competencies by combining technical and human-centred skills in original and meaningful ways.",
+        "rank": 3
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D4.U",
+        "name": "Understanding AI Systems and Their Design",
+        "description": "Students understand how AI systems are conceptualized, designed, built, tested, and deployed. They can describe the AI development lifecycle, the roles of different stakeholders, and the constraints and trade-offs involved in real-world AI system creation.",
+        "codedNotation": "D4.U"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+        "name": "Understand",
+        "description": "Students foster an understanding of what AI is and construct age-appropriate interpretations of the values, ethical issues, concepts, processes, and technical methods underlying AI tools and their uses. They are able to explain or exemplify their knowledge with connections to real-life or social practices.",
+        "rank": 1
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Understand",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D4.A",
+        "name": "Engaging in AI System Design Processes",
+        "description": "Students apply design thinking processes to develop AI-based solutions to authentic problems. They prototype, iterate, and evaluate AI system designs, incorporating user feedback, technical constraints, and ethical considerations throughout the design process.",
+        "codedNotation": "D4.A"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+        "name": "Apply",
+        "description": "Students enhance, transfer, and adapt their learned values, knowledge, and skills to new learning processes by addressing theoretical questions and/or practical tasks in more complex contexts, and by critically examining advanced technical methods behind AI tools.",
+        "rank": 2
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Apply",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    },
+
+    {
+      "type": "SkillAssertion",
+      "skill": {
+        "type": "Skill",
+        "id": "https://credentialengineregistry.org/resources/ce-98d4c8ad-c455-4b39-babb-d83d1be6e16b#D4.C",
+        "name": "Creating and Deploying AI Systems",
+        "description": "Students design, build, and evaluate complete AI systems from conception through deployment. They demonstrate systems thinking in integrating technical components, apply project management and collaboration skills, and reflect critically on the societal impact of the AI systems they create.",
+        "codedNotation": "D4.C"
+      },
+      "proficiencyLevel": {
+        "type": "ProficiencyLevel",
+        "id": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+        "name": "Create",
+        "description": "Students generate new knowledge and create new AI artefacts, tools, systems, or practices that address authentic problems. They demonstrate mastery of AI competencies by combining technical and human-centred skills in original and meaningful ways.",
+        "rank": 3
+      },
+      "proficiencyContext": "https://credentialfinder.org/progressionmodel/7/AI_Competency_Framework_for_Students_Progression_Model#Create",
+      "performanceContext": [
+        "https://schema.org/EducationalOccupationalCredential",
+        "https://purl.org/ctdl/terms/CompetencyFramework"
+      ],
+      "source": {
+        "type": "Organization",
+        "id": "https://www.unesco.org",
+        "name": "UNESCO"
+      }
+    }
+
+  ]
+}
