@@ -1294,7 +1294,7 @@
             const heroInfo = document.getElementById('hero-status-info');
 
             try {
-                const response = await fetch('/api/v1/skills/docs');
+                const response = await fetch('/api/v1/skills/docs-legacy');
                 if (!response.ok) throw new Error('Server unavailable');
                 const data = await response.json();
 
